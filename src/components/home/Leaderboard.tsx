@@ -42,7 +42,7 @@ export const Leaderboard = () => {
                 leaderboard.slice(0, itemsToShow).map((item, i) => (
                   <div
                     key={i}
-                    className={`flex flex-row items-center justify-between bg-black bg-opacity-20 py-2 w-full ${i === 0 ? 'font-bold' : 'font-light'
+                    className={`flex flex-row items-center justify-between bg-black bg-opacity-20 rounded-lg p-2 w-full ${i === 0 ? 'font-bold text-xl' : 'font-light text-sm'
                       }`}
                   >
                     <div className="w-4 h-4">

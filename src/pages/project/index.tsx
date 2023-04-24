@@ -85,7 +85,7 @@ export const ProjectDetails = () => {
             <img
               src={pageCollection.image}
               alt={id}
-              className="rounded-full object-cover h-full w-full p-4 md:p-20 absolute z-0 left-0 opacity-10"
+              className="rounded-full object-cover h-full w-full p-4 md:p-20 absolute -z-10 left-0 opacity-10"
             />
             {/* Collection Information */}
             <div className="w-full relative flex flex-col md:flex-row items-center justify-around my-2 h-full bg-black bg-opacity-60 rounded-lg">
@@ -97,7 +97,7 @@ export const ProjectDetails = () => {
                 />
 
               </div>
-              <div className="bg-black bg-opacity-20 w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4 justify-start items-center text-start flex-grow  py-4 h-full">
+              <div className="bg-black bg-opacity-20 w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4 justify-start items-center text-start flex-grow  p-4 h-full">
                 <div className='w-full flex flex-col items-start justify-center gap-4'>
                   <p className="w-3/4  font-black truncate text-4xl">
                     {pageCollection.name}
@@ -118,22 +118,22 @@ export const ProjectDetails = () => {
                 </div>
                 <div className=" grid grid-cols-2 w-full gap-4">
                   <div>
-                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                    <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
                       Total Supply:<br /> 10,000
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                    <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
                       Volume(7D):<br /> 10,000
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                    <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
                       Buy Now:<br /> 10,000
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                    <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
                       Instant Sell:<br /> 10,000
                     </p>
                   </div>
@@ -146,7 +146,10 @@ export const ProjectDetails = () => {
             <TabComponent pageCollection={pageCollection} />
           </>
         ) : (
-          <div>Collection not found <a href="/">Go back home</a> </div>
+          <div className='flex flex-col h-[50vh] w-full items-center justify-center gap-10'>
+            <p>Collection not found </p>
+            <a href="/" className='btn'>Slowly go back home</a>
+          </div>
         )}
       </div>
     </div>

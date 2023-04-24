@@ -156,27 +156,52 @@ export const NftListRedemption = ({
     );
   }
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    if (checkedNfts) {
+      let filteredNfts = checkedNfts;
+      if (searchQuery) {
+        filteredNfts = checkedNfts.filter((nft) =>
+          nft.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+      setFilteredNfts(filteredNfts);
+      setCurrentNfts(filteredNfts.slice(startIndex, endIndex));
+    }
+  }, [checkedNfts, searchQuery, startIndex, endIndex]);
+
+
   return (
-    <div>
-      <div className="w-full flex flex-row items-start justify-end gap-8 mb-5">
-        <div className="flex items-center justify-end gap-2 text-xs  ">
-          <input
-            type="checkbox"
-            checked={selectAllUnpaid}
-            onChange={() => setSelectAllUnpaid(!selectAllUnpaid)}
-          />
-          <label>Select All Unpaid</label>
-        </div>
-        <div className="flex items-center justify-end gap-2 text-xs ">
-          <div className="flex items-center justify-end gap-2 text-xs ">
+    <section className='mt-10'>
+      <div className="w-full flex flex-row items-center justify-between gap-8 mb-5">
+        <input
+          type="text"
+          placeholder="Search NFTs"
+          className='w-1/2 border border-gray-800 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-gray-900'
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <div className='flex w-full items-center justify-end gap-4'>
+          <div className="flex items-center justify-end gap-2 text-xs  ">
             <input
               type="checkbox"
-              checked={showUnpaidRoyaltiesOnly}
-              onChange={() =>
-                setShowUnpaidRoyaltiesOnly(!showUnpaidRoyaltiesOnly)
-              }
+              checked={selectAllUnpaid}
+              onChange={() => setSelectAllUnpaid(!selectAllUnpaid)}
             />
-            <label>Show Unpaid Royalties Only</label>
+            <label>Select All Unpaid</label>
+          </div>
+          <div className="flex items-center justify-end gap-2 text-xs ">
+            <div className="flex items-center justify-end gap-2 text-xs ">
+              <input
+                type="checkbox"
+                checked={showUnpaidRoyaltiesOnly}
+                onChange={() =>
+                  setShowUnpaidRoyaltiesOnly(!showUnpaidRoyaltiesOnly)
+                }
+              />
+              <label>Show Unpaid Royalties Only</label>
+            </div>
           </div>
         </div>
       </div>
@@ -239,6 +264,6 @@ export const NftListRedemption = ({
           <h2 className="text-3xl font-semibold mb-10">Other Collections</h2>
         </section> */}
       </div>
-    </div>
+    </section>
   );
 };

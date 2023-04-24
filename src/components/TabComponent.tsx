@@ -1,13 +1,14 @@
 
-import { BuildingOfficeIcon, CreditCardIcon, UserIcon, UsersIcon } from '@heroicons/react/20/solid'
+import { BuildingOfficeIcon, ChartBarIcon, UserIcon, UsersIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react';
 import NftContent from './Tabs/NftContent';
 import AnalyticsContent from './Tabs/AnalyticsContent';
 
 const tabs = [
     { name: 'NFTs', href: '#nfts', icon: UserIcon, current: false, content: NftContent },
-    { name: 'Analytics', href: '#analytics', icon: BuildingOfficeIcon, current: false, content: AnalyticsContent },
+    { name: 'Analytics', href: '#analytics', icon: ChartBarIcon, current: false, content: AnalyticsContent },
 ]
+
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
@@ -17,7 +18,9 @@ export default function TabComponent({ pageCollection }: any) {
 
     const [activeTab, setActiveTab] = useState(tabs.find((tab) => tab.current));
 
-    const handleTabClick = (tab: any) => {
+    const handleTabClick = (event: any, tab: any) => {
+        event.preventDefault(); // Prevent the default link behavior
+
         // Reset the current property for all tabs
         tabs.forEach(t => t.current = false);
 
@@ -25,7 +28,7 @@ export default function TabComponent({ pageCollection }: any) {
         tab.current = true;
 
         setActiveTab(tab);
-    };
+    };;
 
     return (
         <div>
@@ -52,7 +55,7 @@ export default function TabComponent({ pageCollection }: any) {
                             <a
                                 key={tab.name}
                                 href={tab.href}
-                                onClick={() => handleTabClick(tab)}
+                                onClick={(event) => handleTabClick(event, tab)} // Pass the event to the function
                                 className={classNames(
                                     tab.current
                                         ? 'border-indigo-500 text-indigo-600'

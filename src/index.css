@@ -375,3 +375,11 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+.ant-btn {
+  @apply hover:text-renaissance-orange;
+  color: white;
+  padding: auto;
+  height: auto;
+  
+}

@@ -17,6 +17,8 @@ import { HomePage, loader as homeLoader } from './pages/HomePage';
 import { NftsPage } from './pages/NftsPage';
 import { ProjectPage, loader as projectLoader } from './pages/project';
 import { RankingPage, loader as rankingLoader } from './pages/RankingPage';
+import AddPage from './pages/ExplorePage';
+import ExplorePage from './pages/ExplorePage';
 
 declare global {
   interface Window {
@@ -52,6 +54,11 @@ const router = createBrowserRouter([
             element: <RankingPage />,
             loader: () => rankingLoader(queryClient)
           },
+          {
+            path: 'explore',
+            element: <ExplorePage />,
+            loader: () => rankingLoader(queryClient)
+          },
         ],
       },
     ],
@@ -63,8 +70,8 @@ function App() {
     <ConnectionProvider endpoint={import.meta.env.VITE_HELIUS_RPC_PROXY}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-          <ReactQueryDevtools />       
-          <ToastContainer
+        <ReactQueryDevtools />
+        <ToastContainer
           position="top-center"
           autoClose={5000}
           hideProgressBar

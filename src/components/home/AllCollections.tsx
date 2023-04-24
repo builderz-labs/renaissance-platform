@@ -4,6 +4,9 @@ import { Collection } from '../../data/types';
 import Search from '../Search';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { AllCollectionsItem } from './AllCollectionsItem';
+import GridViewIcon from "@mui/icons-material/GridView";
+import ListIcon from "@mui/icons-material/List";
+import { Table, Button } from "antd";
 
 export const AllCollections = () => {
   const { data } = useQuery<Collection[]>({
@@ -57,6 +60,11 @@ export const AllCollections = () => {
     }
   }, [searchQuery, sortOption, data]);
 
+  const [viewMode, setViewMode] = useState("grid");
+
+  const handleViewModeChange = (mode: string) => {
+    setViewMode(mode);
+  };
 
 
   return (
@@ -85,14 +93,28 @@ export const AllCollections = () => {
               <MenuItem value="Name">Name</MenuItem>
             </Select>
           </FormControl>
+          <div className="flex justify-center gap-2 ml-4">
+            <button
+              onClick={() => handleViewModeChange("grid")}
+              className={`view-button btn btn-sm ${viewMode === "grid" ? "active" : ""}`}
+            >
+              <GridViewIcon />
+            </button>
+            <button
+              onClick={() => handleViewModeChange("list")}
+              className={`view-button btn btn-sm ${viewMode === "list" ? "active" : ""}`}
+            >
+              <ListIcon />
+            </button>
+          </div>
         </div>
 
       </div>
       <Search onSearch={handleSearch} />
 
-      <div className="w-full grid grid-cols-2 md:grid-cols-4 lg: px-2 gap-4 mb-40">
+      <div className={viewMode === "grid" ? "grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 px-2 gap-4 mb-40" : "flex flex-col items-start justify-between w-full flex-wrap gap-2 px-2"}>
         {filteredCollections.map((collection: Collection) => (
-          <AllCollectionsItem collection={collection} key={collection.id} />
+          <AllCollectionsItem collection={collection} key={collection.id} viewMode={viewMode} />
         ))}
       </div>
     </section>
