@@ -90,7 +90,7 @@ export const AllCollections = () => {
       </div>
       <Search onSearch={handleSearch} />
 
-      <div className="w-full grid grid-cols-2 px-2 gap-4 mb-40">
+      <div className="w-full grid grid-cols-2 md:grid-cols-4 lg: px-2 gap-4 mb-40">
         {filteredCollections.map((collection: Collection) => (
           <AllCollectionsItem collection={collection} key={collection.id} />
         ))}

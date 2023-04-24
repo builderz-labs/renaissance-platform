@@ -364,3 +364,14 @@ body {
     color: #ff8a57;
   }
 }
+
+
+.active-link {
+  /* background-color: #FF8A57; */
+  border-bottom: 1px solid #FF8A57;
+  border-radius: 0px
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

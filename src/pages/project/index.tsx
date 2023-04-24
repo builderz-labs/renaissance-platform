@@ -10,6 +10,7 @@ import { Collection } from "../../data/types";
 import { NftListRedemption } from "../../components/project/NftListRedemption";
 import styled from "styled-components";
 import { NftStats } from "../../components/nfts/NftStats";
+import TabComponent from '../../components/TabComponent';
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -37,7 +38,7 @@ export const loader = (queryClient: QueryClient, { params }: any) => {
     collections: queryClient.fetchQuery({
       queryKey: ["collections"],
       queryFn: () =>
-        fetch('https://raw.githubusercontent.com/builderz-labs/renaissance-xnft/main/src/data/collections.json').then(res => res.json()), // /src/data/collections.json
+        fetch('/data/collections.json').then(res => res.json()), // /src/data/collections.json
       staleTime: 1000 * 60 * 2,
     }),
   });
@@ -81,23 +82,30 @@ export const ProjectDetails = () => {
       <div className="mt-5 h-full relative mb-40">
         {pageCollection ? (
           <>
+            <img
+              src={pageCollection.image}
+              alt={id}
+              className="rounded-full object-cover h-full w-full p-4 md:p-20 absolute z-0 left-0 opacity-10"
+            />
             {/* Collection Information */}
-            <ItemCard className="w-full relative flex flex-row items-start justify-start my-2">
-                <div className="w-1/2 h-full object-cover ">
-                  <img
-                    src={pageCollection.image}
-                    alt={id}
-                    className="rounded-lg object-cover h-full w-full p-4"
-                  />
-                </div>
-                <div className="flex w-1/2 flex-col gap-4 justify-start items-start text-start flex-grow pl-4 py-4 pr-4 h-full">
-                  <p className="w-full  font-black truncate text-4xl">
+            <div className="w-full relative flex flex-col md:flex-row items-center justify-around my-2 h-full bg-black bg-opacity-60 rounded-lg">
+              <div className="w-full md:w-1/3 h-full object-cover flex items-center justify-start">
+                <img
+                  src={pageCollection.image}
+                  alt={id}
+                  className="rounded-full object-cover h-full w-full p-4 md:p-20"
+                />
+
+              </div>
+              <div className="bg-black bg-opacity-20 w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4 justify-start items-center text-start flex-grow  py-4 h-full">
+                <div className='w-full flex flex-col items-start justify-center gap-4'>
+                  <p className="w-3/4  font-black truncate text-4xl">
                     {pageCollection.name}
                   </p>
-                  <p className="text-sm w-36 truncate flex-wrap ">
+                  <p className="text-sm w-3/4 truncate flex-wrap ">
                     {pageCollection.description}
                   </p>
-                  <div className="border-b border-b-gray-500 w-full"></div>
+                  <div className="border-b border-b-gray-500 w-3/4"></div>
                   <div className="w-full flex flex-row justify-start gap-4 items-center">
                     {pageCollection.socials.map((social) => (
                       <a target="_blank" href={social.url} key={social.name}>
@@ -108,19 +116,37 @@ export const ProjectDetails = () => {
                     ))}
                   </div>
                 </div>
-              </ItemCard>
+                <div className=" grid grid-cols-2 w-full gap-4">
+                  <div>
+                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                      Total Supply:<br /> 10,000
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                      Volume(7D):<br /> 10,000
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                      Buy Now:<br /> 10,000
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm w-full truncate flex-wrap bg-black bg-opacity-20 p-4 rounded-lg">
+                      Instant Sell:<br /> 10,000
+                    </p>
+                  </div>
+                </div>
+                <div className="w-full col-span-2"><NftStats pageCollection={pageCollection} /></div>
+              </div>
+            </div>
             {/* NFT Stats */}
-            <NftStats pageCollection={pageCollection} />
             {/* NFT List */}
-            <section className="my-4 text-start px-2 text-2xl font-bold flex flex-col gap-4 mt-10 relative">
-              <h1>Your {id} NFTs</h1>
-              <NftListRedemption
-                pageCollection={pageCollection}
-              />
-            </section>
+            <TabComponent pageCollection={pageCollection} />
           </>
         ) : (
-          <div>Collection not found</div>
+          <div>Collection not found <a href="/">Go back home</a> </div>
         )}
       </div>
     </div>

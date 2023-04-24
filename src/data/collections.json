@@ -24,29 +24,6 @@
   },
   {
     "id": 2,
-    "name": "y00ts",
-    "image": "/img/yoots.png",
-    "collectionAddress": "4mKSoDDqApmF1DqXvVTSL6tu2zixrSSNjqMxUnwvVzy2",
-    "description": "y00ts is a generative art project of 15,000 NFTs. y00topia is a curated community of builders and creators. Each y00t was designed by De Labs in Los Angeles, CA",
-    "socials": [
-      {
-        "name": "Twitter",
-        "url": "https://twitter.com/y00tsNFT"
-      },
-      {
-        "name": "Discord",
-        "url": "https://discord.gg/2Z7Y4Y2"
-      },
-      {
-        "name": "Website",
-        "url": "https://www.y00ts.com/"
-      }
-    ],
-    "helloMoonCollectionId": "9b4d3907d615294c5d4fdc4edf1e9b1e",
-    "fee": 0.2
-  },
-  {
-    "id": 3,
     "name": "Claynosaurz",
     "image": "/img/clay.webp",
     "collectionAddress": "3NoPerEGS1JpPA6FGYpPfKJ8QUkBjYPngST2pwpQt7ED",
@@ -68,7 +45,29 @@
     "helloMoonCollectionId": "d3a4ebf2ecbabac32a0351de9ef99ace",
     "fee": 0.2
   },
-
+  {
+    "id": 3,
+    "name": "y00ts",
+    "image": "/img/yoots.png",
+    "collectionAddress": "4mKSoDDqApmF1DqXvVTSL6tu2zixrSSNjqMxUnwvVzy2",
+    "description": "y00ts is a generative art project of 15,000 NFTs. y00topia is a curated community of builders and creators. Each y00t was designed by De Labs in Los Angeles, CA",
+    "socials": [
+      {
+        "name": "Twitter",
+        "url": "https://twitter.com/y00tsNFT"
+      },
+      {
+        "name": "Discord",
+        "url": "https://discord.gg/2Z7Y4Y2"
+      },
+      {
+        "name": "Website",
+        "url": "https://www.y00ts.com/"
+      }
+    ],
+    "helloMoonCollectionId": "9b4d3907d615294c5d4fdc4edf1e9b1e",
+    "fee": 0.2
+  },
   {
     "id": 4,
     "name": "Wolf Capital",

@@ -158,6 +158,28 @@ export const NftListRedemption = ({
 
   return (
     <div>
+      <div className="w-full flex flex-row items-start justify-end gap-8 mb-5">
+        <div className="flex items-center justify-end gap-2 text-xs  ">
+          <input
+            type="checkbox"
+            checked={selectAllUnpaid}
+            onChange={() => setSelectAllUnpaid(!selectAllUnpaid)}
+          />
+          <label>Select All Unpaid</label>
+        </div>
+        <div className="flex items-center justify-end gap-2 text-xs ">
+          <div className="flex items-center justify-end gap-2 text-xs ">
+            <input
+              type="checkbox"
+              checked={showUnpaidRoyaltiesOnly}
+              onChange={() =>
+                setShowUnpaidRoyaltiesOnly(!showUnpaidRoyaltiesOnly)
+              }
+            />
+            <label>Show Unpaid Royalties Only</label>
+          </div>
+        </div>
+      </div>
       <div className="grid grid-cols-2 gap-4 ">
         {currentNfts?.map((nft: any) => {
           return (
@@ -193,28 +215,7 @@ export const NftListRedemption = ({
           />
         )}
         <div className="my-5  flex flex-col   items-end  justify-end  w-full gap-8">
-          <div className="w-full flex flex-row items-start justify-between gap-8 ">
-            <div className="flex items-center justify-end gap-2 text-xs  ">
-              <input
-                type="checkbox"
-                checked={selectAllUnpaid}
-                onChange={() => setSelectAllUnpaid(!selectAllUnpaid)}
-              />
-              <label>Select All Unpaid</label>
-            </div>
-            <div className="flex items-center justify-end gap-2 text-xs ">
-              <div className="flex items-center justify-end gap-2 text-xs ">
-                <input
-                  type="checkbox"
-                  checked={showUnpaidRoyaltiesOnly}
-                  onChange={() =>
-                    setShowUnpaidRoyaltiesOnly(!showUnpaidRoyaltiesOnly)
-                  }
-                />
-                <label>Show Unpaid Royalties Only</label>
-              </div>
-            </div>
-          </div>
+
           <div className="flex flex-row gap-4 items-center justify-end w-full my-10  ">
             {selectedItems.length > 0 && (
               <p className=" text-xs">

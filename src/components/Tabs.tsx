@@ -12,8 +12,8 @@ const tabs = [
 
 export function Tabs() {
   return (
-    <nav className="w-full max-w-md mx-auto p-0 fixed bottom-0 z-[999] h-fit bg-black ">
-      <div role="tablist" className="flex flex-row justify-center">
+    <nav className=" max-w-7xl mx-auto p-0  z-[999] h-fit bg-black w-full">
+      <div role="tablist" className="flex flex-row justify-between w-full">
         {tabs.map(tab => {
           return (
             <NavLink
