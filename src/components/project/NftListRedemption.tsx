@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
-import { useWallet } from "../../hooks/useWallet";
-
+import { useWallet } from "@solana/wallet-adapter-react";
 import { NftItem } from "../nfts/NftItem";
 import { getCheckedNftsForCollection } from "../../utils/nfts";
 import { Loading } from "../Loading";

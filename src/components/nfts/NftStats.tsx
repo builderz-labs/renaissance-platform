@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { SmallLoading } from "../../components/SmallLoading";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { useQuery } from "@tanstack/react-query";
-import { useWallet } from "../../hooks/useWallet";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { getCheckedNftsForCollection } from "../../utils/nfts";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { repayRoyalties } from "../../utils/repayRoyalties";

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useConnection } from "@solana/wallet-adapter-react";
 import { getAllCollection } from "../utils/collections";
 
 export default function useCollections() {

@@ -1,34 +1,36 @@
-import buffer from "buffer";
-globalThis.Buffer = buffer.Buffer;
+// import buffer from "buffer";
+// globalThis.Buffer = buffer.Buffer;
 
-import { ConnectionProvider } from '@solana/wallet-adapter-react';
-import { QueryClientProvider } from '@tanstack/react-query';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import 'tw-elements';
-import { Layout } from './components/Layout';
-import { queryClient } from './client';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import './App.css';
+import { QueryClientProvider } from "@tanstack/react-query";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "tw-elements";
+import { Layout } from "./components/Layout";
+import { queryClient } from "./client";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
-import ErrorPage from './pages/ErrorPage';
-import { HomePage, loader as homeLoader } from './pages/HomePage';
-import { NftsPage } from './pages/NftsPage';
-import { ProjectPage, loader as projectLoader } from './pages/project';
-import { RankingPage, loader as rankingLoader } from './pages/RankingPage';
-import AddPage from './pages/ExplorePage';
-import ExplorePage from './pages/ExplorePage';
+import ErrorPage from "./pages/ErrorPage";
+import { HomePage, loader as homeLoader } from "./pages/HomePage";
+import { NftsPage } from "./pages/NftsPage";
+import { ProjectPage, loader as projectLoader } from "./pages/project";
+import { RankingPage, loader as rankingLoader } from "./pages/RankingPage";
+import AddPage from "./pages/ExplorePage";
+import ExplorePage from "./pages/ExplorePage";
+import WalletContextProvider from "./contexts/ContextProvider";
+import "@solana/wallet-adapter-react-ui/styles.css";
 
-declare global {
-  interface Window {
-    xnft: any;
-  }
-}
+
+// declare global {
+//   interface Window {
+//     xnft: any;
+//   }
+// }
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
@@ -41,23 +43,23 @@ const router = createBrowserRouter([
             loader: () => homeLoader(queryClient),
           },
           {
-            path: 'NFTs',
+            path: "NFTs",
             element: <NftsPage />,
           },
           {
-            path: 'project/:id',
+            path: "project/:id",
             element: <ProjectPage />,
             loader: ({ params }) => projectLoader(queryClient, { params }),
           },
           {
-            path: 'Ranking',
+            path: "Ranking",
             element: <RankingPage />,
-            loader: () => rankingLoader(queryClient)
+            loader: () => rankingLoader(queryClient),
           },
           {
-            path: 'explore',
+            path: "explore",
             element: <ExplorePage />,
-            loader: () => rankingLoader(queryClient)
+            loader: () => rankingLoader(queryClient),
           },
         ],
       },
@@ -67,7 +69,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <ConnectionProvider endpoint={import.meta.env.VITE_HELIUS_RPC_PROXY}>
+    <WalletContextProvider>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
         <ReactQueryDevtools />
@@ -84,7 +86,7 @@ function App() {
           theme="dark"
         />
       </QueryClientProvider>
-    </ConnectionProvider>
+    </WalletContextProvider>
   );
 }
 
