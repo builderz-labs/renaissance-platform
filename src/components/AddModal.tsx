@@ -42,7 +42,7 @@ export default function Example() {
                                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-black px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
                                     <div>
                                         <div className="mx-auto flex items-center justify-center rounded-full ">
-                                            <img src="/public/renaissance-logo.svg" alt="Renaissance Logo" className='w-full px-4 h-20' />
+                                            <img src="/renaissance-logo.svg" alt="Renaissance Logo" className='w-full px-4 h-20' />
                                         </div>
                                         <div className="mt-3 text-center sm:mt-5">
                                             <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-100">

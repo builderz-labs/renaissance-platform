@@ -11,13 +11,6 @@ module.exports = {
         mono: ['Space Mono', 'monospace'],
       },
       colors: {
-        'lily-blue': '#61FEFF',
-        'lily-blue-dark': '#91B9FF',
-        'lily-green': '#7FFFB9',
-        'lily-yellow': '#FFD462',
-        'lily-tan': '#E9E1D1',
-        'lily-black': '#222222',
-        'lily-red': '#FF9596',
         'renaissance-orange': '#FF8A57',
       },
       animation: {
