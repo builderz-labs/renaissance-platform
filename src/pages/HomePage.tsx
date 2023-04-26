@@ -9,6 +9,7 @@ import { Leaderboard } from '../components/home/Leaderboard';
 import { fetchLeaderboard } from '../utils/history';
 import FormBanner from '../components/FormBanner/FormBanner';
 import HeaderBanner from '../components/HeaderBanner';
+import { getAllCollection } from '../utils/collections';
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -28,6 +29,11 @@ export const loader = (queryClient: QueryClient) => {
     leaderboard: queryClient.fetchQuery({
       queryKey: ['leaderboard'],
       queryFn: () => fetchLeaderboard(),
+    }),
+    collectionsV1: queryClient.fetchQuery({
+      queryKey: ['collectionsV1'],
+      queryFn: () =>
+        getAllCollection(),
     }),
   });
 };

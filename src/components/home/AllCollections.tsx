@@ -13,6 +13,13 @@ export const AllCollections = () => {
     queryKey: ['collections'],
   });
 
+  const { data: collectionsV1 } = useQuery<any>({
+    queryKey: ['collectionsV1'],
+  })
+
+  console.log(collectionsV1);
+  
+
   const [filteredCollections, setFilteredCollections] = useState<Collection[]>(
     []
   );
