@@ -35,14 +35,14 @@ export const options = {
 };
 
 export function LineChart({ report }: any) {
-  const labels = report.metricsByDay.map((item) => item.date);
+  const labels = report.metricsByDay.map((item: any) => item.date);
   const outstandingRoyalties = report.metricsByDay.map(
-    (item) => item.outstandingRoyalties
+    (item: any) => item.outstandingRoyalties
   );
-  const royaltiesPaid = report.metricsByDay.map((item) => item.royaltiesPaid);
-  const sales = report.metricsByDay.map((item) => item.sales);
-  const salesVolume = report.metricsByDay.map((item) => item.salesVolume);
-  const percentagePaid = report.metricsByDay.map((item) => item.percentagePaid);
+  const royaltiesPaid = report.metricsByDay.map((item: any) => item.royaltiesPaid);
+  const sales = report.metricsByDay.map((item: any) => item.sales);
+  const salesVolume = report.metricsByDay.map((item: any) => item.salesVolume);
+  const percentagePaid = report.metricsByDay.map((item: any) => item.percentagePaid);
 
   const data = {
     labels,

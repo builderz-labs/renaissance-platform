@@ -41,12 +41,12 @@ const labels = ['1/8/2023', '1/22/2023', '2/5/2023', '2/19/2023', '3/23/2023', '
 
 export function RoyaltyChart({ report }: any) {
 
-    const labels = report.metricsByDay.map((item) => item.date);
-    const outstandingRoyalties = report.metricsByDay.map((item) => item.outstandingRoyalties);
-    const royaltiesPaid = report.metricsByDay.map((item) => item.royaltiesPaid);
-    const sales = report.metricsByDay.map((item) => item.sales);
-    const salesVolume = report.metricsByDay.map((item) => item.salesVolume);
-    const percentagePaid = report.metricsByDay.map((item) => item.percentagePaid);
+    const labels = report.metricsByDay.map((item: any) => item.date);
+    const outstandingRoyalties = report.metricsByDay.map((item: any) => item.outstandingRoyalties);
+    const royaltiesPaid = report.metricsByDay.map((item: any) => item.royaltiesPaid);
+    const sales = report.metricsByDay.map((item: any) => item.sales);
+    const salesVolume = report.metricsByDay.map((item: any) => item.salesVolume);
+    const percentagePaid = report.metricsByDay.map((item: any) => item.percentagePaid);
 
     const data = {
         labels,

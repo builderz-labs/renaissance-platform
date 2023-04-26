@@ -36,7 +36,7 @@ export const options = {
     y: {
       stacked: true,
       ticks: {
-        callback: (value) => `${value.toFixed(0)}%`, // Format ticks as percentages
+        callback: (value: any) => `${value.toFixed(0)}%`, // Format ticks as percentages
       },
       max: 100, // 
     },
@@ -44,10 +44,10 @@ export const options = {
 };
 
 export function StackedBarChartPercentage({ report }: any) {
-  const labels = report.metricsByDay.map((item) => item.date);
-  const royaltiesPaid = report.metricsByDay.map((item) => item.royaltiesPaid);
-  const redemptions = report.metricsByDay.map((item) => item.redemptions);
-  const outstanding = report.metricsByDay.map((item) => item.outstandingRoyalties);
+  const labels = report.metricsByDay.map((item: any) => item.date);
+  const royaltiesPaid = report.metricsByDay.map((item: any) => item.royaltiesPaid);
+  const redemptions = report.metricsByDay.map((item: any) => item.redemptions);
+  const outstanding = report.metricsByDay.map((item: any) => item.outstandingRoyalties);
 
   // If cumulative use this:
   // let cumulativeRoyalties = 0;
@@ -69,24 +69,24 @@ export function StackedBarChartPercentage({ report }: any) {
   // });
 
   // Percentages
-  const totalArr = labels.map((_, index) => {
+  const totalArr = labels.map((_: any, index: any) => {
     return royaltiesPaid[index] + redemptions[index] + outstanding[index];
   });
 
   const cumulativeRoyaltiesPercentArr = royaltiesPaid.map(
-    (item, index) => {
+    (item: any, index: any) => {
       return (item / totalArr[index]) * 100;
     }
   );
 
   const cumulativeRedemptionsPercentArr = redemptions.map(
-    (item, index) => {
+    (item: any, index: any) => {
       return (item / totalArr[index]) * 100;
     }
   );
 
   const outstandingRoyaltiesPercentArr = outstanding.map(
-    (item, index) => {
+    (item: any, index: any) => {
       return (item / totalArr[index]) * 100;
     }
   );

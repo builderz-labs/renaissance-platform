@@ -44,25 +44,25 @@ export const options = {
 };
 
 export function StackedBarChart({ report }: any) {
-  const labels = report.metricsByDay.map((item) => item.date);
-  const royaltiesPaid = report.metricsByDay.map((item) => item.royaltiesPaid);
-  const redemptions = report.metricsByDay.map((item) => item.redemptions);
-  const outstanding = report.metricsByDay.map((item) => item.outstandingRoyalties);
+  const labels = report.metricsByDay.map((item: any) => item.date);
+  const royaltiesPaid = report.metricsByDay.map((item: any) => item.royaltiesPaid);
+  const redemptions = report.metricsByDay.map((item: any) => item.redemptions);
+  const outstanding = report.metricsByDay.map((item: any) => item.outstandingRoyalties);
 
   let cumulativeRoyalties = 0;
-  const cumulativeRoyaltiesArr = royaltiesPaid.map((item, index) => {
+  const cumulativeRoyaltiesArr = royaltiesPaid.map((item: any, index: any) => {
     cumulativeRoyalties += item;
     return cumulativeRoyalties;
   });
 
   let cumulativeRedemptions = 0;
-  const cumulativeRedemptionsArr = redemptions.map((item, index) => {
+  const cumulativeRedemptionsArr = redemptions.map((item: any, index: any) => {
     cumulativeRedemptions += item;
     return cumulativeRedemptions;
   });
 
   let outstandingRoyalties = 0;
-  const outstandingRoyaltiesArr = outstanding.map((item, index) => {
+  const outstandingRoyaltiesArr = outstanding.map((item: any, index: any) => {
     outstandingRoyalties += item
     return outstandingRoyalties;
   });
