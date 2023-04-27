@@ -62,6 +62,8 @@ export const getCheckedNftsForCollection = async (
   owner: PublicKey,
   allowedCollections?: string[]
 ) => {
+  console.log(owner.toBase58());
+
   let nfts = [];
 
   try {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
@@ -21,25 +21,48 @@ export const NftListRedemption = ({
   const { connection } = useConnection();
 
   // Get checked NFTs
+  // const {
+  //   data: checkedNfts,
+  //   isLoading,
+  //   refetch,
+  // } = useQuery<any[]>({
+  //   queryKey: [
+  //     "checkedNfts",
+  //     pageCollection?.collectionAddress,
+  //     wallet.publicKey,
+  //   ],
+  //   queryFn: pageCollection
+  //     ? () =>
+  //         getCheckedNftsForCollection(wallet.publicKey!, [
+  //           pageCollection?.collectionAddress!,
+  //         ])
+  //     : () => getCheckedNftsForCollection(wallet.publicKey!),
+  //   enabled: !!wallet.publicKey,
+  // });
+
+  const fetchNfts = useCallback(async () => {
+    if (!wallet.publicKey) {
+      return [];
+    }
+  
+    if (pageCollection) {
+      return getCheckedNftsForCollection(
+        wallet.publicKey!,
+        [pageCollection.collectionAddress!]
+      );
+    } else {
+      return getCheckedNftsForCollection(wallet.publicKey!);
+    }
+  }, [wallet.publicKey, pageCollection]);
+  
   const {
     data: checkedNfts,
     isLoading,
     refetch,
-  } = useQuery<any[]>({
-    queryKey: ["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey],
-    queryFn: pageCollection
-      ? () =>
-        getCheckedNftsForCollection(
-          wallet.publicKey ||
-          new PublicKey("63Kaxzs8BxXh7sPZHDnAy9HwvkeLwJ3mF33EcXKSjpT9"),
-          [pageCollection?.collectionAddress!]
-        )
-      : () =>
-        getCheckedNftsForCollection(
-          wallet.publicKey ||
-          new PublicKey("63Kaxzs8BxXh7sPZHDnAy9HwvkeLwJ3mF33EcXKSjpT9")
-        ),
+  } = useQuery<any[]>(["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey], fetchNfts, {
+    enabled: !!wallet.publicKey,
   });
+
   // Filtered NFT states
   const [filteredNfts, setFilteredNfts] = useState<any[]>([]);
   const [currentNfts, setCurrentNfts] = useState<any[]>([]);
@@ -155,7 +178,7 @@ export const NftListRedemption = ({
     );
   }
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (checkedNfts) {
@@ -170,18 +193,17 @@ export const NftListRedemption = ({
     }
   }, [checkedNfts, searchQuery, startIndex, endIndex]);
 
-
   return (
-    <section className='mt-10'>
+    <section className="mt-10">
       <div className="w-full flex flex-row items-center justify-between gap-8 mb-5">
         <input
           type="text"
           placeholder="Search NFTs"
-          className='w-1/2 border border-gray-800 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-gray-900'
+          className="w-1/2 border border-gray-800 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-gray-900"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <div className='flex w-full items-center justify-end gap-4'>
+        <div className="flex w-full items-center justify-end gap-4">
           <div className="flex items-center justify-end gap-2 text-xs  ">
             <input
               type="checkbox"
@@ -239,7 +261,6 @@ export const NftListRedemption = ({
           />
         )}
         <div className="my-5  flex flex-col   items-end  justify-end  w-full gap-8">
-
           <div className="flex flex-row gap-4 items-center justify-end w-full my-10  ">
             {selectedItems.length > 0 && (
               <p className=" text-xs">
@@ -255,7 +276,12 @@ export const NftListRedemption = ({
                 (loading && " loading")
               }
             >
-              Redeem {(totalToRepay + (totalToRepay * (pageCollection?.fee! || 0.2))).toFixed(2)} SOL
+              Redeem{" "}
+              {(
+                totalToRepay +
+                totalToRepay * (pageCollection?.fee! || 0.2)
+              ).toFixed(2)}{" "}
+              SOL
             </button>
           </div>
         </div>

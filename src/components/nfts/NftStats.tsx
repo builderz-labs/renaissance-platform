@@ -1,6 +1,6 @@
 import { Collection } from "../../data/types";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { SmallLoading } from "../../components/SmallLoading";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { useQuery } from "@tanstack/react-query";
@@ -30,28 +30,46 @@ export const NftStats = ({
   const wallet = useWallet();
   const { connection } = useConnection();
 
+  // const {
+  //   data: checkedNfts,
+  //   isLoading,
+  //   refetch,
+  // } = useQuery<any[]>({
+  //   queryKey: [
+  //     "checkedNfts",
+  //     [pageCollection?.collectionAddress],
+  //     wallet.publicKey,
+  //   ],
+  //   queryFn: pageCollection
+  //     ? () =>
+  //       getCheckedNftsForCollection(
+  //         wallet.publicKey!,
+  //         [pageCollection?.collectionAddress!]
+  //       )
+  //     : () =>
+  //       getCheckedNftsForCollection(
+  //         wallet.publicKey!
+  //       ),
+  //     enabled: !!wallet.publicKey,
+  // });
+
+  const fetchNfts = useCallback(async () => {
+    if (pageCollection) {
+      return getCheckedNftsForCollection(
+        wallet.publicKey!,
+        [pageCollection.collectionAddress!]
+      );
+    } else {
+      return getCheckedNftsForCollection(wallet.publicKey!);
+    }
+  }, [wallet.publicKey, pageCollection]);
+  
   const {
     data: checkedNfts,
     isLoading,
     refetch,
-  } = useQuery<any[]>({
-    queryKey: [
-      "checkedNfts",
-      [pageCollection?.collectionAddress],
-      wallet.publicKey,
-    ],
-    queryFn: pageCollection
-      ? () =>
-        getCheckedNftsForCollection(
-          wallet.publicKey ||
-          new PublicKey("63Kaxzs8BxXh7sPZHDnAy9HwvkeLwJ3mF33EcXKSjpT9"),
-          [pageCollection?.collectionAddress!]
-        )
-      : () =>
-        getCheckedNftsForCollection(
-          wallet.publicKey ||
-          new PublicKey("63Kaxzs8BxXh7sPZHDnAy9HwvkeLwJ3mF33EcXKSjpT9")
-        ),
+  } = useQuery<any[]>(["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey], fetchNfts, {
+    enabled: !!wallet.publicKey,
   });
 
   // States

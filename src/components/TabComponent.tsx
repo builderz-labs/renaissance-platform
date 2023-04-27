@@ -5,7 +5,7 @@ import NftContent from './Tabs/NftContent';
 import AnalyticsContent from './Tabs/AnalyticsContent';
 
 const tabs = [
-    { name: 'NFTs', href: '#nfts', icon: UserIcon, current: false, content: NftContent },
+    { name: 'NFTs', href: '#nfts', icon: UserIcon, current: true, content: NftContent },
     { name: 'Analytics', href: '#analytics', icon: ChartBarIcon, current: false, content: AnalyticsContent },
 ]
 
