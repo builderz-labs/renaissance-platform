@@ -18,17 +18,14 @@ const Blur1 = styled.div`
   width: 260px;
   height: 260px;
 `;
-
 const ItemCard = styled.div`
   background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
-  border-radius: 12px;
-  border: 0.5px solid;
-  border-image-source: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 138, 87, 0.1) 100%
-  );
+border: 0.5px solid;
+border-image-source: linear-gradient(0deg, #E6813E 0%, rgba(255, 138, 87, 0) 17.53%, rgba(255, 138, 87, 0.17) 52.43%, rgba(255, 138, 87, 0) 81.08%, #E6813E 100%);
+  border-image-slice: 1;
+  border-image-width: 1;
 `;
+
 
 export const loader = (queryClient: QueryClient, { params }: any) => {
   if (!params.id) {
@@ -49,12 +46,12 @@ export const ProjectPage = () => {
 
   return (
     <div className="mt-5 h-full relative">
-      <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" />
-      <Blur1 className="absolute top-40 right-40 z-0 opacity-20" />
+      {/* <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" /> */}
+      {/* <Blur1 className="absolute top-40 right-40 z-0 opacity-20" /> */}
       <Suspense fallback={<Loading />}>
         <Await resolve={data}>
           <ProjectDetails />
-          <Blur1 className="absolute top-80 -right-60 z-0 opacity-20" />
+          {/* <Blur1 className="absolute top-80 -right-60 z-0 opacity-20" /> */}
         </Await>
       </Suspense>
     </div>
@@ -80,6 +77,7 @@ export const ProjectDetails = () => {
   return (
     <div>
       <div className="mt-5 h-full relative mb-40">
+
         {pageCollection ? (
           <>
             <img
@@ -88,7 +86,7 @@ export const ProjectDetails = () => {
               className="rounded-full object-cover h-full w-full p-4 md:p-20 absolute -z-10 left-0 opacity-10"
             />
             {/* Collection Information */}
-            <div className="w-full relative flex flex-col md:flex-row items-center justify-around my-2 h-full bg-black bg-opacity-60 rounded-lg">
+            <ItemCard className="w-full relative flex flex-col md:flex-row items-center justify-around my-2 h-full bg-black bg-opacity-60 rounded-lg">
               <div className="w-full md:w-1/3 h-full object-cover flex items-center justify-start">
                 <img
                   src={pageCollection.image}
@@ -140,7 +138,7 @@ export const ProjectDetails = () => {
                 </div>
                 <div className="w-full col-span-2"><NftStats pageCollection={pageCollection} /></div>
               </div>
-            </div>
+            </ItemCard>
             {/* NFT Stats */}
             {/* NFT List */}
             <TabComponent pageCollection={pageCollection} />

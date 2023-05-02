@@ -3,18 +3,13 @@ import { Fragment, useState, useEffect, useCallback } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Combobox, Dialog, Transition } from '@headlessui/react'
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 type Person = {
     id: number;
     name: string;
     url: string;
 }
-
-
-const people = [
-    { id: 1, name: 'LILY', url: '/project/LILY' },
-
-]
 
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
@@ -24,6 +19,7 @@ export default function Example() {
     const [query, setQuery] = useState('')
     const [open, setOpen] = useState(false)
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     const keyDownHandler = useCallback(
         (e: any) => {
@@ -42,12 +38,29 @@ export default function Example() {
         };
     }, [keyDownHandler]);
 
+    const { data: collectionsV1 } = useQuery<any>({
+        queryKey: ['collectionsV1'],
+        onSuccess: () => setLoading(false),
+    })
+
+
+
+
+    // create a list of collections from the data
+    const collections = collectionsV1?.data?.collections?.map((collection: any) => ({
+        id: collection.id,
+        name: collection.name,
+        url: `/project/${collection.id}`,
+    })) || []
+
+
     const filteredPeople =
         query === ''
             ? []
-            : people.filter((person) => {
-                return person.name.toLowerCase().includes(query.toLowerCase())
+            : collections.filter((collection: any) => {
+                return collection.name.toLowerCase().includes(query.toLowerCase())
             })
+
 
     return (
         <>
@@ -57,8 +70,8 @@ export default function Example() {
                 </label>
                 <div className='relative'>
                     <Combobox
-                        onChange={(person) => {
-                            navigate((person as Person).url);
+                        onChange={(collection) => {
+                            navigate((collection as Person).url);
                             setOpen(false); // Close the modal after navigating
                             setQuery(''); // Reset the query to hide the options
                         }}
@@ -69,30 +82,37 @@ export default function Example() {
                                 aria-hidden="true"
                             />
                             <Combobox.Input
-                                className="h-8 w-full border-0 bg-gray-900 rounded-md pl-11 pr-4 text-gray-100 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                                className="h-8 w-full border-0 bg-gray-900 bg-opacity-40 rounded-md pl-11 pr-4 text-gray-100 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                                 placeholder="Search..."
                                 onChange={(event) => setQuery(event.target.value)}
                             />
+                            {loading ? (
+                                <p className="p-4 text-sm absolute -bottom-2.5 right-4 text-gray-500 opacity-60 animate-pulse -z-10">Loading collections...</p>
+                            ) : query !== '' && filteredPeople.length === 0 ? (
+                                <p className="p-4 text-sm absolute -bottom-2.5 right-4 text-gray-500 opacity-60">No Collection found.</p>
+                            ) : null}
                         </div>
 
                         {filteredPeople.length > 0 && (
                             <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-200 absolute -bottom-12 w-full text-start">
-                                {filteredPeople.map((person) => (
+                                {filteredPeople.map((collection: any) => (
                                     <Combobox.Option
-                                        key={person.id}
-                                        value={person}
+                                        key={collection.id}
+                                        value={collection}
                                         className={({ active }) =>
-                                            classNames('cursor-default select-none px-4 py-2', active && 'bg-orange-600 bg-opacity-20 text-white')
+                                            classNames('cursor-default select-none px-4 py-2', active && 'bg-black text-white')
                                         }
                                     >
-                                        {person.name}
+                                        {collection.name}
                                     </Combobox.Option>
                                 ))}
                             </Combobox.Options>
                         )}
 
+
+
                         {query !== '' && filteredPeople.length === 0 && (
-                            <p className="p-4 text-sm text-gray-500">No people found.</p>
+                            <p className="p-4 text-sm absolute -bottom-12 text-gray-500">No Collection found.</p>
                         )}
                     </Combobox>
                 </div>
@@ -123,8 +143,8 @@ export default function Example() {
                         >
                             <Dialog.Panel className="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-lg bg-gray-900 shadow-2xl  transition-all">
                                 <Combobox
-                                    onChange={(person) => {
-                                        navigate((person as Person).url);
+                                    onChange={(collection) => {
+                                        navigate((collection as Person).url);
                                         setOpen(false); // Close the modal after navigating
                                         setQuery(''); // Reset the query to hide the options
                                     }}
@@ -143,22 +163,22 @@ export default function Example() {
 
                                     {filteredPeople.length > 0 && (
                                         <Combobox.Options static className="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-200">
-                                            {filteredPeople.map((person) => (
+                                            {filteredPeople.map((collection: any) => (
                                                 <Combobox.Option
-                                                    key={person.id}
-                                                    value={person}
+                                                    key={collection.id}
+                                                    value={collection}
                                                     className={({ active }) =>
                                                         classNames('cursor-default select-none px-4 py-2', active && 'bg-orange-600 text-white')
                                                     }
                                                 >
-                                                    {person.name}
+                                                    {collection.name}
                                                 </Combobox.Option>
                                             ))}
                                         </Combobox.Options>
                                     )}
 
                                     {query !== '' && filteredPeople.length === 0 && (
-                                        <p className="p-4 text-sm text-gray-500">No people found.</p>
+                                        <p className="p-4 text-sm text-gray-500">No Collection found.</p>
                                     )}
                                 </Combobox>
                             </Dialog.Panel>

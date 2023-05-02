@@ -5,7 +5,7 @@ import { CircularProgress } from '@mui/material';
 import useWindowSize from '../../hooks/useWindowSize';
 
 const MySlide = styled.div`
-  background-image: url('/img/ren.png');
+  background-image: url('/img/angel.webp');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

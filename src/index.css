@@ -283,6 +283,7 @@ body {
 
 .active {
   color: #ff8a57 !important;
+  background-color: #1d2228;
 }
 
 .banner {
@@ -382,4 +383,8 @@ body {
   padding: auto;
   height: auto;
   
+}
+
+.mymultibutton {
+  @apply !border !border-renaissance-orange !important;
 }

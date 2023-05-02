@@ -44,7 +44,7 @@ export const NftListRedemption = ({
     if (!wallet.publicKey) {
       return [];
     }
-  
+
     if (pageCollection) {
       return getCheckedNftsForCollection(
         wallet.publicKey!,
@@ -54,7 +54,7 @@ export const NftListRedemption = ({
       return getCheckedNftsForCollection(wallet.publicKey!);
     }
   }, [wallet.publicKey, pageCollection]);
-  
+
   const {
     data: checkedNfts,
     isLoading,

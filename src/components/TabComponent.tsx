@@ -31,7 +31,7 @@ export default function TabComponent({ pageCollection }: any) {
     };;
 
     return (
-        <div>
+        <div className='mt-10'>
             <div className="sm:hidden">
                 <label htmlFor="tabs" className="sr-only">
                     Select a tab
@@ -40,7 +40,7 @@ export default function TabComponent({ pageCollection }: any) {
                 <select
                     id="tabs"
                     name="tabs"
-                    className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                    className="block w-full rounded-md border-gray-300 focus:border-orange-500 focus:ring-orange-500"
                     defaultValue={tabs.find((tab) => tab.current)?.name || ''}
                 >
                     {tabs.map((tab) => (
@@ -58,7 +58,7 @@ export default function TabComponent({ pageCollection }: any) {
                                 onClick={(event) => handleTabClick(event, tab)} // Pass the event to the function
                                 className={classNames(
                                     tab.current
-                                        ? 'border-indigo-500 text-indigo-600'
+                                        ? 'border-orange-500 text-orange-600'
                                         : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
                                     'group inline-flex items-center border-b-2 py-4 px-1 text-sm font-medium'
                                 )}
@@ -66,7 +66,7 @@ export default function TabComponent({ pageCollection }: any) {
                             >
                                 <tab.icon
                                     className={classNames(
-                                        tab.current ? 'text-indigo-500' : 'text-gray-400 group-hover:text-gray-500',
+                                        tab.current ? 'text-orange-500' : 'text-gray-400 group-hover:text-gray-500',
                                         '-ml-0.5 mr-2 h-5 w-5'
                                     )}
                                     aria-hidden="true"

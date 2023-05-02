@@ -40,3 +40,45 @@
 .read-the-docs {
   color: #888;
 }
+
+
+.topcollectionimage {
+  border: 1px solid;
+
+  border-image-slice: 1;
+  border-image-width: 1;
+border-image-source: linear-gradient(0deg, #E6813E 0%, rgba(255, 138, 87, 0) 17.53%, rgba(255, 138, 87, 0.17) 52.43%, rgba(255, 138, 87, 0) 81.08%, #E6813E 100%);
+
+
+}
+
+.crown-logo {
+  width: 12px;
+  height: 12px;
+}
+
+.ant-table, .ant-table-cell {
+  background-color: #1f1f1f;
+}
+
+.ant-table tbody.ant-table-tbody > tr.ant-table-row > td {
+  border-bottom: 1px solid #3a3a3a;
+  color: #fff;
+}
+
+.ant-table tbody.ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: #3a3a3a;
+}
+
+.feed-blur {
+  position: absolute;
+  width: 664px;
+height: 664px;
+
+
+/* Gradient Renaissance */
+
+background: linear-gradient(180deg, #FC9F62 0%, #FF7A00 100%);
+opacity: 0.3;
+filter: blur(300px);
+}

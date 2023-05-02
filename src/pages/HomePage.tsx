@@ -10,6 +10,7 @@ import { fetchLeaderboard } from '../utils/history';
 import FormBanner from '../components/FormBanner/FormBanner';
 import HeaderBanner from '../components/HeaderBanner';
 import { getAllCollection } from '../utils/collections';
+import { Leaderboard2 } from '../components/home/Leaderboard2';
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -42,24 +43,25 @@ export const HomePage = () => {
   const { collections } = useLoaderData() as any;
 
   return (
-    <div className="h-full max-w-full relative">
-      <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" />
-      <Blur1 className="absolute top-40 right-40 z-0 opacity-20" />
+    <main className="h-full max-w-full relative">
+      {/* <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" /> */}
+      {/* <Blur1 className="absolute top-40 right-40 -z-10 opacity-20" /> */}
       <Suspense fallback={<Loading />}>
         <Await resolve={collections}>
           {/* All Sections in their own components */}
           <HeaderBanner />
-          <section className="">
-            <Leaderboard />
-          </section>
           <section className="mt-5">
             <FeaturedList />
           </section>
+          <section className="">
+            <Leaderboard2 />
+          </section>
 
-          <Blur1 className="absolute top-80 -right-60 z-0 opacity-20" />
+
+          {/* <Blur1 className="absolute top-80 -right-60 z-0 opacity-20" /> */}
           <AllCollections />
         </Await>
       </Suspense>
-    </div>
+    </main>
   );
 };

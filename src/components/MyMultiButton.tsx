@@ -5,7 +5,7 @@ export default function MyMultiButton() {
 
     return (
         <div className="ml-4">
-            <WalletMultiButton className="glow-on-hover sm:w-[150px] md:w-auto border border-orange-500 px-4 py-2 rounded-xl" />
+            <WalletMultiButton className="btn bg-renaissance-orange text-black hover:text-white  sm:w-[150px] md:w-auto  px-4 py-2 rounded-xl " />
         </div>
     );
 }

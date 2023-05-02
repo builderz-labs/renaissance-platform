@@ -7,13 +7,11 @@ import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const ItemCard = styled.div`
   background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
+  border: 1px solid;
+  border-image-source: linear-gradient(119.5deg, rgba(255, 138, 87, 0) 25.6%, rgba(255, 138, 87, 0) 78.09%, #E6813E 90.35%);
+  border-image-slice: 1;
+  border-image-width: 1;
   border-radius: 12px;
-  border: 0.5px solid;
-  border-image-source: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 138, 87, 0.1) 100%
-  );
 `;
 
 const client = new RestClient("5ea087e7-d02f-418e-9e29-4b75ad52c31e");
@@ -33,9 +31,9 @@ export const AllCollectionsItem = ({ collection, viewMode }: { collection: Colle
     <div
       key={collection.id}
       onClick={() => navigate(`/project/${collection.name}`)}
-      className='w-full'
+      className='w-full cursor-pointer'
     >
-      <ItemCard className={viewMode === "grid" ? "w-full relative flex flex-row items-center justify-between my-2" : "w-full relative flex flex-row items-between justify-between my-2 hover:scale-105 transition-all duration-300 ease-in-out hover:text-orange-500 hover:font-bold"} >
+      <ItemCard className={viewMode === "grid" ? "w-full relative flex flex-row items-center justify-between my-2 hover:scale-105 transition-all duration-300 ease-in-out" : "w-full relative flex flex-row items-between justify-between my-2 hover:scale-105 transition-all duration-300 ease-in-out hover:text-orange-500 hover:font-bold"} >
         <div className="w-[69px] h-full object-cover">
           <img
             src={collection.image}

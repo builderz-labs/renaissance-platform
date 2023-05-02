@@ -27,8 +27,9 @@ export const CollectionsLeaderboard = () => {
         <CircularProgress />
       ) : (
         <>
-          <div className="border-b border-gray-200 bg-gray-900  px-4 py-5 sm:px-6 text-start">
+          <div className="border-b border-gray-200 bg-gray-900  px-4 py-5 sm:px-6 text-start flex flex-row items-center justify-start gap-24">
             <h3 className="text-base font-semibold leading-6 text-gray-100">Pos.</h3>
+            <h3 className="text-base font-semibold leading-6 text-gray-100">Collection</h3>
           </div>
           <div className="flex flex-col gap-4 md:gap-8 rounded-md">
             {collections &&

@@ -3,9 +3,9 @@ import FormBanner from './FormBanner/FormBanner'
 
 function HeaderBanner() {
     return (
-        <div className='mt-4'>
+        <div className='mt-8'>
 
-            <img src="/headerbanner.png" alt="Header Banner" className='w-full' />
+            <img src="/img/banner.webp" alt="Header Banner" className='w-full' />
         </div>
     )
 }

@@ -36,8 +36,8 @@ export const RankingPage = () => {
 
   return (
     <main className="mt-5 mb-40 relative">
-      <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" />
-      <Blur1 className="absolute top-20 right-40 z-0 opacity-10" />
+      {/* <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" /> */}
+      {/* <Blur1 className="absolute top-20 right-40 z-0 opacity-10" /> */}
       <Suspense fallback={<Loading />}>
         <Await resolve={collections}>
           <Leaderboard />

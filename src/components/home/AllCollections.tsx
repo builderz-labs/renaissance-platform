@@ -6,7 +6,8 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@m
 import { AllCollectionsItem } from './AllCollectionsItem';
 import GridViewIcon from "@mui/icons-material/GridView";
 import ListIcon from "@mui/icons-material/List";
-import { Table, Button } from "antd";
+
+
 
 export const AllCollections = () => {
   const { data } = useQuery<Collection[]>({
@@ -18,7 +19,7 @@ export const AllCollections = () => {
   })
 
   console.log(collectionsV1);
-  
+
 
   const [filteredCollections, setFilteredCollections] = useState<Collection[]>(
     []
