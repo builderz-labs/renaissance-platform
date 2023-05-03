@@ -56,19 +56,19 @@ export const FeaturedList = () => {
                     <img
                       src={collection.image}
                       alt={collection.name}
-                      className="h-42 w-full topcollectionimage object-cover rounded-full relative z-10 p-4"
+                      className="h-32 md:h-42 w-full topcollectionimage object-cover rounded-full relative z-10 p-4"
                     />
                   ) : (
                     <img
                       src={collection.image}
                       alt={collection.name}
-                      className="h-42 w-full object-cover rounded-full relative z-10 p-4"
+                      className="h-32 md:h-42 w-full object-cover rounded-full relative z-10 p-4"
                     />
                   )}
                 </div>
                 <div className="py-2 absolute bottom-2 left-0 w-full  bg-black bg-opacity-60 blur font-black"></div>
                 {index === 0 ? (
-                  <ItemCard2 className="h-auto -mt-10 relative z-0 w-full rounded-lg py-10">
+                  <ItemCard2 className="h-auto -mt-10 relative z-0 w-full rounded-lg py-10 pb-5">
                     <p className="py-4 pb-5 left-0 w-full  font-black text-xl text-renaissance-orange">
                       {collection.name}
                     </p>

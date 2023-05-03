@@ -66,7 +66,7 @@ function classNames(...classes: any[]) {
 
 export default function Feed() {
     return (
-        <div className="flow-root">
+        <div className="flow-root ">
             <ul role="list" className="-mb-8">
                 {timeline.map((event, eventIdx) => (
                     <li key={event.id}>
@@ -79,7 +79,7 @@ export default function Feed() {
                                     <span
                                         className={classNames(
                                             event.iconBackground,
-                                            'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-gray-800'
+                                            'h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-gray-800 '
                                         )}
                                     >
                                         <img src="/img/crown.png" alt="First Place" className="crown-logo" />

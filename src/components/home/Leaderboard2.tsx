@@ -72,16 +72,16 @@ export const Leaderboard2 = () => {
           {isLoading ? (
             <CircularProgress />
           ) : (
-            <div className="flex flex-row items-center justify-between h-full w-full my-5 relative">
+            <div className="flex flex-col md:flex-row items-center justify-between h-full w-full my-5 relative gap-10">
               <Table
                 dataSource={tableData}
                 columns={columns}
                 pagination={false}
                 showHeader={false}
-                className='w-1/3 rounded-md dark-mode-table'
+                className='w-full md:w-1/3 rounded-md dark-mode-table'
               />
-              <div className="w-1/2 flex flex-col gap-10 items-start justify-center">
-                <h3>Live Re<span className='text-renaissance-orange'>:</span>demption</h3>
+              <div className="w-full md:w-1/2 flex flex-col gap-10 items-start md:items-end justify-center px-4 md:px-0">
+                <h3>Live Re<span className='text-renaissance-orange'>:</span>demptions</h3>
                 <Feed />
                 <div className="feed-blur -z-10 -right-[800px]"></div>
               </div>
