@@ -17,6 +17,8 @@ export const addNewCollection = async (nftMint: string) => {
   try {
     const documentCollection = collection(firestore, "collections");
 
+    const description = "";
+
     const docRef = await addDoc(documentCollection, {
       name,
       description,
