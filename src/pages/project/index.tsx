@@ -11,6 +11,7 @@ import { NftListRedemption } from "../../components/project/NftListRedemption";
 import styled from "styled-components";
 import { NftStats } from "../../components/nfts/NftStats";
 import TabComponent from '../../components/TabComponent';
+import { motion } from 'framer-motion';
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -75,7 +76,11 @@ export const ProjectDetails = () => {
   }, [collections, id]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
       <div className="mt-5 h-full relative mb-40">
 
         {pageCollection ? (
@@ -150,6 +155,6 @@ export const ProjectDetails = () => {
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 };

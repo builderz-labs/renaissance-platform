@@ -8,6 +8,7 @@ import AddModal from './AddModal';
 import CommandSearch from './CommandSearch';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Tooltip } from 'antd';
+import { motion } from 'framer-motion';
 
 const user = {
     name: 'Tom Cook',
@@ -43,7 +44,11 @@ export default function AppBar() {
         <Disclosure as="header" className="">
             {({ open }) => (
                 <>
-                    <div className="mx-auto w-full px-2 sm:px-4 lg:divide-y lg:divide-gray-700 lg:px-0">
+                    <motion.div className="mx-auto w-full px-2 sm:px-4 lg:divide-y lg:divide-gray-700 lg:px-0"
+                        initial={{ opacity: 0, y: -100 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                    >
                         <div className="relative flex h-16 justify-between">
                             <div className="relative z-10 flex px-2 lg:px-0">
                                 <div className="flex flex-shrink-0 items-center">
@@ -103,7 +108,7 @@ export default function AppBar() {
                         </nav>
 
 
-                    </div>
+                    </motion.div>
 
                     <Disclosure.Panel as="nav" className="lg:hidden" aria-label="Global">
                         <div className="space-y-1 px-2 pb-3 pt-2">

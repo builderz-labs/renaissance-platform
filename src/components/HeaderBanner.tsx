@@ -1,12 +1,14 @@
-import React from 'react'
-import FormBanner from './FormBanner/FormBanner'
+import { motion } from 'framer-motion'
 
 function HeaderBanner() {
     return (
-        <div className='mt-8'>
-
+        <motion.div className='mt-8'
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+        >
             <img src="/img/banner.webp" alt="Header Banner" className='w-full' />
-        </div>
+        </motion.div>
     )
 }
 
