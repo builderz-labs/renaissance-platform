@@ -388,3 +388,24 @@ body {
 .mymultibutton {
   @apply !border !border-renaissance-orange !important;
 }
+
+.ant-pagination,
+.ant-pagination-item {
+  color:white !important
+}
+
+.ant-pagination-item a {
+  color: white !important;
+}
+
+.ant-pagination-item a:hover {
+  color: white !important;
+}
+
+.ant-pagination-item-active a {
+  color: black !important;
+}
+
+.ant-pagination-item-active a:hover {
+  color: white !important;
+}

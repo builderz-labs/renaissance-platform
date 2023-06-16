@@ -56,13 +56,13 @@ export const FeaturedList = () => {
                     <img
                       src={collection.image}
                       alt={collection.name}
-                      className="h-32 md:h-42 w-full topcollectionimage object-cover rounded-full relative z-10 p-4"
+                      className="h-32 md:h-42 w-full topcollectionimage object-cover rounded-none relative z-10 p-4"
                     />
                   ) : (
                     <img
                       src={collection.image}
                       alt={collection.name}
-                      className="h-32 md:h-42 w-full object-cover rounded-full relative z-10 p-4"
+                      className="h-32 md:h-42 w-full object-cover rounded-none relative z-10 p-4"
                     />
                   )}
                 </div>

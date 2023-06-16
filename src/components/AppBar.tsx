@@ -6,6 +6,8 @@ import { Link, useLocation } from 'react-router-dom';
 import MyMultiButton from './MyMultiButton';
 import AddModal from './AddModal';
 import CommandSearch from './CommandSearch';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Tooltip } from 'antd';
 
 const user = {
     name: 'Tom Cook',
@@ -74,6 +76,9 @@ export default function AppBar() {
                             <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
                                 {/* Profile dropdown */}
                                 <AddModal />
+                                <Tooltip placement="bottom" title='Unlisted Collections can be added to the Whitelist here' className='ml-4'>
+                                    < HelpOutlineIcon />
+                                </Tooltip>
                                 <MyMultiButton />
                             </div>
                         </div>
@@ -93,6 +98,7 @@ export default function AppBar() {
                                     </a>
                                 ))}
                             </div>
+
 
                         </nav>
 
