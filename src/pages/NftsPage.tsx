@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { NftListRedemption } from '../components/project/NftListRedemption';
-import { NftStats } from '../components/nfts/NftStats';
+import styled from "styled-components";
+import { NftListRedemption } from "../components/project/NftListRedemption";
+import { NftStats } from "../components/nfts/NftStats";
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);

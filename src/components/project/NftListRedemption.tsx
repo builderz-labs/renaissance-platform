@@ -46,10 +46,9 @@ export const NftListRedemption = ({
     }
 
     if (pageCollection) {
-      return getCheckedNftsForCollection(
-        wallet.publicKey!,
-        [pageCollection.collectionAddress!]
-      );
+      return getCheckedNftsForCollection(wallet.publicKey!, [
+        pageCollection.collectionAddress!,
+      ]);
     } else {
       return getCheckedNftsForCollection(wallet.publicKey!);
     }
@@ -59,9 +58,13 @@ export const NftListRedemption = ({
     data: checkedNfts,
     isLoading,
     refetch,
-  } = useQuery<any[]>(["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey], fetchNfts, {
-    enabled: !!wallet.publicKey,
-  });
+  } = useQuery<any[]>(
+    ["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey],
+    fetchNfts,
+    {
+      enabled: !!wallet.publicKey,
+    }
+  );
 
   // Filtered NFT states
   const [filteredNfts, setFilteredNfts] = useState<any[]>([]);

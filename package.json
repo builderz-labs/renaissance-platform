@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "yarn prettier --check .",
-    "bundle": "yarn build && npx xnft bundle"
+    "bundle": "yarn build && npx xnft bundle",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@builderz/royalty-solution": "^1.0.5",

@@ -55,22 +55,25 @@ export const NftStats = ({
 
   const fetchNfts = useCallback(async () => {
     if (pageCollection) {
-      return getCheckedNftsForCollection(
-        wallet.publicKey!,
-        [pageCollection.collectionAddress!]
-      );
+      return getCheckedNftsForCollection(wallet.publicKey!, [
+        pageCollection.collectionAddress!,
+      ]);
     } else {
       return getCheckedNftsForCollection(wallet.publicKey!);
     }
   }, [wallet.publicKey, pageCollection]);
-  
+
   const {
     data: checkedNfts,
     isLoading,
     refetch,
-  } = useQuery<any[]>(["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey], fetchNfts, {
-    enabled: !!wallet.publicKey,
-  });
+  } = useQuery<any[]>(
+    ["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey],
+    fetchNfts,
+    {
+      enabled: !!wallet.publicKey,
+    }
+  );
 
   // States
   const [loading, setLoading] = useState(false);
@@ -133,15 +136,18 @@ export const NftStats = ({
             <ItemCard className="h-full w-full mx-4 flex items-center justify-center">
               <div className="flex flex-row gap-2 my-2 items-center justify-center w-full h-full">
                 <div className="flex flex-col gap-2 items-center justify-center py-2">
-
                   <div className="flex flex-row gap-2 items-center justify-center">
-
                     <div className="w-full text-center font-bold text-sm">
                       {isLoading === true ? (
                         <SmallLoading />
                       ) : (
                         <p className="font-light text-xs">
-                          {((outstandingRoyalties + (outstandingRoyalties * (pageCollection?.fee! || 0.2))) / LAMPORTS_PER_SOL).toFixed(2)}
+                          {(
+                            (outstandingRoyalties +
+                              outstandingRoyalties *
+                                (pageCollection?.fee! || 0.2)) /
+                            LAMPORTS_PER_SOL
+                          ).toFixed(2)}
                         </p>
                       )}
                     </div>

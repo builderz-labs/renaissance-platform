@@ -10,8 +10,8 @@ import { Collection } from "../../data/types";
 import { NftListRedemption } from "../../components/project/NftListRedemption";
 import styled from "styled-components";
 import { NftStats } from "../../components/nfts/NftStats";
-import TabComponent from '../../components/TabComponent';
-import { motion } from 'framer-motion';
+import TabComponent from "../../components/TabComponent";
+import { motion } from "framer-motion";
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -21,12 +21,18 @@ const Blur1 = styled.div`
 `;
 const ItemCard = styled.div`
   background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
-border: 0.5px solid;
-border-image-source: linear-gradient(0deg, #E6813E 0%, rgba(255, 138, 87, 0) 17.53%, rgba(255, 138, 87, 0.17) 52.43%, rgba(255, 138, 87, 0) 81.08%, #E6813E 100%);
+  border: 0.5px solid;
+  border-image-source: linear-gradient(
+    0deg,
+    #e6813e 0%,
+    rgba(255, 138, 87, 0) 17.53%,
+    rgba(255, 138, 87, 0.17) 52.43%,
+    rgba(255, 138, 87, 0) 81.08%,
+    #e6813e 100%
+  );
   border-image-slice: 1;
   border-image-width: 1;
 `;
-
 
 export const loader = (queryClient: QueryClient, { params }: any) => {
   if (!params.id) {
@@ -35,8 +41,7 @@ export const loader = (queryClient: QueryClient, { params }: any) => {
   return defer({
     collections: queryClient.fetchQuery({
       queryKey: ["collections"],
-      queryFn: () =>
-        fetch('/data/collections.json').then(res => res.json()), // /src/data/collections.json
+      queryFn: () => fetch("/data/collections.json").then((res) => res.json()), // /src/data/collections.json
       staleTime: 1000 * 60 * 2,
     }),
   });
@@ -82,7 +87,6 @@ export const ProjectDetails = () => {
       transition={{ duration: 0.8 }}
     >
       <div className="mt-5 h-full relative mb-40">
-
         {pageCollection ? (
           <>
             <img
@@ -98,10 +102,9 @@ export const ProjectDetails = () => {
                   alt={id}
                   className="rounded-full object-cover h-full w-full p-4 md:p-20"
                 />
-
               </div>
               <div className="bg-black bg-opacity-20 w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4 justify-start items-center text-start flex-grow  p-4 h-full">
-                <div className='w-full flex flex-col items-start justify-center gap-4'>
+                <div className="w-full flex flex-col items-start justify-center gap-4">
                   <p className="w-3/4  font-black truncate text-4xl">
                     {pageCollection.name}
                   </p>
@@ -122,26 +125,32 @@ export const ProjectDetails = () => {
                 <div className=" grid grid-cols-2 w-full gap-4">
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
-                      Total Supply:<br /> 10,000
+                      Total Supply:
+                      <br /> 10,000
                     </p>
                   </div>
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
-                      Volume(7D):<br /> 10,000
+                      Volume(7D):
+                      <br /> 10,000
                     </p>
                   </div>
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
-                      Buy Now:<br /> 10,000
+                      Buy Now:
+                      <br /> 10,000
                     </p>
                   </div>
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
-                      Instant Sell:<br /> 10,000
+                      Instant Sell:
+                      <br /> 10,000
                     </p>
                   </div>
                 </div>
-                <div className="w-full col-span-2"><NftStats pageCollection={pageCollection} /></div>
+                <div className="w-full col-span-2">
+                  <NftStats pageCollection={pageCollection} />
+                </div>
               </div>
             </ItemCard>
             {/* NFT Stats */}
@@ -149,9 +158,11 @@ export const ProjectDetails = () => {
             <TabComponent pageCollection={pageCollection} />
           </>
         ) : (
-          <div className='flex flex-col h-[50vh] w-full items-center justify-center gap-10'>
+          <div className="flex flex-col h-[50vh] w-full items-center justify-center gap-10">
             <p>Collection not found </p>
-            <a href="/" className='btn'>Slowly go back home</a>
+            <a href="/" className="btn">
+              Slowly go back home
+            </a>
           </div>
         )}
       </div>

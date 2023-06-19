@@ -5,11 +5,11 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-type ErrorWithCode = Error & { code: number }
-type MaybeErrorWithCode = ErrorWithCode | null | undefined
+type ErrorWithCode = Error & { code: number };
+type MaybeErrorWithCode = ErrorWithCode | null | undefined;
 
-const createErrorFromCodeLookup: Map<number, () => ErrorWithCode> = new Map()
-const createErrorFromNameLookup: Map<string, () => ErrorWithCode> = new Map()
+const createErrorFromCodeLookup: Map<number, () => ErrorWithCode> = new Map();
+const createErrorFromNameLookup: Map<string, () => ErrorWithCode> = new Map();
 
 /**
  * NoMintMetadata: 'No Mint Metadata'
@@ -18,18 +18,21 @@ const createErrorFromNameLookup: Map<string, () => ErrorWithCode> = new Map()
  * @category generated
  */
 export class NoMintMetadataError extends Error {
-  readonly code: number = 0x1770
-  readonly name: string = 'NoMintMetadata'
+  readonly code: number = 0x1770;
+  readonly name: string = "NoMintMetadata";
   constructor() {
-    super('No Mint Metadata')
-    if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, NoMintMetadataError)
+    super("No Mint Metadata");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, NoMintMetadataError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x1770, () => new NoMintMetadataError())
-createErrorFromNameLookup.set('NoMintMetadata', () => new NoMintMetadataError())
+createErrorFromCodeLookup.set(0x1770, () => new NoMintMetadataError());
+createErrorFromNameLookup.set(
+  "NoMintMetadata",
+  () => new NoMintMetadataError()
+);
 
 /**
  * PublickeyMissmatch: 'Publickey Missmatch'
@@ -38,21 +41,21 @@ createErrorFromNameLookup.set('NoMintMetadata', () => new NoMintMetadataError())
  * @category generated
  */
 export class PublickeyMissmatchError extends Error {
-  readonly code: number = 0x1771
-  readonly name: string = 'PublickeyMissmatch'
+  readonly code: number = 0x1771;
+  readonly name: string = "PublickeyMissmatch";
   constructor() {
-    super('Publickey Missmatch')
-    if (typeof Error.captureStackTrace === 'function') {
-      Error.captureStackTrace(this, PublickeyMissmatchError)
+    super("Publickey Missmatch");
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, PublickeyMissmatchError);
     }
   }
 }
 
-createErrorFromCodeLookup.set(0x1771, () => new PublickeyMissmatchError())
+createErrorFromCodeLookup.set(0x1771, () => new PublickeyMissmatchError());
 createErrorFromNameLookup.set(
-  'PublickeyMissmatch',
+  "PublickeyMissmatch",
   () => new PublickeyMissmatchError()
-)
+);
 
 /**
  * Attempts to resolve a custom program error from the provided error code.
@@ -60,8 +63,8 @@ createErrorFromNameLookup.set(
  * @category generated
  */
 export function errorFromCode(code: number): MaybeErrorWithCode {
-  const createError = createErrorFromCodeLookup.get(code)
-  return createError != null ? createError() : null
+  const createError = createErrorFromCodeLookup.get(code);
+  return createError != null ? createError() : null;
 }
 
 /**
@@ -70,6 +73,6 @@ export function errorFromCode(code: number): MaybeErrorWithCode {
  * @category generated
  */
 export function errorFromName(name: string): MaybeErrorWithCode {
-  const createError = createErrorFromNameLookup.get(name)
-  return createError != null ? createError() : null
+  const createError = createErrorFromNameLookup.get(name);
+  return createError != null ? createError() : null;
 }

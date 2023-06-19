@@ -21,7 +21,6 @@ import ExplorePage from "./pages/ExplorePage";
 import WalletContextProvider from "./contexts/ContextProvider";
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-
 // declare global {
 //   interface Window {
 //     xnft: any;

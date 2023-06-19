@@ -1,6 +1,9 @@
-import React from 'react';
+import React from "react";
 
-const useCommandShortcut = (): [boolean, React.Dispatch<React.SetStateAction<boolean>>] => {
+const useCommandShortcut = (): [
+  boolean,
+  React.Dispatch<React.SetStateAction<boolean>>
+] => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {

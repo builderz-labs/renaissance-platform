@@ -41,15 +41,19 @@
   color: #888;
 }
 
-
 .topcollectionimage {
   border: 1px solid;
 
   border-image-slice: 1;
   border-image-width: 1;
-border-image-source: linear-gradient(0deg, #E6813E 0%, rgba(255, 138, 87, 0) 17.53%, rgba(255, 138, 87, 0.17) 52.43%, rgba(255, 138, 87, 0) 81.08%, #E6813E 100%);
-
-
+  border-image-source: linear-gradient(
+    0deg,
+    #e6813e 0%,
+    rgba(255, 138, 87, 0) 17.53%,
+    rgba(255, 138, 87, 0.17) 52.43%,
+    rgba(255, 138, 87, 0) 81.08%,
+    #e6813e 100%
+  );
 }
 
 .crown-logo {
@@ -57,7 +61,8 @@ border-image-source: linear-gradient(0deg, #E6813E 0%, rgba(255, 138, 87, 0) 17.
   height: 12px;
 }
 
-.ant-table, .ant-table-cell {
+.ant-table,
+.ant-table-cell {
   background-color: #1f1f1f;
 }
 
@@ -73,12 +78,11 @@ border-image-source: linear-gradient(0deg, #E6813E 0%, rgba(255, 138, 87, 0) 17.
 .feed-blur {
   position: absolute;
   width: 664px;
-height: 664px;
+  height: 664px;
 
+  /* Gradient Renaissance */
 
-/* Gradient Renaissance */
-
-background: linear-gradient(180deg, #FC9F62 0%, #FF7A00 100%);
-opacity: 0.3;
-filter: blur(300px);
+  background: linear-gradient(180deg, #fc9f62 0%, #ff7a00 100%);
+  opacity: 0.3;
+  filter: blur(300px);
 }

@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { useQuery } from '@tanstack/react-query';
-import { truncate } from '../../utils/history';
-import { CircularProgress } from '@mui/material';
-import useWindowSize from '../../hooks/useWindowSize';
+import styled from "styled-components";
+import { useQuery } from "@tanstack/react-query";
+import { truncate } from "../../utils/history";
+import { CircularProgress } from "@mui/material";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const MySlide = styled.div`
-  background-image: url('/img/angel.webp');
+  background-image: url("/img/angel.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -14,12 +14,11 @@ const MySlide = styled.div`
   filter: drop-shadow(1px 1px 8px rgba(0, 0, 0, 0.25));
 `;
 
-
 export const Leaderboard = () => {
   const { data: leaderboard, isLoading } = useQuery<
     { user: string; total: number }[]
   >({
-    queryKey: ['leaderboard'],
+    queryKey: ["leaderboard"],
   });
 
   const { width } = useWindowSize();
@@ -29,7 +28,7 @@ export const Leaderboard = () => {
   return (
     <section className="">
       <h2 className="py-2 px-4 pt-4 font-bold text-xl text-start mb-2">
-        Top Re<span className="text-renaissance-orange">:</span>demptions{' '}
+        Top Re<span className="text-renaissance-orange">:</span>demptions{" "}
         <span className="text-[8px] text-gray-400">(7D)</span>
       </h2>
       <MySlide>
@@ -42,8 +41,9 @@ export const Leaderboard = () => {
                 leaderboard.slice(0, itemsToShow).map((item, i) => (
                   <div
                     key={i}
-                    className={`flex flex-row items-center justify-between bg-black bg-opacity-20 rounded-lg p-2 w-full ${i === 0 ? 'font-bold text-xl' : 'font-light text-sm'
-                      }`}
+                    className={`flex flex-row items-center justify-between bg-black bg-opacity-20 rounded-lg p-2 w-full ${
+                      i === 0 ? "font-bold text-xl" : "font-light text-sm"
+                    }`}
                   >
                     <div className="w-4 h-4">
                       {i === 0 ? (
@@ -72,4 +72,3 @@ export const Leaderboard = () => {
     </section>
   );
 };
-

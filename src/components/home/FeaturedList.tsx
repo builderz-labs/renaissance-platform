@@ -1,28 +1,36 @@
-import { useQuery } from '@tanstack/react-query';
-import { Collection } from '../../data/types';
-import { useNavigate } from 'react-router-dom';
-import useWindowSize from '../../hooks/useWindowSize';
-import styled from 'styled-components';
+import { useQuery } from "@tanstack/react-query";
+import { Collection } from "../../data/types";
+import { useNavigate } from "react-router-dom";
+import useWindowSize from "../../hooks/useWindowSize";
+import styled from "styled-components";
 
 const ItemCard = styled.div`
   background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
   border: 1px solid;
-  border-image-source: linear-gradient(119.5deg, rgba(255, 138, 87, 0) 25.6%, rgba(255, 138, 87, 0) 78.09%, #E6813E 90.35%);
+  border-image-source: linear-gradient(
+    119.5deg,
+    rgba(255, 138, 87, 0) 25.6%,
+    rgba(255, 138, 87, 0) 78.09%,
+    #e6813e 90.35%
+  );
   border-image-slice: 1;
   border-image-width: 1;
 `;
 const ItemCard2 = styled.div`
   background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
-border: 0.5px solid;
-border-radius: 10px;
-border-image-source: linear-gradient(0deg, #E6813E 0%, rgba(255, 138, 87, 0) 17.53%, rgba(255, 138, 87, 0.17) 52.43%, rgba(255, 138, 87, 0) 81.08%, #E6813E 100%);
-
-
+  border: 0.5px solid;
+  border-radius: 10px;
+  border-image-source: linear-gradient(
+    0deg,
+    #e6813e 0%,
+    rgba(255, 138, 87, 0) 17.53%,
+    rgba(255, 138, 87, 0.17) 52.43%,
+    rgba(255, 138, 87, 0) 81.08%,
+    #e6813e 100%
+  );
   border-image-slice: 1;
   border-image-width: 1;
 `;
-
-
 
 export const FeaturedList = () => {
   const navigate = useNavigate();
@@ -31,13 +39,13 @@ export const FeaturedList = () => {
   const itemsToShow = width >= 1024 ? 6 : width >= 768 ? 4 : 2;
 
   const { data } = useQuery<Collection[]>({
-    queryKey: ['collections'],
+    queryKey: ["collections"],
   });
 
   return (
     <section className="my-10">
       <h2 className="py-2 px-2 pt-4 font-bold text-xl text-start">
-        Top Re<span className='text-orange-500'>:</span>deemed Collections
+        Top Re<span className="text-orange-500">:</span>deemed Collections
       </h2>
       <div className="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 px-2 gap-4 md:gap-8 mt-5">
         {data &&
@@ -72,7 +80,7 @@ export const FeaturedList = () => {
                     <p className="py-4 pb-5 left-0 w-full  font-black text-xl text-renaissance-orange">
                       {collection.name}
                     </p>
-                    <div className='flex flex-row items-center justify-around'>
+                    <div className="flex flex-row items-center justify-around">
                       <div className=" flex items-center justify-center ">
                         <p className="  font-light text-[12px]">
                           {/* @ts-ignore */}
@@ -92,7 +100,7 @@ export const FeaturedList = () => {
                     <p className="py-4 left-0 w-full  font-black">
                       {collection.name}
                     </p>
-                    <div className='flex flex-row items-center justify-around'>
+                    <div className="flex flex-row items-center justify-around">
                       <div className=" flex items-center justify-center ">
                         <p className="  font-light text-[12px]">
                           {/* @ts-ignore */}
@@ -104,7 +112,7 @@ export const FeaturedList = () => {
                           className="w-[12px] topcollectionimage"
                         />
                       </div>
-                      <p className='text-xs'>7.2%</p>
+                      <p className="text-xs">7.2%</p>
                     </div>
                   </ItemCard>
                 )}

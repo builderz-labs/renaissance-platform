@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { Table, Spin } from 'antd';
+import React, { useState } from "react";
+import { Table, Spin } from "antd";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { Collection } from "../../data/types";
-import { ColumnsType } from 'antd/es/table';
+import { ColumnsType } from "antd/es/table";
 
 export const CollectionsLeaderboard = () => {
-  const { data: collections, isLoading: isLoadingCollections } = useQuery<Collection[]>({
+  const { data: collections, isLoading: isLoadingCollections } = useQuery<
+    Collection[]
+  >({
     queryKey: ["collections"],
   });
 
@@ -17,15 +19,15 @@ export const CollectionsLeaderboard = () => {
 
   const columns: ColumnsType<Collection> = [
     {
-      title: 'Pos.',
-      dataIndex: 'id',
-      key: 'id',
-      render: (text, record, index) => ((currentPage - 1) * pageSize) + index + 1,
+      title: "Pos.",
+      dataIndex: "id",
+      key: "id",
+      render: (text, record, index) => (currentPage - 1) * pageSize + index + 1,
     },
     {
-      title: 'Collection',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Collection",
+      dataIndex: "name",
+      key: "name",
       render: (text, record) => (
         <>
           <img
@@ -38,9 +40,9 @@ export const CollectionsLeaderboard = () => {
       ),
     },
     {
-      title: 'Amount',
-      dataIndex: 'amount',
-      key: 'amount',
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
       // Assuming you have an amount field in your Collection type.
       // If not, you might need to calculate the amount or fetch it from elsewhere.
     },

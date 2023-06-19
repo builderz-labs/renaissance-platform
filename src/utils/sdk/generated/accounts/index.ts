@@ -1,5 +1,5 @@
-export * from './NftState'
+export * from "./NftState";
 
-import { NftState } from './NftState'
+import { NftState } from "./NftState";
 
-export const accountProviders = { NftState }
+export const accountProviders = { NftState };

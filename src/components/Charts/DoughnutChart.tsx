@@ -15,8 +15,7 @@ export const options = {
 
 export function DoughnutChart({ report }: any) {
   const outstandingRoyalties = report.total.totalOutstandingRoyalties;
-  const royaltiesPaid =
-    report.total.totalRoyaltiesPaid;
+  const royaltiesPaid = report.total.totalRoyaltiesPaid;
   const redemptions = report.total.totalRedemptions;
 
   const total = royaltiesPaid + outstandingRoyalties + redemptions;

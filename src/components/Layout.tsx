@@ -1,31 +1,30 @@
-import { Outlet } from 'react-router-dom';
-import PoweredBy from './PoweredBy';
-import AppBar from './AppBar';
-import styled from 'styled-components';
+import { Outlet } from "react-router-dom";
+import PoweredBy from "./PoweredBy";
+import AppBar from "./AppBar";
+import styled from "styled-components";
 
 const OrangeBlur = styled.div`
-position: absolute;
-z-index: -1;
-width: 664px;
-height: 664px;
-left: 628px;
-top: -542px;
+  position: absolute;
+  z-index: -1;
+  width: 664px;
+  height: 664px;
+  left: 628px;
+  top: -542px;
 
-
-background: linear-gradient(180deg, #FC9F62 0%, #FF7A00 100%);
-opacity: 0.3;
-filter: blur(300px);
-`
+  background: linear-gradient(180deg, #fc9f62 0%, #ff7a00 100%);
+  opacity: 0.3;
+  filter: blur(300px);
+`;
 
 const Grider = styled.div`
-position: absolute;
-top: 0;
-width: 65%; 
-height: 100%;
-z-index: -1;
-background-image: url('/img/grid.svg');
-opacity: 0.4;
-`
+  position: absolute;
+  top: 0;
+  width: 65%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/img/grid.svg");
+  opacity: 0.4;
+`;
 
 export function Layout() {
   return (

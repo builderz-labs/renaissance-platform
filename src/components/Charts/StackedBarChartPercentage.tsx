@@ -18,7 +18,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  BarController,
+  BarController
 );
 
 export const options = {
@@ -38,16 +38,20 @@ export const options = {
       ticks: {
         callback: (value: any) => `${value.toFixed(0)}%`, // Format ticks as percentages
       },
-      max: 100, // 
+      max: 100, //
     },
   },
 };
 
 export function StackedBarChartPercentage({ report }: any) {
   const labels = report.metricsByDay.map((item: any) => item.date);
-  const royaltiesPaid = report.metricsByDay.map((item: any) => item.royaltiesPaid);
+  const royaltiesPaid = report.metricsByDay.map(
+    (item: any) => item.royaltiesPaid
+  );
   const redemptions = report.metricsByDay.map((item: any) => item.redemptions);
-  const outstanding = report.metricsByDay.map((item: any) => item.outstandingRoyalties);
+  const outstanding = report.metricsByDay.map(
+    (item: any) => item.outstandingRoyalties
+  );
 
   // If cumulative use this:
   // let cumulativeRoyalties = 0;

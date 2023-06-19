@@ -5,9 +5,9 @@
  * See: https://github.com/metaplex-foundation/solita
  */
 
-import * as web3 from '@solana/web3.js'
-import * as beet from '@metaplex-foundation/beet'
-import * as beetSolana from '@metaplex-foundation/beet-solana'
+import * as web3 from "@solana/web3.js";
+import * as beet from "@metaplex-foundation/beet";
+import * as beetSolana from "@metaplex-foundation/beet-solana";
 
 /**
  * Arguments used to create {@link NftState}
@@ -15,11 +15,11 @@ import * as beetSolana from '@metaplex-foundation/beet-solana'
  * @category generated
  */
 export type NftStateArgs = {
-  mint: web3.PublicKey
-  repayTimestamp: beet.bignum
-}
+  mint: web3.PublicKey;
+  repayTimestamp: beet.bignum;
+};
 
-export const nftStateDiscriminator = [249, 203, 49, 84, 4, 13, 85, 203]
+export const nftStateDiscriminator = [249, 203, 49, 84, 4, 13, 85, 203];
 /**
  * Holds the data for the {@link NftState} Account and provides de/serialization
  * functionality for that data
@@ -37,7 +37,7 @@ export class NftState implements NftStateArgs {
    * Creates a {@link NftState} instance from the provided args.
    */
   static fromArgs(args: NftStateArgs) {
-    return new NftState(args.mint, args.repayTimestamp)
+    return new NftState(args.mint, args.repayTimestamp);
   }
 
   /**
@@ -48,7 +48,7 @@ export class NftState implements NftStateArgs {
     accountInfo: web3.AccountInfo<Buffer>,
     offset = 0
   ): [NftState, number] {
-    return NftState.deserialize(accountInfo.data, offset)
+    return NftState.deserialize(accountInfo.data, offset);
   }
 
   /**
@@ -65,11 +65,11 @@ export class NftState implements NftStateArgs {
     const accountInfo = await connection.getAccountInfo(
       address,
       commitmentOrConfig
-    )
+    );
     if (accountInfo == null) {
-      throw new Error(`Unable to find NftState account at ${address}`)
+      throw new Error(`Unable to find NftState account at ${address}`);
     }
-    return NftState.fromAccountInfo(accountInfo, 0)[0]
+    return NftState.fromAccountInfo(accountInfo, 0)[0];
   }
 
   /**
@@ -80,10 +80,10 @@ export class NftState implements NftStateArgs {
    */
   static gpaBuilder(
     programId: web3.PublicKey = new web3.PublicKey(
-      '9ZskGH9wtdwM9UXjBq1KDwuaLfrZyPChz41Hx7NWhTFf'
+      "9ZskGH9wtdwM9UXjBq1KDwuaLfrZyPChz41Hx7NWhTFf"
     )
   ) {
-    return beetSolana.GpaBuilder.fromStruct(programId, nftStateBeet)
+    return beetSolana.GpaBuilder.fromStruct(programId, nftStateBeet);
   }
 
   /**
@@ -91,7 +91,7 @@ export class NftState implements NftStateArgs {
    * @returns a tuple of the account data and the offset up to which the buffer was read to obtain it.
    */
   static deserialize(buf: Buffer, offset = 0): [NftState, number] {
-    return nftStateBeet.deserialize(buf, offset)
+    return nftStateBeet.deserialize(buf, offset);
   }
 
   /**
@@ -102,7 +102,7 @@ export class NftState implements NftStateArgs {
     return nftStateBeet.serialize({
       accountDiscriminator: nftStateDiscriminator,
       ...this,
-    })
+    });
   }
 
   /**
@@ -110,7 +110,7 @@ export class NftState implements NftStateArgs {
    * {@link NftState}
    */
   static get byteSize() {
-    return nftStateBeet.byteSize
+    return nftStateBeet.byteSize;
   }
 
   /**
@@ -126,7 +126,7 @@ export class NftState implements NftStateArgs {
     return connection.getMinimumBalanceForRentExemption(
       NftState.byteSize,
       commitment
-    )
+    );
   }
 
   /**
@@ -134,7 +134,7 @@ export class NftState implements NftStateArgs {
    * hold {@link NftState} data.
    */
   static hasCorrectByteSize(buf: Buffer, offset = 0) {
-    return buf.byteLength - offset === NftState.byteSize
+    return buf.byteLength - offset === NftState.byteSize;
   }
 
   /**
@@ -145,17 +145,17 @@ export class NftState implements NftStateArgs {
     return {
       mint: this.mint.toBase58(),
       repayTimestamp: (() => {
-        const x = <{ toNumber: () => number }>this.repayTimestamp
-        if (typeof x.toNumber === 'function') {
+        const x = <{ toNumber: () => number }>this.repayTimestamp;
+        if (typeof x.toNumber === "function") {
           try {
-            return x.toNumber()
+            return x.toNumber();
           } catch (_) {
-            return x
+            return x;
           }
         }
-        return x
+        return x;
       })(),
-    }
+    };
   }
 }
 
@@ -166,14 +166,14 @@ export class NftState implements NftStateArgs {
 export const nftStateBeet = new beet.BeetStruct<
   NftState,
   NftStateArgs & {
-    accountDiscriminator: number[] /* size: 8 */
+    accountDiscriminator: number[] /* size: 8 */;
   }
 >(
   [
-    ['accountDiscriminator', beet.uniformFixedSizeArray(beet.u8, 8)],
-    ['mint', beetSolana.publicKey],
-    ['repayTimestamp', beet.i64],
+    ["accountDiscriminator", beet.uniformFixedSizeArray(beet.u8, 8)],
+    ["mint", beetSolana.publicKey],
+    ["repayTimestamp", beet.i64],
   ],
   NftState.fromArgs,
-  'NftState'
-)
+  "NftState"
+);
