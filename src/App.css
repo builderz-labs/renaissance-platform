@@ -86,3 +86,8 @@
   opacity: 0.3;
   filter: blur(300px);
 }
+
+.ant-table-cell {
+  background: #1f1f1f !important;
+  color: white !important;
+}
