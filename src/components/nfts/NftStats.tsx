@@ -56,7 +56,7 @@ export const NftStats = ({
   const fetchNfts = useCallback(async () => {
     if (pageCollection) {
       return getCheckedNftsForCollection(wallet.publicKey!, [
-        pageCollection.collectionAddress!,
+        ...pageCollection.collectionAddresses!,
       ]);
     } else {
       return getCheckedNftsForCollection(wallet.publicKey!);
@@ -68,7 +68,7 @@ export const NftStats = ({
     isLoading,
     refetch,
   } = useQuery<any[]>(
-    ["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey],
+    ["checkedNfts", pageCollection?.collectionAddresses, wallet.publicKey],
     fetchNfts,
     {
       enabled: !!wallet.publicKey,

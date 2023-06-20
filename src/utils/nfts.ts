@@ -68,10 +68,15 @@ export const getCheckedNftsForCollection = async (
   let nfts = [];
 
   nfts = await getAssetsByOwner(owner.toBase58());
+  console.log(nfts);
 
   if (allowedCollections && allowedCollections.length) {
-    nfts = nfts.filter((nft: any) =>
-      allowedCollections.includes(nft.grouping[0].address)
+    nfts = nfts.filter(
+      (nft: any) =>
+        allowedCollections.includes(nft.grouping[0]?.group_value) ||
+        allowedCollections.includes(
+          nft.creators.find((c: any) => c.verified)?.address
+        )
     );
   }
 

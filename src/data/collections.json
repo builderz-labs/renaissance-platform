@@ -3,7 +3,7 @@
     "id": 1,
     "name": "LILY",
     "image": "/img/lily.webp",
-    "collectionAddress": "3NoPerEGS1JpPA6FGYpPfKJ8QUkBjYPngST2pwpQt7ED",
+    "collectionAddresses": ["3NoPerEGS1JpPA6FGYpPfKJ8QUkBjYPngST2pwpQt7ED"],
     "description": "LILY - an expansion of The Lotus brand - aims to become the landing page of the new web pushing the boundaries through innovative technology, art and informed community.",
     "socials": [
       {
@@ -26,7 +26,7 @@
     "id": 2,
     "name": "Claynosaurz",
     "image": "/img/clay.webp",
-    "collectionAddress": "3NoPerEGS1JpPA6FGYpPfKJ8QUkBjYPngST2pwpQt7ED",
+    "collectionAddresses": ["3NoPerEGS1JpPA6FGYpPfKJ8QUkBjYPngST2pwpQt7ED"],
     "description": "Travel back to distant lands. Explore the uncharted, discover lost artifacts. Adventure awaits…",
     "socials": [
       {
@@ -49,7 +49,7 @@
     "id": 3,
     "name": "y00ts",
     "image": "/img/yoots.png",
-    "collectionAddress": "4mKSoDDqApmF1DqXvVTSL6tu2zixrSSNjqMxUnwvVzy2",
+    "collectionAddresses": ["4mKSoDDqApmF1DqXvVTSL6tu2zixrSSNjqMxUnwvVzy2"],
     "description": "y00ts is a generative art project of 15,000 NFTs. y00topia is a curated community of builders and creators. Each y00t was designed by De Labs in Los Angeles, CA",
     "socials": [
       {
@@ -72,7 +72,7 @@
     "id": 4,
     "name": "Wolf Capital",
     "image": "/img/wolf.webp",
-    "collectionAddress": "5ucdKHbPfmsWowXSNfHoiYEJ55kfFmvEdHii5RtjHpiH",
+    "collectionAddresses": ["5ucdKHbPfmsWowXSNfHoiYEJ55kfFmvEdHii5RtjHpiH"],
     "description": "Wolf Capital brings elements of capital preservation to ensure longevity, Lending analytics and aggregation, as well as an all star team of pixel artists under one roof.",
     "socials": [
       {
@@ -91,7 +91,7 @@
     "id": 5,
     "name": "Smyths",
     "image": "/img/smyths.jpg",
-    "collectionAddress": "CLBrjmoDCFvrW8ukxXtDrBXWkL7Yx8PKspKaBPFxhpmL",
+    "collectionAddresses": ["CLBrjmoDCFvrW8ukxXtDrBXWkL7Yx8PKspKaBPFxhpmL"],
     "description": "Smyths is a collection of 4444 noble beings forged through sacred flames. Visit smyths.io to stake and get $FORGE.",
     "socials": [
       {
@@ -114,7 +114,7 @@
     "id": 6,
     "name": "BLOCKZ",
     "image": "/img/builderz.webp",
-    "collectionAddress": "HAUG4qyZH2PgBxQrSLwwTteBPh5ZUGWZPoqsErieEYhK",
+    "collectionAddresses": ["HAUG4qyZH2PgBxQrSLwwTteBPh5ZUGWZPoqsErieEYhK"],
     "description": "Travel back to distant lands. Explore the uncharted, discover lost artifacts. Adventure awaits…",
     "socials": [
       {
@@ -137,7 +137,7 @@
     "id": 7,
     "name": "The Bastards",
     "image": "/img/bastards.png",
-    "collectionAddress": "2UN3GTc5rRzfK4ghU6GTgu4i8Ds3GoV9kyxZTAcvJ8iX",
+    "collectionAddresses": ["2UN3GTc5rRzfK4ghU6GTgu4i8Ds3GoV9kyxZTAcvJ8iX"],
     "description": "Sensual animation, scuffed storytelling, and deranged universe-building.",
     "socials": [
       {
@@ -160,7 +160,7 @@
     "id": 8,
     "name": "SHARX",
     "image": "/img/sharx.webp",
-    "collectionAddress": "5f2PvbmKd9pRLjKdMr8nrK8fNisLi7irjB6X5gopnKpB",
+    "collectionAddresses": ["5f2PvbmKd9pRLjKdMr8nrK8fNisLi7irjB6X5gopnKpB"],
     "description": "Sharx is the official NFT collection of Sharky, the #1 NFT lending platform on Solana. They are your newest frens ready to take over the NFT world. Feed $FISHY → grow into whale sharx. Earn, trade, celebrate! ❤",
     "socials": [
       {
@@ -183,7 +183,7 @@
     "id": 9,
     "name": "ABC",
     "image": "/img/abc.gif",
-    "collectionAddress": "3NoPerEGS1JpPA6FGYpPfKJ8QUkBjYPngST2pwpQt7ED",
+    "collectionAddresses": ["3NoPerEGS1JpPA6FGYpPfKJ8QUkBjYPngST2pwpQt7ED"],
     "description": "Travel back to distant lands. Explore the uncharted, discover lost artifacts. Adventure awaits…",
     "socials": [
       {
@@ -206,7 +206,7 @@
     "id": 10,
     "name": "Taiyo Pilots",
     "image": "/img/pilots.webp",
-    "collectionAddress": "rLNTGqK3VmEapEgcV7qL3oboBzvVTmNehYMXMLYtCRK",
+    "collectionAddresses": ["rLNTGqK3VmEapEgcV7qL3oboBzvVTmNehYMXMLYtCRK"],
     "description": "Sharx is the official NFT collection of Sharky, the #1 NFT lending platform on Solana. They are your newest frens ready to take over the NFT world. Feed $FISHY → grow into whale sharx. Earn, trade, celebrate! ❤",
     "socials": [
       {
@@ -227,32 +227,32 @@
   },
   {
     "id": 11,
-    "name": "Famous Fox Federation",
-    "image": "/img/fff.webp",
-    "collectionAddress": "BUjZjAS2vbbb65g7Z1Ca9ZRVYoJscURG5L3AkVvHP9ac",
-    "description": "The Famous Fox Federation, an independent organization of the most fabulously famous foxes on the Blockchain.",
+    "name": "Phantom",
+    "image": "/img/phantom.png",
+    "collectionAddresses": ["2sdT3R5Sb48Q4MZJGjt7ghMTrCN3okQPFnPr6V3W1rMp"],
+    "description": "NFTs that exist to fuel independent creators and projects",
     "socials": [
       {
         "name": "Twitter",
-        "url": "https://twitter.com/famousfoxfed"
+        "url": "https://twitter.com/phantomnfts"
       },
       {
         "name": "Discord",
-        "url": "https://discord.gg/famousfoxes"
+        "url": "https://discord.gg/4dshbnU8r6"
       },
       {
         "name": "Website",
-        "url": "https://famousfoxes.com/"
+        "url": "https://phantom.art/"
       }
     ],
-    "helloMoonCollectionId": "c0e56f7e5e8b0f32b1650499f215d000",
+    "helloMoonCollectionId": "0e55bb03f825b7bfe61bb0515264cb6f",
     "fee": 0.2
   },
   {
     "id": 12,
     "name": "oogy pods",
     "image": "/img/oogy.png",
-    "collectionAddress": "cZ9SPzdWz3f1MC63nyDpoZaS8Kjp3NHuorK3cD6Sb4m",
+    "collectionAddresses": ["cZ9SPzdWz3f1MC63nyDpoZaS8Kjp3NHuorK3cD6Sb4m"],
     "description": "Each pod is exchangeable for one oogy... or more. Which one is it?",
     "socials": [
       {
@@ -275,7 +275,7 @@
     "id": 13,
     "name": "Elixir: Ovols",
     "image": "/img/ovols.webp",
-    "collectionAddress": "9jnJWH9F9t1xAgw5RGwswVKY4GvY2RXhzLSJgpBAhoaR",
+    "collectionAddresses": ["9jnJWH9F9t1xAgw5RGwswVKY4GvY2RXhzLSJgpBAhoaR"],
     "description": "Battle-tested citizens ready to protect and serve the City of Elixir. Ovols sit at the center of the Elixir ecosystem.",
     "socials": [
       {
@@ -298,7 +298,7 @@
     "id": 14,
     "name": "Datbois",
     "image": "/img/datbois.png",
-    "collectionAddress": "G8mnvHab1zsHn1aSo59WC4eyno8a35WLVhQ7x7PreUzZ",
+    "collectionAddresses": ["G8mnvHab1zsHn1aSo59WC4eyno8a35WLVhQ7x7PreUzZ"],
     "description": "the story of the underdogs",
     "socials": [
       {
@@ -321,7 +321,7 @@
     "id": 15,
     "name": "WOOFers",
     "image": "/img/woofers.png",
-    "collectionAddress": "2RGgEVqYWMXCNs2VwXhLYeNr6S76fmDdTv7DcrFYBXVn",
+    "collectionAddresses": ["2RGgEVqYWMXCNs2VwXhLYeNr6S76fmDdTv7DcrFYBXVn"],
     "description": "A collection of 5,555 WOOFers woofing on the Solana Blockchain. Each WOOFer NFT gives access to the WOOF DAO which will be used to govern the future of the project.",
     "socials": [
       {
@@ -344,7 +344,7 @@
     "id": 16,
     "name": "OKay Bears",
     "image": "/img/okayb.webp",
-    "collectionAddress": "SMBH3wF6baUj6JWtzYvqcKuj2XCKWDqQxzspY12xPND",
+    "collectionAddresses": ["SMBH3wF6baUj6JWtzYvqcKuj2XCKWDqQxzspY12xPND"],
     "description": "Okay Bears is a culture shift. A clean collection of 10,000 diverse bears building a virtuous community that will transcend the internet into the real world.",
     "socials": [
       {
@@ -367,7 +367,7 @@
     "id": 17,
     "name": "Cets on Creck",
     "image": "/img/cets.webp",
-    "collectionAddress": "SMBH3wF6baUj6JWtzYvqcKuj2XCKWDqQxzspY12xPND",
+    "collectionAddresses": ["SMBH3wF6baUj6JWtzYvqcKuj2XCKWDqQxzspY12xPND"],
     "description": "It’s just a bunch of crecked cets, who’re upto a whole of rat shit that are livin’, and chillin’ and vibin’ together. They’re picking bullshit catfights, posting their own mugshots, cat calling the cops and stirring whatever they can to keep the high going",
     "socials": [
       {
@@ -390,7 +390,7 @@
     "id": 18,
     "name": "Bet3",
     "image": "/img/bet3.png",
-    "collectionAddress": "25jvdnuCAzihgapoVivebhyuxCsYpGmKHKEtY82Qq5xU",
+    "collectionAddresses": ["25jvdnuCAzihgapoVivebhyuxCsYpGmKHKEtY82Qq5xU"],
     "description": "Sports Betting with Solana ⬇️ Football 🏈 Baseball ⚾️ Basketball 🏀 UFC 🥊 ⚽️Totals, Picks, ParlaysWeb3️⃣ Sports Media",
     "socials": [
       {
@@ -413,7 +413,7 @@
     "id": 19,
     "name": "Thugbirdz",
     "image": "/img/thugs.webp",
-    "collectionAddress": "8d8CYjuy79LUtUow8UeToUs4Xo35LokYRkeukhJ6uriA",
+    "collectionAddresses": ["8d8CYjuy79LUtUow8UeToUs4Xo35LokYRkeukhJ6uriA"],
     "description": "A collection of 3,333 uniquely generated, tough and collectible thugbirdz. Please go to https://swap.thugbirdz.com/ to reload your bird if not verified. Rebirth of an OG.",
     "socials": [
       {
@@ -436,8 +436,12 @@
     "id": 20,
     "name": "Liberty Square",
     "image": "/img/liberty.webp",
-    "collectionAddress": "8d8CYjuy79LUtUow8UeToUs4Xo35LokYRkeukhJ6uriA",
-    "description": "Liberty Square is not just a PFP project. Liberty Square is a project based in art, lore, and character development with a focus on pushing beyond the walls of web3 and integration into the physical world. #gitrekt anon",
+    "collectionAddresses": [
+      "9n9JDKFWXt72yoa6mfsA3qQ5W9AQGMzFoLMigPwziVGE",
+      "7rSkBx7GdAYzXPS4MLoPx1aCGn25VsdDRvQnnZYQY13H",
+      "8jttAmtAaB7AuDiuEzxwRkqS73TCDYJ3CKZispNwvnAN"
+    ],
+    "description": "Liberty Square is not just a PFP project. Liberty Square is a project based on art, lore, and character development with a focus on pushing beyond the walls of web3 and integration into the physical world. #gitrekt anon",
     "socials": [
       {
         "name": "Twitter",
@@ -459,46 +463,23 @@
     "id": 21,
     "name": "DeGods",
     "image": "/img/degods.webp",
-    "collectionAddress": "6XxjKYFbcndh2gDcsUrmZgVEsoDxXMnfsaGY6fpTJzNr",
-    "description": "Liberty Square is not just a PFP project. Liberty Square is a project based in art, lore, and character development with a focus on pushing beyond the walls of web3 and integration into the physical world. #gitrekt anon",
+    "collectionAddresses": ["6XxjKYFbcndh2gDcsUrmZgVEsoDxXMnfsaGY6fpTJzNr"],
+    "description": "DeGods is a collection of legendary NFTs that embody the mythical Deity energy.",
     "socials": [
       {
         "name": "Twitter",
-        "url": "https://twitter.com/degodsnft"
+        "url": "https://twitter.com/DeGodsHQ"
       },
       {
         "name": "Discord",
-        "url": "https://discord.com/invite/dedao"
+        "url": "https://discord.gg/degods"
       },
       {
         "name": "Website",
-        "url": "https://degods.com/"
+        "url": "https://www.de-gods.com/"
       }
     ],
-    "helloMoonCollectionId": "040de757c0d2b75dcee999ddd47689c4",
-    "fee": 0.2
-  },
-  {
-    "id": 22,
-    "name": "Primates",
-    "image": "https://pbs.twimg.com/profile_images/1599619403074633729/xSdsmLt7_400x400.jpg",
-    "collectionAddress": "CvZY2tZhWEwYnuSoNAjGekmt9Sb5Crhq9DMYTtyup7s4",
-    "description": "Primates is a project built for the community, by the community. The goal of Primates is to create a brand that facilitates a seamless adoption of the web3 space through our community fueled ventures and collaborations.",
-    "socials": [
-      {
-        "name": "Twitter",
-        "url": "https://twitter.com/Primatesnft"
-      },
-      {
-        "name": "Discord",
-        "url": "https://discord.com/invite/theprimates"
-      },
-      {
-        "name": "Website",
-        "url": "https://primatesmap.com/"
-      }
-    ],
-    "helloMoonCollectionId": "04b4f823aedd5190523916182b47d4c7",
+    "helloMoonCollectionId": "0c4935bc2827700aeb00ab2f5c2e1f8f",
     "fee": 0.2
   }
 ]

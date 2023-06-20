@@ -3,7 +3,7 @@ export type Collection = {
   name: string;
   description: string;
   image: string;
-  collectionAddress: string;
+  collectionAddresses: string[];
   helloMoonCollectionId: string;
   socials: {
     name: string;

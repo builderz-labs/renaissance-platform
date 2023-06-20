@@ -24,7 +24,11 @@ const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
   const handleCheck = (nft: any) => {
-    if (nft.royaltiesPaid || nft.status === "error") {
+    if (
+      nft.renaissance?.royaltiesPaid ||
+      nft.renaissance?.status === "error" ||
+      nft.compression.compressed
+    ) {
       return;
     }
 
@@ -36,7 +40,8 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
   };
 
   const isSelected = selectedItems.includes(nft);
-  const isUnpaid = !nft.royaltiesPaid && nft.status !== "error";
+  const isUnpaid =
+    !nft.renaissance?.royaltiesPaid && nft.renaissance?.status !== "error";
 
   return (
     <ItemCard
@@ -46,35 +51,43 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
     >
       {/* If never sold, display icon */}
       {/* other statuses: paid-with-tool, partial, paid-at-sale, error */}
-      {nft.status === "error" && (
+      {nft.compression.compressed && (
+        <div className="absolute top-[165px] right-0 bg-opacity-60 rounded-full  w-8 h-8 flex items-center justify-center ">
+          {/* TODO: add icon */}
+          <Tooltip placement="top-end" title="Compressed NFT">
+            <WarningIcon className="text-blue-500" />
+          </Tooltip>
+        </div>
+      )}
+      {nft.renaissance?.status === "error" && (
         <div className="absolute top-[165px] right-0 bg-opacity-60 rounded-full  w-8 h-8 flex items-center justify-center ">
           <Tooltip placement="top-end" title="Error">
             <WarningIcon className="text-red-500" />
           </Tooltip>
         </div>
       )}
-      {nft.status === "never-sold" && (
+      {nft.renaissance?.status === "never-sold" && (
         <div className="absolute top-[165px] pt-1 right-0 bg-opacity-60 rounded-full  w-8 h-8 flex items-center justify-center ">
           <Tooltip placement="top-end" title="Diamond Hand - Never Sold">
             <DiamondIcon className="text-orange-500" />
           </Tooltip>
         </div>
       )}
-      {nft.status === "paid-with-tool" && (
+      {nft.renaissance?.status === "paid-with-tool" && (
         <div className="absolute top-[165px] right-0 bg-opacity-60 rounded-full  w-8 h-8 flex items-center justify-center ">
           <Tooltip placement="top-end" title="Paid with Tool">
             <VerifiedUserIcon className="text-purple-500" />
           </Tooltip>
         </div>
       )}
-      {nft.status === "partial" && (
+      {nft.renaissance?.status === "partial" && (
         <div className="absolute top-[165px] right-0 bg-opacity-60 rounded-full  w-8 h-8 flex items-center justify-center ">
           <Tooltip placement="top-end" title="Partially Paid">
             <AssistantPhotoIcon className="text-orange-500" />
           </Tooltip>
         </div>
       )}
-      {nft.status === "paid-at-sale" && (
+      {nft.renaissance?.status === "paid-at-sale" && (
         <div className="absolute top-[165px] right-0 bg-opacity-60 rounded-full  w-8 h-8 flex items-center justify-center ">
           <Tooltip title="Paid at Sale" placement="top">
             <VerifiedIcon className="text-orange-500" />
@@ -83,31 +96,33 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
       )}
       <div
         className={`w-70 h-70 object-cover rounded-lg ${
-          nft.royaltiesPaid ? " " : "border-[#FF5557]"
+          nft.renaissance?.royaltiesPaid ? " " : "border-[#FF5557]"
         } `}
       >
-        {!nft.royaltiesPaid && nft.status !== "error" && (
-          <div className="absolute top-2 right-2 rounded-md ">
-            <Checkbox
-              {...label}
-              checked={isSelected}
-              readOnly
-              sx={{
-                color: "#ffaa85",
-                "&.Mui-checked": {
-                  color: "#FF8A57",
-                },
-              }}
-            />
-          </div>
-        )}
+        {!nft.renaissance?.royaltiesPaid &&
+          nft.status !== "error" &&
+          !nft.compression.compressed && (
+            <div className="absolute top-2 right-2 rounded-md ">
+              <Checkbox
+                {...label}
+                checked={isSelected}
+                readOnly
+                sx={{
+                  color: "#ffaa85",
+                  "&.Mui-checked": {
+                    color: "#FF8A57",
+                  },
+                }}
+              />
+            </div>
+          )}
         <img
           src={nft.content.files[0]?.uri}
           width={150}
           height={150}
           alt="NFT"
           className={`p-2 w-full h-40 object-cover rounded-lg  ${
-            nft.royaltiesPaid
+            nft.renaissance?.royaltiesPaid || nft.compression.compressed
               ? ""
               : " border-2 border-opacity-40  border-[#FF5557]"
           } ${isSelected ? "border-opacity-100" : "border-opacity-40"}}`}
@@ -116,11 +131,12 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
       <p className="font-medium my-2 px-2  text-start w-32 text-lg truncate hover:text-[#FF8A57]">
         {nft.content.metadata.name}
       </p>
-      {isUnpaid && (
+      {isUnpaid && !nft.compression.compressed && (
         <p className="text-red-500 text-start text-[10px] ml-2">
           Outstanding:{" "}
           {(
-            (nft.royaltiesToPay + (nft.royaltiesToPay * fee || 0)) /
+            (nft.renaissance?.royaltiesToPay +
+              (nft.renaissance?.royaltiesToPay * fee || 0)) /
             LAMPORTS_PER_SOL
           ).toFixed(2)}{" "}
           SOL

@@ -9,6 +9,8 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import { toast } from "react-toastify";
 import { Collection } from "../../data/types";
 import useNfts from "../../hooks/useNfts";
+import { getCheckedNftsForCollection } from "../../utils/nfts";
+import { useQuery } from "@tanstack/react-query";
 
 export const NftListRedemption = ({
   pageCollection,
@@ -19,7 +21,29 @@ export const NftListRedemption = ({
   const wallet = useWallet();
   const { connection } = useConnection();
 
-  const nfts = useNfts();
+  // const nfts = useNfts([pageCollection?.collectionAddress]);
+
+  const fetchNfts = useCallback(async () => {
+    if (pageCollection) {
+      return getCheckedNftsForCollection(wallet.publicKey!, [
+        ...pageCollection.collectionAddresses,
+      ]);
+    } else {
+      return getCheckedNftsForCollection(wallet.publicKey!);
+    }
+  }, [wallet.publicKey, pageCollection]);
+
+  const {
+    data: checkedNfts,
+    isLoading,
+    refetch,
+  } = useQuery<any[]>(
+    ["checkedNfts", pageCollection?.collectionAddresses, wallet.publicKey],
+    fetchNfts,
+    {
+      enabled: !!wallet.publicKey,
+    }
+  );
 
   // Filtered NFT states
   const [filteredNfts, setFilteredNfts] = useState<any[]>([]);
@@ -27,11 +51,11 @@ export const NftListRedemption = ({
 
   // Populate state as soon as checkedNfts is available
   useEffect(() => {
-    if (nfts.nfts) {
-      setCurrentNfts(nfts.nfts.slice(startIndex, endIndex));
-      setFilteredNfts(nfts.nfts);
+    if (checkedNfts) {
+      setCurrentNfts(checkedNfts.slice(startIndex, endIndex));
+      setFilteredNfts(checkedNfts);
     }
-  }, [nfts.nfts]);
+  }, [checkedNfts]);
 
   // Pagination
   const [pageCount, setPageCount] = useState(0);
@@ -63,10 +87,10 @@ export const NftListRedemption = ({
 
   // Show unpaid only
   useEffect(() => {
-    if (nfts.nfts) {
-      let filteredNfts: any[] = nfts.nfts;
+    if (checkedNfts) {
+      let filteredNfts: any[] = checkedNfts;
       if (showUnpaidRoyaltiesOnly) {
-        filteredNfts = nfts.nfts!.filter(
+        filteredNfts = checkedNfts!.filter(
           (nft) => !nft.royaltiesPaid && nft.status !== "error"
         );
       }
@@ -86,7 +110,7 @@ export const NftListRedemption = ({
   //  Select All Unpaid
   useEffect(() => {
     if (selectAllUnpaid) {
-      const filteredNfts = nfts.nfts!.filter(
+      const filteredNfts = checkedNfts!.filter(
         (nft) => !nft.royaltiesPaid && nft.status !== "error"
       );
       setSelectedItems(filteredNfts);
@@ -103,12 +127,13 @@ export const NftListRedemption = ({
 
     let itemsToRepay = [...selectedItems];
     if (selectAllUnpaid) {
-      itemsToRepay = nfts.nfts!.filter((nft) => nft.royaltiesToPay > 0);
+      itemsToRepay = checkedNfts!.filter((nft) => nft.royaltiesToPay > 0);
     }
     try {
       const res = await repayRoyalties(itemsToRepay, connection, wallet, fee);
       if (res) {
-        nfts.refetchNfts();
+        // nfts.refetchNfts();
+        await refetch();
         toast.success("Royalties Repaid");
       } else {
         toast.error("Error Repaying Royalties");
@@ -123,12 +148,12 @@ export const NftListRedemption = ({
   };
 
   // While loading return Loader
-  if (nfts.loading) {
+  if (isLoading) {
     return <Loading />;
   }
 
   // If no NFTs of collection return message
-  if (nfts.nfts && nfts.nfts.length === 0) {
+  if (checkedNfts && checkedNfts.length === 0) {
     return (
       <div>
         <h2 className="text-xs">You do not own any NFTs of this collection</h2>
@@ -182,6 +207,7 @@ export const NftListRedemption = ({
               <label>Show Unpaid Royalties Only</label>
             </div>
           </div>
+          {/* TODO: Hide cNFTs button */}
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 ">
@@ -198,7 +224,7 @@ export const NftListRedemption = ({
         })}
       </div>
       <div>
-        {nfts.nfts && nfts.nfts.length > pageSize && (
+        {checkedNfts && checkedNfts.length > pageSize && (
           <ReactPaginate
             breakLabel="..."
             nextLabel=">"
