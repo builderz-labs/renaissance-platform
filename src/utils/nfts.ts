@@ -46,7 +46,7 @@ export const getCheckedNftsForCollection = async (
 ) => {
   let nfts = [];
 
-  nfts = await getAssetsByOwner("3YMqK9K5RtBMHUntwbWA92GV5Vj6DHx2cy5PGLE4gYjA");
+  nfts = await getAssetsByOwner(owner.toBase58());
 
   if (allowedCollections && allowedCollections.length) {
     nfts = nfts.filter(
