@@ -1,6 +1,6 @@
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MyMultiButton from "./MyMultiButton";
 import AddModal from "./AddModal";
 import CommandSearch from "./CommandSearch";
@@ -95,9 +95,9 @@ export default function AppBar() {
             >
               <div className="flex space-x-8">
                 {updatedNavigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
                       item.current
                         ? "active-link text-white hover:text-orange-50"
@@ -107,7 +107,7 @@ export default function AppBar() {
                     aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </nav>
