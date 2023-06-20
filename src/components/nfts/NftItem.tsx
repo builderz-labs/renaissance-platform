@@ -41,7 +41,7 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
   return (
     <ItemCard
       onClick={() => handleCheck(nft)}
-      key={nft.tokenAddress}
+      key={nft.id}
       className=" rounded-lg relative pb-4"
     >
       {/* If never sold, display icon */}
@@ -102,7 +102,7 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
           </div>
         )}
         <img
-          src={nft.imageUrl}
+          src={nft.content.files[0]?.uri}
           width={150}
           height={150}
           alt="NFT"
@@ -114,7 +114,7 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
         />
       </div>
       <p className="font-medium my-2 px-2  text-start w-32 text-lg truncate hover:text-[#FF8A57]">
-        {nft.name}
+        {nft.content.metadata.name}
       </p>
       {isUnpaid && (
         <p className="text-red-500 text-start text-[10px] ml-2">

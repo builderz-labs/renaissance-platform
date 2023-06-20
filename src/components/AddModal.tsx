@@ -57,8 +57,8 @@ export default function Example() {
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          To add your NFT collection, please provide it's first
-                          verified creator or "collection address"
+                          {`To add your NFT collection, please provide it's first
+                          verified creator or 'collection address'`}
                         </p>
                       </div>
                     </div>

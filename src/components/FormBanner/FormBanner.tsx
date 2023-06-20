@@ -33,7 +33,7 @@ function FormBanner() {
         </div>
       )}
       <p className="text-[14px] px-2 py-4 text-start ">
-        It's Re
+        {"It's Re"}
         <span className="text-renaissance-orange">:</span>naissance Royalty
         Redemption! Redeem your royalties - your project might reward you!
       </p>

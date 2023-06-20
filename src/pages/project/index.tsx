@@ -114,7 +114,12 @@ export const ProjectDetails = () => {
                   <div className="border-b border-b-gray-500 w-3/4"></div>
                   <div className="w-full flex flex-row justify-start gap-4 items-center">
                     {pageCollection.socials.map((social) => (
-                      <a target="_blank" href={social.url} key={social.name}>
+                      <a
+                        target="_blank"
+                        href={social.url}
+                        key={social.name}
+                        rel="noreferrer"
+                      >
                         {social.name === "Twitter" && <TwitterIcon />}
                         {social.name === "Discord" && <HeadsetMicIcon />}
                         {social.name === "Website" && <LanguageIcon />}

@@ -25,15 +25,17 @@ export default function useNfts(allowedCollections?: string[]) {
           );
         }
 
-        console.log(nfts);
-
-        const checkedNfts = await checkNfts(nfts.map((nft: any) => nft.id));
+        const checkedNfts = await checkNfts(
+          nfts
+            .filter((nft: any) => !nft.compression.compressed)
+            .map((nft: any) => nft.id)
+        );
 
         const combinedArray = nfts.map((nft: any) => {
           const matchingResult = checkedNfts.find(
             (result: checkNftRes) => result.mint === nft.id
           );
-          return { ...nft, ...matchingResult };
+          return { ...nft, renaissance: matchingResult };
         });
 
         setNfts(combinedArray);

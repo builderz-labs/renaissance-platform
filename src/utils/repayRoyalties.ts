@@ -79,7 +79,6 @@ export const repayRoyalties = async (
     );
 
     const [nftStateAddress] = PublicKey.findProgramAddressSync(
-      // @ts-ignore
       [Buffer.from("nft-state"), new PublicKey(nft.mint).toBuffer()],
       PROGRAM_ID
     );
@@ -88,7 +87,6 @@ export const repayRoyalties = async (
       createRepayRoyaltiesInstruction(
         {
           nftState: nftStateAddress,
-          // @ts-ignore
           nftMint: new PublicKey(nft.mint),
           nftMintMetadata: metadataAddress,
           user: wallet.publicKey!,
@@ -116,9 +114,9 @@ export const repayRoyalties = async (
   const numTransactions = Math.ceil(txInstructions.length / batchSize); // How many instructions can fit?
 
   for (let i = 0; i < numTransactions; i++) {
-    let bulkTransaction = new Transaction();
-    let lowerIndex = i * batchSize;
-    let upperIndex = (i + 1) * batchSize;
+    const bulkTransaction = new Transaction();
+    const lowerIndex = i * batchSize;
+    const upperIndex = (i + 1) * batchSize;
     for (let j = lowerIndex; j < upperIndex; j++) {
       // @ts-ignore
       if (txInstructions[j] && txInstructions[j].length) {

@@ -131,25 +131,25 @@ export const NftListRedemption = ({
   if (nfts.nfts && nfts.nfts.length === 0) {
     return (
       <div>
-        <h2 className="text-xs">You don't own any NFTs of this collection</h2>
+        <h2 className="text-xs">You do not own any NFTs of this collection</h2>
       </div>
     );
   }
 
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    if (nfts.nfts) {
-      let filteredNfts = nfts.nfts;
-      if (searchQuery) {
-        filteredNfts = nfts.nfts.filter((nft) =>
-          nft.name.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      }
-      setFilteredNfts(filteredNfts);
-      setCurrentNfts(filteredNfts.slice(startIndex, endIndex));
-    }
-  }, [nfts.nfts, searchQuery, startIndex, endIndex]);
+  // useEffect(() => {
+  //   if (nfts.nfts) {
+  //     let filteredNfts = nfts.nfts;
+  //     if (searchQuery) {
+  //       filteredNfts = nfts.nfts.filter((nft) =>
+  //         nft.name.toLowerCase().includes(searchQuery.toLowerCase())
+  //       );
+  //     }
+  //     setFilteredNfts(filteredNfts);
+  //     setCurrentNfts(filteredNfts.slice(startIndex, endIndex));
+  //   }
+  // }, [nfts.nfts, searchQuery, startIndex, endIndex]);
 
   return (
     <section className="mt-10">
@@ -158,8 +158,8 @@ export const NftListRedemption = ({
           type="text"
           placeholder="Search NFTs"
           className="w-1/2 border border-gray-800 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-gray-900"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          // value={searchQuery}
+          // onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div className="flex w-full items-center justify-end gap-4">
           <div className="flex items-center justify-end gap-2 text-xs  ">
@@ -188,7 +188,7 @@ export const NftListRedemption = ({
         {currentNfts?.map((nft: any) => {
           return (
             <NftItem
-              key={nft.tokenAddress}
+              key={nft.id}
               nft={nft}
               selectedItems={selectedItems}
               setSelectedItems={(items: any) => setSelectedItems(items)}
@@ -237,15 +237,12 @@ export const NftListRedemption = ({
               Redeem{" "}
               {(
                 totalToRepay +
-                totalToRepay * (pageCollection?.fee! || 0.2)
+                totalToRepay * (pageCollection?.fee || 0.2)
               ).toFixed(2)}{" "}
               SOL
             </button>
           </div>
         </div>
-        {/*       <section className="my-10 mb-40">
-          <h2 className="text-3xl font-semibold mb-10">Other Collections</h2>
-        </section> */}
       </div>
     </section>
   );

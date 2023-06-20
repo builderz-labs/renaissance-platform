@@ -2,53 +2,49 @@ import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import axios from "axios";
 
 export const truncate = (wallet: string, startChars: any, endChars: number) => {
-  var start = wallet.substring(0, startChars);
-  var end = wallet.substring(wallet.length - endChars, wallet.length);
+  const start = wallet.substring(0, startChars);
+  const end = wallet.substring(wallet.length - endChars, wallet.length);
   return start + "..." + end;
 };
 
 const fetchTransactionPages = async (amount?: number, timestamp?: number) => {
   let oldestTransaction = "";
-  let transactions: any[] = [];
+  const transactions: any[] = [];
 
   let oldestTransactionTimestamp = Infinity;
-  let maxTxAmount = amount || Infinity;
-  let maxTxTimestamp = timestamp || Infinity;
+  const maxTxAmount = amount || Infinity;
+  const maxTxTimestamp = timestamp || Infinity;
 
-  try {
-    while (
-      transactions.length <= maxTxAmount &&
-      oldestTransactionTimestamp >= maxTxTimestamp
-    ) {
-      const url = `${
-        import.meta.env.VITE_HELIUS_RPC_PROXY
-      }/v0/addresses/9ZskGH9wtdwM9UXjBq1KDwuaLfrZyPChz41Hx7NWhTFf/transactions?before=${oldestTransaction}`;
-      const { data } = await axios.get(url);
+  while (
+    transactions.length <= maxTxAmount &&
+    oldestTransactionTimestamp >= maxTxTimestamp
+  ) {
+    const url = `${
+      import.meta.env.VITE_HELIUS_RPC_PROXY
+    }/v0/addresses/9ZskGH9wtdwM9UXjBq1KDwuaLfrZyPChz41Hx7NWhTFf/transactions?before=${oldestTransaction}`;
+    const { data } = await axios.get(url);
 
-      if (data.length === 0) {
-        // Exhausted all transactions for the given address
-        return transactions;
-      }
-
-      oldestTransaction = data[data.length - 1].signature;
-
-      oldestTransactionTimestamp = data[data.length - 1].timestamp * 1000;
-
-      const timeFilteredData = data.filter(
-        (tx: any) => tx.timestamp * 1000 >= maxTxTimestamp
-      );
-
-      if (timeFilteredData.length === 0) {
-        return transactions;
-      }
-
-      transactions.push(...timeFilteredData);
+    if (data.length === 0) {
+      // Exhausted all transactions for the given address
+      return transactions;
     }
 
-    return transactions;
-  } catch (error) {
-    throw error;
+    oldestTransaction = data[data.length - 1].signature;
+
+    oldestTransactionTimestamp = data[data.length - 1].timestamp * 1000;
+
+    const timeFilteredData = data.filter(
+      (tx: any) => tx.timestamp * 1000 >= maxTxTimestamp
+    );
+
+    if (timeFilteredData.length === 0) {
+      return transactions;
+    }
+
+    transactions.push(...timeFilteredData);
   }
+
+  return transactions;
 };
 
 // TODO: Figure out how to create Collections Leaderboard
@@ -171,7 +167,7 @@ export const fetchLeaderboard = async () => {
     let userTotal = 0;
 
     userTransactions.forEach((tx: any) => {
-      let royaltyAccounts: string[] = [];
+      const royaltyAccounts: string[] = [];
       tx.instructions.forEach((ix: any) => {
         royaltyAccounts.push(...ix.accounts.slice(6));
       });

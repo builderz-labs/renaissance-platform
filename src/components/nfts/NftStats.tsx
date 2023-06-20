@@ -109,7 +109,7 @@ export const NftStats = ({
 
     const fee = pageCollection?.fee || 0.2;
 
-    let itemsToRepay = checkedNfts!.filter((nft) => nft.royaltiesToPay > 0);
+    const itemsToRepay = checkedNfts!.filter((nft) => nft.royaltiesToPay > 0);
 
     try {
       const res = await repayRoyalties(itemsToRepay, connection, wallet, fee);
@@ -145,7 +145,7 @@ export const NftStats = ({
                           {(
                             (outstandingRoyalties +
                               outstandingRoyalties *
-                                (pageCollection?.fee! || 0.2)) /
+                                (pageCollection?.fee || 0.2)) /
                             LAMPORTS_PER_SOL
                           ).toFixed(2)}
                         </p>

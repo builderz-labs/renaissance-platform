@@ -9,88 +9,88 @@ export type checkNftRes = {
   status: string;
 };
 
-// export const getNfts = async (owner: PublicKey) => {
-//   const nfts = [];
-
-//   try {
-//     const url = `${
-//       import.meta.env.VITE_HELIUS_RPC_PROXY
-//     }/v0/addresses/${owner.toBase58()}/nfts?pageNumber=1`;
-
-//     const { data } = await axios.get(url);
-//     nfts.push(...data.nfts);
-
-//     for (let index = 2; index < data.numberOfPages + 1; index++) {
-//       const { data } = await axios.get(
-//         `${
-//           import.meta.env.VITE_HELIUS_RPC_PROXY
-//         }/v0/addresses/${owner.toBase58()}/nfts?pageNumber=${index}`
-//       );
-//       nfts.push(...data.nfts);
-//     }
-
-//     return nfts;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 export const checkNfts = async (mintList: string[]) => {
-  try {
-    const res: checkNftRes[] = await (
-      await fetch(
-        "https://renaissance-api.builderzlabs.workers.dev/api/check-nfts",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            mints: mintList,
-          }),
-        }
-      )
-    ).json();
+  let paginationToken: string | null = null;
+  const allCheckedNfts: checkNftRes[] = [];
 
-    return res;
-  } catch (error) {
-    throw error;
-  }
+  do {
+    const res: any = await fetch(
+      "https://renaissance-api.builderzlabs.workers.dev/api/v1/checked-nfts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "renaissance-api-key": "b8e58b039e0ca09991ae6b1feb5c3123",
+        },
+        body: JSON.stringify({
+          mints: mintList,
+          paginationToken,
+        }),
+      }
+    );
+
+    const data: any = await res.json();
+    const { checkedNfts, paginationToken: newPaginationToken } = data;
+
+    allCheckedNfts.push(...checkedNfts);
+
+    paginationToken = newPaginationToken;
+  } while (paginationToken !== null);
+
+  return allCheckedNfts;
+
+  // try {
+  //   const res: checkNftRes[] = await (
+  //     await fetch(
+  //       "https://renaissance-api.builderzlabs.workers.dev/api/check-nfts",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           mints: mintList,
+  //         }),
+  //       }
+  //     )
+  //   ).json();
+
+  //   return res;
+  // } catch (error) {
+  //   throw error;
+  // }
 };
 
 export const getCheckedNftsForCollection = async (
   owner: PublicKey,
   allowedCollections?: string[]
 ) => {
-  console.log(owner.toBase58());
-  console.log(allowedCollections);
-
   let nfts = [];
 
-  try {
-    nfts = await getAssetsByOwner(owner.toBase58());
+  nfts = await getAssetsByOwner(owner.toBase58());
 
-    if (allowedCollections && allowedCollections.length) {
-      nfts = nfts.filter((nft: any) =>
-        allowedCollections.includes(nft.grouping[0].address)
-      );
-    }
-
-    console.log(nfts);
-
-    const checkedNfts = await checkNfts(nfts.map((nft: any) => nft.id));
-
-    const combinedArray = nfts.map((nft: any) => {
-      const matchingResult = checkedNfts.find(
-        (result: checkNftRes) => result.mint === nft.tokenAddress
-      );
-      return { ...nft, ...matchingResult };
-    });
-
-    return combinedArray;
-  } catch (error) {
-    throw error;
+  if (allowedCollections && allowedCollections.length) {
+    nfts = nfts.filter((nft: any) =>
+      allowedCollections.includes(nft.grouping[0].address)
+    );
   }
+
+  const checkedNfts = await checkNfts(
+    nfts
+      .filter((nft: any) => !nft.compression.compressed)
+      .map((nft: any) => nft.id)
+  );
+
+  console.log(checkedNfts);
+
+  const combinedArray = nfts.map((nft: any) => {
+    const matchingResult = checkedNfts.find(
+      (result: checkNftRes) => result.mint === nft.id
+    );
+    return { ...nft, renaissance: matchingResult };
+  });
+
+  return combinedArray;
 };
 
 export const getAssetsByOwner = async (owner: string) => {

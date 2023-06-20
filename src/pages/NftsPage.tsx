@@ -23,7 +23,7 @@ export const NftsPage = () => {
         <h1 className="text-4xl font-bold mb-16 ">Your NFTs</h1>
         {wallet.publicKey ? (
           <>
-            {/* <NftStats /> */}
+            <NftStats />
             <NftListRedemption />
           </>
         ) : (

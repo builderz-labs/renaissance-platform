@@ -83,7 +83,6 @@ export const FeaturedList = () => {
                     <div className="flex flex-row items-center justify-around">
                       <div className=" flex items-center justify-center ">
                         <p className="  font-light text-[12px]">
-                          {/* @ts-ignore */}
                           {/* FP: {marketplaceData?.data[0]?.floorPriceLamports ? (parseFloat(marketplaceData?.data[0]?.floorPriceLamports!) / LAMPORTS_PER_SOL).toFixed(2) : "0.00"} */}
                         </p>
                         <img
@@ -103,7 +102,6 @@ export const FeaturedList = () => {
                     <div className="flex flex-row items-center justify-around">
                       <div className=" flex items-center justify-center ">
                         <p className="  font-light text-[12px]">
-                          {/* @ts-ignore */}
                           {/* FP: {marketplaceData?.data[0]?.floorPriceLamports ? (parseFloat(marketplaceData?.data[0]?.floorPriceLamports!) / LAMPORTS_PER_SOL).toFixed(2) : "0.00"} */}
                         </p>
                         <img

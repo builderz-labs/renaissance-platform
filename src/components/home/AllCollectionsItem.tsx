@@ -90,11 +90,10 @@ export const AllCollectionsItem = ({
                   : "w-full  font-light text-[18px]"
               }
             >
-              {/* @ts-ignore */}
               FP:{" "}
               {marketplaceData?.data[0]?.floorPriceLamports
                 ? (
-                    parseFloat(marketplaceData?.data[0]?.floorPriceLamports!) /
+                    parseFloat(marketplaceData?.data[0]?.floorPriceLamports) /
                     LAMPORTS_PER_SOL
                   ).toFixed(2)
                 : "0.00"}
