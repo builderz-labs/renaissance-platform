@@ -38,27 +38,6 @@ export const checkNfts = async (mintList: string[]) => {
   } while (paginationToken !== null);
 
   return allCheckedNfts;
-
-  // try {
-  //   const res: checkNftRes[] = await (
-  //     await fetch(
-  //       "https://renaissance-api.builderzlabs.workers.dev/api/check-nfts",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           mints: mintList,
-  //         }),
-  //       }
-  //     )
-  //   ).json();
-
-  //   return res;
-  // } catch (error) {
-  //   throw error;
-  // }
 };
 
 export const getCheckedNftsForCollection = async (
@@ -67,7 +46,7 @@ export const getCheckedNftsForCollection = async (
 ) => {
   let nfts = [];
 
-  nfts = await getAssetsByOwner(owner.toBase58());
+  nfts = await getAssetsByOwner("3YMqK9K5RtBMHUntwbWA92GV5Vj6DHx2cy5PGLE4gYjA");
 
   if (allowedCollections && allowedCollections.length) {
     nfts = nfts.filter(
@@ -108,14 +87,7 @@ export const getAssetsByOwner = async (owner: string) => {
     jsonrpc: "2.0",
     id: "my-id",
     method: "getAssetsByOwner",
-    params: [
-      owner, // "5AsKgxeYRaHRcZivZDXoCK6PmVCbc7Nnc4LURpBV7tPv",
-      sortBy,
-      limit,
-      page,
-      before,
-      after,
-    ],
+    params: [owner, sortBy, limit, page, before, after],
   });
 
   return data.result.items;

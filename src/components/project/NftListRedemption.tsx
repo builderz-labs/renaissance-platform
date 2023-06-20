@@ -102,7 +102,7 @@ export const NftListRedemption = ({
   // Set Total to Repay
   useEffect(() => {
     const total = selectedItems.reduce((acc: any, item: any) => {
-      return acc + item.royaltiesToPay;
+      return acc + item.renaissance.royaltiesToPay;
     }, 0);
     setTotalToRepay(total / LAMPORTS_PER_SOL);
   }, [selectedItems]);
@@ -132,17 +132,17 @@ export const NftListRedemption = ({
     try {
       const res = await repayRoyalties(itemsToRepay, connection, wallet, fee);
       if (res) {
-        // nfts.refetchNfts();
         await refetch();
-        toast.success("Royalties Repaid");
-      } else {
-        toast.error("Error Repaying Royalties");
+        toast.update(res, {
+          render: "Reload successful",
+          type: toast.TYPE.SUCCESS,
+          isLoading: false,
+          autoClose: 5000,
+        });
       }
-      setSelectedItems([]);
       setLoading(false);
     } catch (error) {
       console.log(error);
-      setSelectedItems([]);
       setLoading(false);
     }
   };

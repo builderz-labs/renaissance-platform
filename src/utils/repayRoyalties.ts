@@ -1,3 +1,5 @@
+import { Buffer } from "buffer";
+window.Buffer = Buffer;
 import {
   PROGRAM_ID,
   createRepayRoyaltiesInstruction,
@@ -11,6 +13,7 @@ import {
 import { WalletContextState } from "@solana/wallet-adapter-react";
 import axios from "axios";
 import { NftType } from "../data/types";
+import { toast } from "react-toastify";
 
 export const tryFn = async (fn: any) => {
   try {
@@ -21,7 +24,7 @@ export const tryFn = async (fn: any) => {
 };
 
 export const repayRoyalties = async (
-  nfts: NftType[],
+  nfts: any[],
   connection: Connection,
   wallet: WalletContextState,
   fee: number
@@ -29,30 +32,13 @@ export const repayRoyalties = async (
   const txInstructions = [];
   const readyTransactions: Transaction[] = [];
 
-  const mintAddresses = nfts.map((nft) => nft.tokenAddress);
+  const toastId = toast.loading("Setting up Transaction...");
 
-  const url = `${import.meta.env.VITE_HELIUS_RPC_PROXY}/v0/token-metadata`;
+  const totalAmount = 0;
 
-  const { data } = await tryFn(
-    await axios.post(url, {
-      mintAccounts: mintAddresses,
-      includeOffChainData: false,
-    })
-  );
-
-  const combinedArray = nfts.map((nft: any) => {
-    const matchingResult = data.find(
-      (metadata: any) =>
-        metadata.onChainMetadata.metadata.mint === nft.tokenAddress
-    );
-    return { ...nft, ...matchingResult };
-  });
-
-  let totalAmount = 0;
-
-  for (const nft of combinedArray) {
+  for (const nft of nfts) {
     // Get Creators
-    const creators = nft.onChainMetadata.metadata.data.creators;
+    const creators = nft.creators;
     const remainingAccounts: Array<{
       pubkey: PublicKey;
       isWritable: boolean;
@@ -66,20 +52,21 @@ export const repayRoyalties = async (
       });
     });
 
-    totalAmount += nft.royaltiesToPay;
+    const nftMint = new PublicKey(nft.id);
 
     // Program action
     const [metadataAddress] = PublicKey.findProgramAddressSync(
       [
         Buffer.from("metadata"),
         new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s").toBuffer(),
-        new PublicKey(nft.mint).toBuffer(),
+        new PublicKey(nftMint).toBuffer(),
       ],
       new PublicKey("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s")
     );
 
     const [nftStateAddress] = PublicKey.findProgramAddressSync(
-      [Buffer.from("nft-state"), new PublicKey(nft.mint).toBuffer()],
+      // @ts-ignore
+      [Buffer.from("nft-state"), new PublicKey(nftMint).toBuffer()],
       PROGRAM_ID
     );
 
@@ -87,13 +74,14 @@ export const repayRoyalties = async (
       createRepayRoyaltiesInstruction(
         {
           nftState: nftStateAddress,
-          nftMint: new PublicKey(nft.mint),
+          // @ts-ignore
+          nftMint: new PublicKey(nftMint),
           nftMintMetadata: metadataAddress,
           user: wallet.publicKey!,
           anchorRemainingAccounts: remainingAccounts,
         },
         {
-          royaltiesToPay: nft.royaltiesToPay,
+          royaltiesToPay: nft.renaissance.royaltiesToPay,
         }
       )
     );
@@ -131,6 +119,10 @@ export const repayRoyalties = async (
     readyTransactions.push(bulkTransaction);
   }
 
+  toast.update(toastId, {
+    render: "Finished Building Transactions, Sending Transaction...",
+  });
+
   // Send transactions
   try {
     const blockhash = await connection.getLatestBlockhash();
@@ -140,29 +132,45 @@ export const repayRoyalties = async (
       tx.recentBlockhash = blockhash.blockhash;
     });
 
-    const transactionsToSend =
-      readyTransactions.length === 1
-        ? [await wallet.signTransaction!(readyTransactions[0])]
-        : await wallet.signAllTransactions!(readyTransactions);
+    const transactionsToSend = await wallet.signAllTransactions!(
+      readyTransactions
+    );
 
     const promises = transactionsToSend.map(async (tx) => {
+      console.log(tx);
+
       return await connection.sendRawTransaction(tx.serialize());
     });
 
     const sigs = await Promise.all(promises);
 
     const promises2 = sigs.map(async (sig) => {
-      return await connection.confirmTransaction({
-        signature: sig,
-        blockhash: blockhash.blockhash,
-        lastValidBlockHeight: blockhash.lastValidBlockHeight,
-      });
+      return await connection.confirmTransaction(
+        {
+          signature: sig,
+          blockhash: blockhash.blockhash,
+          lastValidBlockHeight: blockhash.lastValidBlockHeight,
+        },
+        "finalized"
+      );
     });
+
+    toast.update(toastId, { render: "Confirming Transactions" });
 
     const txConfirmations = await Promise.allSettled(promises2);
 
-    return txConfirmations;
+    toast.update(toastId, {
+      render: "Success, reloading NFTs...",
+    });
+
+    return toastId;
   } catch (error) {
     console.log(error);
+    toast.update(toastId, {
+      render: "Something went wrong, please try again",
+      type: toast.TYPE.ERROR,
+      autoClose: 5000,
+      isLoading: false,
+    });
   }
 };
