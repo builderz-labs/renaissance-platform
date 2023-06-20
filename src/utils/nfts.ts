@@ -68,7 +68,6 @@ export const getCheckedNftsForCollection = async (
   let nfts = [];
 
   nfts = await getAssetsByOwner(owner.toBase58());
-  console.log(nfts);
 
   if (allowedCollections && allowedCollections.length) {
     nfts = nfts.filter(
@@ -85,8 +84,6 @@ export const getCheckedNftsForCollection = async (
       .filter((nft: any) => !nft.compression.compressed)
       .map((nft: any) => nft.id)
   );
-
-  console.log(checkedNfts);
 
   const combinedArray = nfts.map((nft: any) => {
     const matchingResult = checkedNfts.find(

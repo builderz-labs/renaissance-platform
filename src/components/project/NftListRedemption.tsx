@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { NftItem } from "../nfts/NftItem";
 import { Loading } from "../Loading";
@@ -8,7 +8,6 @@ import { repayRoyalties } from "../../utils/repayRoyalties";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { toast } from "react-toastify";
 import { Collection } from "../../data/types";
-import useNfts from "../../hooks/useNfts";
 import { getCheckedNftsForCollection } from "../../utils/nfts";
 import { useQuery } from "@tanstack/react-query";
 
@@ -84,6 +83,7 @@ export const NftListRedemption = ({
   // Display filters
   const [showUnpaidRoyaltiesOnly, setShowUnpaidRoyaltiesOnly] = useState(false);
   const [selectAllUnpaid, setSelectAllUnpaid] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Show unpaid only
   useEffect(() => {
@@ -147,6 +147,21 @@ export const NftListRedemption = ({
     }
   };
 
+  useEffect(() => {
+    if (checkedNfts) {
+      let filteredNfts = checkedNfts;
+      if (searchQuery) {
+        filteredNfts = checkedNfts.filter((nft) =>
+          nft.content.metadata.name
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+        );
+      }
+      setFilteredNfts(filteredNfts);
+      setCurrentNfts(filteredNfts.slice(startIndex, endIndex));
+    }
+  }, [checkedNfts, searchQuery, startIndex, endIndex]);
+
   // While loading return Loader
   if (isLoading) {
     return <Loading />;
@@ -161,21 +176,6 @@ export const NftListRedemption = ({
     );
   }
 
-  // const [searchQuery, setSearchQuery] = useState("");
-
-  // useEffect(() => {
-  //   if (nfts.nfts) {
-  //     let filteredNfts = nfts.nfts;
-  //     if (searchQuery) {
-  //       filteredNfts = nfts.nfts.filter((nft) =>
-  //         nft.name.toLowerCase().includes(searchQuery.toLowerCase())
-  //       );
-  //     }
-  //     setFilteredNfts(filteredNfts);
-  //     setCurrentNfts(filteredNfts.slice(startIndex, endIndex));
-  //   }
-  // }, [nfts.nfts, searchQuery, startIndex, endIndex]);
-
   return (
     <section className="mt-10">
       <div className="w-full flex flex-row items-center justify-between gap-8 mb-5">
@@ -183,8 +183,8 @@ export const NftListRedemption = ({
           type="text"
           placeholder="Search NFTs"
           className="w-1/2 border border-gray-800 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-gray-900"
-          // value={searchQuery}
-          // onChange={(e) => setSearchQuery(e.target.value)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div className="flex w-full items-center justify-end gap-4">
           <div className="flex items-center justify-end gap-2 text-xs  ">

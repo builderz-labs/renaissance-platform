@@ -158,8 +158,6 @@ export const ProjectDetails = () => {
                 </div>
               </div>
             </ItemCard>
-            {/* NFT Stats */}
-            {/* NFT List */}
             <TabComponent pageCollection={pageCollection} />
           </>
         ) : (

@@ -82,16 +82,23 @@ export const FeaturedList = () => {
                     </p>
                     <div className="flex flex-row items-center justify-around">
                       <div className=" flex items-center justify-center ">
-                        <p className="  font-light text-[12px]">
-                          {/* FP: {marketplaceData?.data[0]?.floorPriceLamports ? (parseFloat(marketplaceData?.data[0]?.floorPriceLamports!) / LAMPORTS_PER_SOL).toFixed(2) : "0.00"} */}
-                        </p>
-                        <img
+                        {/* <p className="  font-light text-[12px]">
+                          FP:{" "}
+                          {marketplaceData?.data[0]?.floorPriceLamports
+                            ? (
+                                parseFloat(
+                                  marketplaceData?.data[0]?.floorPriceLamports!
+                                ) / LAMPORTS_PER_SOL
+                              ).toFixed(2)
+                            : "0.00"}
+                        </p> */}
+                        {/* <img
                           src="/img/sol.svg"
                           alt="solana logo"
                           className="w-[12px] topcollectionimage"
-                        />
+                        /> */}
                       </div>
-                      <p>7.2%</p>
+                      {/* <p>7.2%</p> */}
                     </div>
                   </ItemCard2>
                 ) : (
@@ -104,13 +111,13 @@ export const FeaturedList = () => {
                         <p className="  font-light text-[12px]">
                           {/* FP: {marketplaceData?.data[0]?.floorPriceLamports ? (parseFloat(marketplaceData?.data[0]?.floorPriceLamports!) / LAMPORTS_PER_SOL).toFixed(2) : "0.00"} */}
                         </p>
-                        <img
+                        {/* <img
                           src="/img/sol.svg"
                           alt="solana logo"
                           className="w-[12px] topcollectionimage"
-                        />
+                        /> */}
                       </div>
-                      <p className="text-xs">7.2%</p>
+                      {/* <p className="text-xs">7.2%</p> */}
                     </div>
                   </ItemCard>
                 )}

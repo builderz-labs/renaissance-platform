@@ -2,7 +2,7 @@ import { Collection } from "../../data/types";
 import styled from "styled-components";
 import { useState, useEffect, useCallback } from "react";
 import { SmallLoading } from "../../components/SmallLoading";
-import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { getCheckedNftsForCollection } from "../../utils/nfts";
@@ -29,29 +29,6 @@ export const NftStats = ({
 }) => {
   const wallet = useWallet();
   const { connection } = useConnection();
-
-  // const {
-  //   data: checkedNfts,
-  //   isLoading,
-  //   refetch,
-  // } = useQuery<any[]>({
-  //   queryKey: [
-  //     "checkedNfts",
-  //     [pageCollection?.collectionAddress],
-  //     wallet.publicKey,
-  //   ],
-  //   queryFn: pageCollection
-  //     ? () =>
-  //       getCheckedNftsForCollection(
-  //         wallet.publicKey!,
-  //         [pageCollection?.collectionAddress!]
-  //       )
-  //     : () =>
-  //       getCheckedNftsForCollection(
-  //         wallet.publicKey!
-  //       ),
-  //     enabled: !!wallet.publicKey,
-  // });
 
   const fetchNfts = useCallback(async () => {
     if (pageCollection) {
@@ -83,17 +60,20 @@ export const NftStats = ({
 
   useEffect(() => {
     if (checkedNfts) {
-      const outstandingRoyalties = checkedNfts.reduce(
-        (acc: number, nft: any) => acc + nft.royaltiesToPay,
+      const normalNfts = checkedNfts.filter(
+        (nft) => !nft.compression.compressed
+      );
+      const outstandingRoyalties = normalNfts.reduce(
+        (acc: number, nft: any) => acc + nft.renaissance?.royaltiesToPay,
         0
       );
 
-      const nftsPaid = checkedNfts.filter(
-        (nft: any) => nft.royaltiesPaid
+      const nftsPaid = normalNfts.filter(
+        (nft: any) => nft.renaissance?.royaltiesPaid
       ).length;
 
-      const royaltiesPaid = checkedNfts.reduce(
-        (acc: number, nft: any) => acc + nft.royaltiesPaidAmount,
+      const royaltiesPaid = normalNfts.reduce(
+        (acc: number, nft: any) => acc + nft.renaissance?.royaltiesPaidAmount,
         0
       );
 
@@ -109,7 +89,9 @@ export const NftStats = ({
 
     const fee = pageCollection?.fee || 0.2;
 
-    const itemsToRepay = checkedNfts!.filter((nft) => nft.royaltiesToPay > 0);
+    const itemsToRepay = checkedNfts!.filter(
+      (nft) => nft.renaissance?.royaltiesToPay > 0
+    );
 
     try {
       const res = await repayRoyalties(itemsToRepay, connection, wallet, fee);
