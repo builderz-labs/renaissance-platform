@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import { LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { NftItem } from "../nfts/NftItem";
-import { getCheckedNftsForCollection } from "../../utils/nfts";
 import { Loading } from "../Loading";
 import { repayRoyalties } from "../../utils/repayRoyalties";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { toast } from "react-toastify";
 import { Collection } from "../../data/types";
+import useNfts from "../../hooks/useNfts";
 
 export const NftListRedemption = ({
   pageCollection,
@@ -20,51 +19,7 @@ export const NftListRedemption = ({
   const wallet = useWallet();
   const { connection } = useConnection();
 
-  // Get checked NFTs
-  // const {
-  //   data: checkedNfts,
-  //   isLoading,
-  //   refetch,
-  // } = useQuery<any[]>({
-  //   queryKey: [
-  //     "checkedNfts",
-  //     pageCollection?.collectionAddress,
-  //     wallet.publicKey,
-  //   ],
-  //   queryFn: pageCollection
-  //     ? () =>
-  //         getCheckedNftsForCollection(wallet.publicKey!, [
-  //           pageCollection?.collectionAddress!,
-  //         ])
-  //     : () => getCheckedNftsForCollection(wallet.publicKey!),
-  //   enabled: !!wallet.publicKey,
-  // });
-
-  const fetchNfts = useCallback(async () => {
-    if (!wallet.publicKey) {
-      return [];
-    }
-
-    if (pageCollection) {
-      return getCheckedNftsForCollection(wallet.publicKey!, [
-        pageCollection.collectionAddress!,
-      ]);
-    } else {
-      return getCheckedNftsForCollection(wallet.publicKey!);
-    }
-  }, [wallet.publicKey, pageCollection]);
-
-  const {
-    data: checkedNfts,
-    isLoading,
-    refetch,
-  } = useQuery<any[]>(
-    ["checkedNfts", pageCollection?.collectionAddress, wallet.publicKey],
-    fetchNfts,
-    {
-      enabled: !!wallet.publicKey,
-    }
-  );
+  const nfts = useNfts();
 
   // Filtered NFT states
   const [filteredNfts, setFilteredNfts] = useState<any[]>([]);
@@ -72,11 +27,11 @@ export const NftListRedemption = ({
 
   // Populate state as soon as checkedNfts is available
   useEffect(() => {
-    if (checkedNfts) {
-      setCurrentNfts(checkedNfts.slice(startIndex, endIndex));
-      setFilteredNfts(checkedNfts);
+    if (nfts.nfts) {
+      setCurrentNfts(nfts.nfts.slice(startIndex, endIndex));
+      setFilteredNfts(nfts.nfts);
     }
-  }, [checkedNfts]);
+  }, [nfts.nfts]);
 
   // Pagination
   const [pageCount, setPageCount] = useState(0);
@@ -108,10 +63,10 @@ export const NftListRedemption = ({
 
   // Show unpaid only
   useEffect(() => {
-    if (checkedNfts) {
-      let filteredNfts: any[] = checkedNfts;
+    if (nfts.nfts) {
+      let filteredNfts: any[] = nfts.nfts;
       if (showUnpaidRoyaltiesOnly) {
-        filteredNfts = checkedNfts!.filter(
+        filteredNfts = nfts.nfts!.filter(
           (nft) => !nft.royaltiesPaid && nft.status !== "error"
         );
       }
@@ -131,7 +86,7 @@ export const NftListRedemption = ({
   //  Select All Unpaid
   useEffect(() => {
     if (selectAllUnpaid) {
-      const filteredNfts = checkedNfts!.filter(
+      const filteredNfts = nfts.nfts!.filter(
         (nft) => !nft.royaltiesPaid && nft.status !== "error"
       );
       setSelectedItems(filteredNfts);
@@ -148,12 +103,12 @@ export const NftListRedemption = ({
 
     let itemsToRepay = [...selectedItems];
     if (selectAllUnpaid) {
-      itemsToRepay = checkedNfts!.filter((nft) => nft.royaltiesToPay > 0);
+      itemsToRepay = nfts.nfts!.filter((nft) => nft.royaltiesToPay > 0);
     }
     try {
       const res = await repayRoyalties(itemsToRepay, connection, wallet, fee);
       if (res) {
-        await refetch();
+        nfts.refetchNfts();
         toast.success("Royalties Repaid");
       } else {
         toast.error("Error Repaying Royalties");
@@ -168,12 +123,12 @@ export const NftListRedemption = ({
   };
 
   // While loading return Loader
-  if (isLoading) {
+  if (nfts.loading) {
     return <Loading />;
   }
 
   // If no NFTs of collection return message
-  if (checkedNfts && checkedNfts.length === 0) {
+  if (nfts.nfts && nfts.nfts.length === 0) {
     return (
       <div>
         <h2 className="text-xs">You don't own any NFTs of this collection</h2>
@@ -184,17 +139,17 @@ export const NftListRedemption = ({
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    if (checkedNfts) {
-      let filteredNfts = checkedNfts;
+    if (nfts.nfts) {
+      let filteredNfts = nfts.nfts;
       if (searchQuery) {
-        filteredNfts = checkedNfts.filter((nft) =>
+        filteredNfts = nfts.nfts.filter((nft) =>
           nft.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
       setFilteredNfts(filteredNfts);
       setCurrentNfts(filteredNfts.slice(startIndex, endIndex));
     }
-  }, [checkedNfts, searchQuery, startIndex, endIndex]);
+  }, [nfts.nfts, searchQuery, startIndex, endIndex]);
 
   return (
     <section className="mt-10">
@@ -243,7 +198,7 @@ export const NftListRedemption = ({
         })}
       </div>
       <div>
-        {checkedNfts && checkedNfts.length > pageSize && (
+        {nfts.nfts && nfts.nfts.length > pageSize && (
           <ReactPaginate
             breakLabel="..."
             nextLabel=">"
