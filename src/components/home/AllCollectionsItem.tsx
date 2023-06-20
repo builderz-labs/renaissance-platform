@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@tanstack/react-query";
 import { Collection } from "../../data/types";
-import { RestClient, CollectionFloorpriceRequest } from "@hellomoon/api";
+import { CollectionStatsRequest } from "@hellomoon/api";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { client } from "../../utils/hellomoon";
 
 const ItemCard = styled.div`
   background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
@@ -19,8 +20,6 @@ const ItemCard = styled.div`
   border-radius: 12px;
 `;
 
-const client = new RestClient("5ea087e7-d02f-418e-9e29-4b75ad52c31e");
-
 export const AllCollectionsItem = ({
   collection,
   viewMode,
@@ -30,12 +29,23 @@ export const AllCollectionsItem = ({
 }) => {
   const navigate = useNavigate();
 
-  const { data: marketplaceData } = useQuery({
-    queryKey: ["marketplaceData", collection.helloMoonCollectionId],
+  // const { data: marketplaceData } = useQuery({
+  //   queryKey: ["marketplaceData", collection.helloMoonCollectionId],
+  //   queryFn: () =>
+  //     client.send(
+  //       new CollectionFloorpriceRequest({
+  //         helloMoonCollectionId: collection.helloMoonCollectionId,
+  //       })
+  //     ),
+  // });
+
+  const { data: collectionStats } = useQuery({
+    queryKey: ["collectionStats", collection.helloMoonCollectionId],
     queryFn: () =>
       client.send(
-        new CollectionFloorpriceRequest({
+        new CollectionStatsRequest({
           helloMoonCollectionId: collection.helloMoonCollectionId,
+          limit: 1,
         })
       ),
   });
@@ -91,9 +101,9 @@ export const AllCollectionsItem = ({
               }
             >
               FP:{" "}
-              {marketplaceData?.data[0]?.floorPriceLamports
+              {collectionStats?.data[0]?.floorPriceLamports
                 ? (
-                    parseFloat(marketplaceData?.data[0]?.floorPriceLamports) /
+                    parseFloat(collectionStats?.data[0]?.floorPriceLamports) /
                     LAMPORTS_PER_SOL
                   ).toFixed(2)
                 : "0.00"}

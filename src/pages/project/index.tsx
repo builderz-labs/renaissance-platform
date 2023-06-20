@@ -7,11 +7,13 @@ import LanguageIcon from "@mui/icons-material/Language";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
 import { Loading } from "../../components/Loading";
 import { Collection } from "../../data/types";
-import { NftListRedemption } from "../../components/project/NftListRedemption";
 import styled from "styled-components";
 import { NftStats } from "../../components/nfts/NftStats";
 import TabComponent from "../../components/TabComponent";
 import { motion } from "framer-motion";
+import { CollectionStatsRequest } from "@hellomoon/api";
+import { client } from "../../utils/hellomoon";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -73,6 +75,18 @@ export const ProjectDetails = () => {
   });
   const [pageCollection, setPageCollection] = useState<Collection>();
 
+  const { data: collectionStats } = useQuery({
+    queryKey: ["collectionStats", pageCollection?.helloMoonCollectionId],
+    queryFn: () =>
+      client.send(
+        new CollectionStatsRequest({
+          helloMoonCollectionId: pageCollection?.helloMoonCollectionId,
+          limit: 1,
+        })
+      ),
+    enabled: !!pageCollection?.helloMoonCollectionId,
+  });
+
   useEffect(() => {
     if (collections) {
       const collection = collections.find((c: Collection) => c.name === id);
@@ -131,25 +145,28 @@ export const ProjectDetails = () => {
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
                       Total Supply:
-                      <br /> 10,000
+                      <br /> {collectionStats?.data[0].supply}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
-                      Volume(7D):
-                      <br /> 10,000
+                      Listing Count:
+                      <br /> {collectionStats?.data[0].listingCount}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
-                      Buy Now:
-                      <br /> 10,000
+                      Floor Price
+                      <br />
+                      {parseInt(
+                        collectionStats?.data[0]?.floorPriceLamports || "0"
+                      ) / LAMPORTS_PER_SOL}
                     </p>
                   </div>
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
-                      Instant Sell:
-                      <br /> 10,000
+                      Average Price (USD):
+                      <br /> {collectionStats?.data[0].avg_price_usd.toFixed(2)}
                     </p>
                   </div>
                 </div>
