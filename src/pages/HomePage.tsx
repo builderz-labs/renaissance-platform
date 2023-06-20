@@ -23,8 +23,7 @@ export const loader = (queryClient: QueryClient) => {
   return defer({
     collections: queryClient.fetchQuery({
       queryKey: ["collections"],
-      queryFn: () =>
-        fetch("/src/data/collections.json").then((res) => res.json()), // /src/data/collections.json
+      queryFn: () => fetch("/collections.json").then((res) => res.json()), // /src/data/collections.json
       staleTime: 1000 * 60 * 2,
     }),
     leaderboard: queryClient.fetchQuery({
