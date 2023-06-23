@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import { CollectionStatsRequest } from "@hellomoon/api";
 import { client } from "../../utils/hellomoon";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { getAllCollection } from "../../utils/collections";
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -41,10 +42,14 @@ export const loader = (queryClient: QueryClient, { params }: any) => {
     throw new Response("Bad Request", { status: 400 });
   }
   return defer({
-    collections: queryClient.fetchQuery({
-      queryKey: ["collections"],
-      queryFn: () => fetch("/data/collections.json").then((res) => res.json()), // /src/data/collections.json
-      staleTime: 1000 * 60 * 2,
+    // collections: queryClient.fetchQuery({
+    //   queryKey: ["collections"],
+    //   queryFn: () => fetch("/data/collections.json").then((res) => res.json()), // /src/data/collections.json
+    //   staleTime: 1000 * 60 * 2,
+    // }),
+    collectionsV1: queryClient.fetchQuery({
+      queryKey: ["collectionsV1"],
+      queryFn: () => getAllCollection(),
     }),
   });
 };
@@ -70,8 +75,8 @@ export const ProjectDetails = () => {
   const { id } = useParams();
 
   // Get Collection
-  const { data: collections } = useQuery<Collection[]>({
-    queryKey: ["collections"],
+  const { data: collectionsV1 } = useQuery<Collection[]>({
+    queryKey: ["collectionsV1"],
   });
   const [pageCollection, setPageCollection] = useState<Collection>();
 
@@ -88,11 +93,11 @@ export const ProjectDetails = () => {
   });
 
   useEffect(() => {
-    if (collections) {
-      const collection = collections.find((c: Collection) => c.name === id);
+    if (collectionsV1) {
+      const collection = collectionsV1.find((c: Collection) => c.name === id);
       setPageCollection(collection);
     }
-  }, [collections, id]);
+  }, [collectionsV1, id]);
 
   return (
     <motion.div
@@ -166,7 +171,9 @@ export const ProjectDetails = () => {
                   <div>
                     <p className="text-sm w-full truncate flex-wrap bg-renaissance-orange bg-opacity-10 backdrop-blur-lg p-4 rounded-lg">
                       Average Price (USD):
-                      <br /> {collectionStats?.data[0].avg_price_usd.toFixed(2)}
+                      <br />{" "}
+                      {collectionStats?.data[0].avg_price_usd?.toFixed(2) ||
+                        "0"}
                     </p>
                   </div>
                 </div>

@@ -2,6 +2,9 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { addCollection } from "../utils/collections";
 import { useWallet } from "@solana/wallet-adapter-react";
+import { toast } from "react-toastify";
+
+const allowList = ["BLDRZQiqt4ESPz12L9mt4XTBjeEfjoBopGPDMA36KtuZ"];
 
 export default function Example() {
   const { publicKey } = useWallet();
@@ -34,8 +37,10 @@ export default function Example() {
         collectionAddress,
         file
       );
+      toast.success("Collection added");
     } catch (error) {
       console.log(error);
+      toast.error("Error adding collection");
     }
 
     setLoading(false);
@@ -93,129 +98,138 @@ export default function Example() {
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          {`To add your NFT collection, please provide the following details:`}
+                          {!publicKey ||
+                          !allowList.includes(publicKey.toBase58())
+                            ? `You're not eligible to add NFT collections. Please reach out to us!`
+                            : `To add your NFT collection, please provide the following details:`}
                         </p>
                       </div>
                     </div>
                   </div>
+                  {!publicKey ||
+                  !allowList.includes(publicKey.toBase58()) ? null : (
+                    <div>
+                      {/* Name Input */}
+                      <div className="my-4">
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          placeholder="Enter name"
+                          onChange={(event) => setName(event.target.value)}
+                          value={name}
+                        />
+                      </div>
 
-                  {/* Name Input */}
-                  <div className="my-4">
-                    <input
-                      type="text"
-                      name="name"
-                      id="name"
-                      className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
-                      placeholder="Enter name"
-                      onChange={(event) => setName(event.target.value)}
-                      value={name}
-                    />
-                  </div>
+                      {/* Description Input */}
+                      <div className="my-4">
+                        <textarea
+                          name="description"
+                          id="description"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          placeholder="Enter description"
+                          onChange={(event) =>
+                            setDescription(event.target.value)
+                          }
+                          value={description}
+                        />
+                      </div>
 
-                  {/* Description Input */}
-                  <div className="my-4">
-                    <textarea
-                      name="description"
-                      id="description"
-                      className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
-                      placeholder="Enter description"
-                      onChange={(event) => setDescription(event.target.value)}
-                      value={description}
-                    />
-                  </div>
+                      {/* Image Upload Input */}
+                      <div className="my-4">
+                        <input
+                          type="file"
+                          name="image"
+                          id="image"
+                          accept=".png"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          onChange={(event) =>
+                            setFile(event.target.files![0] || null)
+                          }
+                        />
+                      </div>
 
-                  {/* Image Upload Input */}
-                  <div className="my-4">
-                    <input
-                      type="file"
-                      name="image"
-                      id="image"
-                      accept=".png"
-                      className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
-                      onChange={(event) =>
-                        setFile(event.target.files![0] || null)
-                      }
-                    />
-                  </div>
+                      {/* Socials Twitter Input */}
+                      <div className="my-4">
+                        <input
+                          type="text"
+                          name="socialsTwitter"
+                          id="socialsTwitter"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          placeholder="Enter Twitter handle"
+                          onChange={(event) =>
+                            setSocialsTwitter(event.target.value)
+                          }
+                          value={socialsTwitter}
+                        />
+                      </div>
 
-                  {/* Socials Twitter Input */}
-                  <div className="my-4">
-                    <input
-                      type="text"
-                      name="socialsTwitter"
-                      id="socialsTwitter"
-                      className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
-                      placeholder="Enter Twitter handle"
-                      onChange={(event) =>
-                        setSocialsTwitter(event.target.value)
-                      }
-                      value={socialsTwitter}
-                    />
-                  </div>
+                      {/* Socials Discord Input */}
+                      <div className="my-4">
+                        <input
+                          type="text"
+                          name="socialsDiscord"
+                          id="socialsDiscord"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          placeholder="Enter Discord handle"
+                          onChange={(event) =>
+                            setSocialsDiscord(event.target.value)
+                          }
+                          value={socialsDiscord}
+                        />
+                      </div>
 
-                  {/* Socials Discord Input */}
-                  <div className="my-4">
-                    <input
-                      type="text"
-                      name="socialsDiscord"
-                      id="socialsDiscord"
-                      className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
-                      placeholder="Enter Discord handle"
-                      onChange={(event) =>
-                        setSocialsDiscord(event.target.value)
-                      }
-                      value={socialsDiscord}
-                    />
-                  </div>
+                      {/* Website Input */}
+                      <div className="my-4">
+                        <input
+                          type="text"
+                          name="website"
+                          id="website"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          placeholder="Enter website URL"
+                          onChange={(event) => setWebsite(event.target.value)}
+                          value={website}
+                        />
+                      </div>
 
-                  {/* Website Input */}
-                  <div className="my-4">
-                    <input
-                      type="text"
-                      name="website"
-                      id="website"
-                      className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
-                      placeholder="Enter website URL"
-                      onChange={(event) => setWebsite(event.target.value)}
-                      value={website}
-                    />
-                  </div>
+                      {/* Collection Address Input */}
+                      <div className="my-4">
+                        <input
+                          type="text"
+                          name="collectionAddress"
+                          id="collectionAddress"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          placeholder="Enter collection address"
+                          onChange={(event) =>
+                            setCollectionAddress(event.target.value)
+                          }
+                          value={collectionAddress}
+                        />
+                      </div>
 
-                  {/* Collection Address Input */}
-                  <div className="my-4">
-                    <input
-                      type="text"
-                      name="collectionAddress"
-                      id="collectionAddress"
-                      className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
-                      placeholder="Enter collection address"
-                      onChange={(event) =>
-                        setCollectionAddress(event.target.value)
-                      }
-                      value={collectionAddress}
-                    />
-                  </div>
-
-                  <div className="mt-10 sm:mt-10">
-                    <button
-                      type="button"
-                      className={`btn inline-flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
-                        loading && " loading"
-                      }`}
-                      onClick={handleAddCollection}
-                      disabled={
-                        name === "" ||
-                        description === "" ||
-                        !file ||
-                        // socialsTwitter === "" ||
-                        // socialsDiscord === "" ||
-                        // website === "" ||
-                        collectionAddress === ""
-                      }
-                    >
-                      Submit Collection
-                    </button>
-                  </div>
+                      <div className="mt-10 sm:mt-10">
+                        <button
+                          type="button"
+                          className={`btn inline-flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                            loading && " loading"
+                          }`}
+                          onClick={handleAddCollection}
+                          disabled={
+                            name === "" ||
+                            description === "" ||
+                            !file ||
+                            // socialsTwitter === "" ||
+                            // socialsDiscord === "" ||
+                            // website === "" ||
+                            collectionAddress === ""
+                          }
+                        >
+                          Submit Collection
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

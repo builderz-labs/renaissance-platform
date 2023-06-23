@@ -22,8 +22,6 @@ export const AllCollections = () => {
     queryKey: ["collectionsV1"],
   });
 
-  console.log(collectionsV1);
-
   const [filteredCollections, setFilteredCollections] = useState<Collection[]>(
     []
   );
