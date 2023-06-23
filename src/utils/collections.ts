@@ -1,29 +1,79 @@
-import { firestore } from "./firebase";
-import { collection, getDocs, addDoc } from "@firebase/firestore";
+import { db } from "./firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  setDoc,
+  updateDoc,
+} from "@firebase/firestore";
+import { uploadFile } from "./uploadFile";
+
+interface Social {
+  name: string;
+  url: string;
+}
+
+interface CollectionObj {
+  authority: string; // You may want to replace `any` with the specific type of `authorityWallet`.
+  name: string;
+  description: string;
+  collectionAddresses: string[];
+  image: string;
+  socials: Social[];
+}
 
 export const getAllCollection = async () => {
-  try {
-    const documentCollection = collection(firestore, "collections");
-    const snapshot = await getDocs(documentCollection);
-    const docs = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
-    console.log(docs);
-    return docs;
-  } catch (error) {
-    console.error("Error fetching documents:", error);
-  }
+  const documentCollection = collection(db, "collections");
+  const snapshot = await getDocs(documentCollection);
+  const docs = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+  console.log(docs);
+  return docs;
 };
 
-export const addNewCollection = async (nftMint: string) => {
-  try {
-    const documentCollection = collection(firestore, "collections");
+export const addCollection = async (
+  authorityWallet: string,
+  name: string,
+  description: string,
+  twitter: string,
+  discord: string,
+  website: string,
+  collectionAddress: string,
+  file: File
+) => {
+  const collectionRef = doc(db, "collections", authorityWallet);
 
-    const description = "";
+  const imageUrl = await uploadFile(file, authorityWallet);
 
-    const docRef = await addDoc(documentCollection, {
-      name,
-      description,
-    });
-  } catch (error) {
-    console.error("Error fetching documents:", error);
-  }
+  const collectionObj: CollectionObj = {
+    authority: authorityWallet,
+    name,
+    description,
+    collectionAddresses: [collectionAddress],
+    image: imageUrl,
+    socials: [
+      {
+        name: "Twitter",
+        url: twitter,
+      },
+      {
+        name: "Discord",
+        url: discord,
+      },
+      {
+        name: "Website",
+        url: website,
+      },
+    ],
+  };
+
+  await setDoc(collectionRef, collectionObj);
+};
+
+export const updateCollection = async (
+  authorityWallet: string,
+  data: Partial<CollectionObj>
+) => {
+  const collectionRef = doc(db, "collections", authorityWallet);
+  await updateDoc(collectionRef, data);
 };

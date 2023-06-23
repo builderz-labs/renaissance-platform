@@ -42,7 +42,7 @@
     "buffer": "^6.0.3",
     "chart.js": "^4.2.1",
     "daisyui": "^2.51.3",
-    "firebase": "^9.20.0",
+    "firebase": "^9.23.0",
     "framer-motion": "^10.12.16",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
