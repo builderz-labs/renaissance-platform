@@ -4,7 +4,6 @@ import {
   getDocs,
   addDoc,
   doc,
-  setDoc,
   updateDoc,
 } from "@firebase/firestore";
 import { uploadFile } from "./uploadFile";
@@ -26,7 +25,7 @@ interface CollectionObj {
 export const getAllCollection = async () => {
   const documentCollection = collection(db, "collections");
   const snapshot = await getDocs(documentCollection);
-  const docs = snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+  const docs = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   console.log(docs);
   return docs;
 };
@@ -41,7 +40,7 @@ export const addCollection = async (
   collectionAddress: string,
   file: File
 ) => {
-  const collectionRef = doc(db, "collections", authorityWallet);
+  const collectionRef = collection(db, "collections");
 
   const imageUrl = await uploadFile(file, authorityWallet);
 
@@ -67,13 +66,14 @@ export const addCollection = async (
     ],
   };
 
-  await setDoc(collectionRef, collectionObj);
+  await addDoc(collectionRef, collectionObj);
 };
 
 export const updateCollection = async (
   authorityWallet: string,
+  docId: string,
   data: Partial<CollectionObj>
 ) => {
-  const collectionRef = doc(db, "collections", authorityWallet);
-  await updateDoc(collectionRef, data);
+  const docRef = doc(db, "collections", docId);
+  await updateDoc(docRef, data);
 };

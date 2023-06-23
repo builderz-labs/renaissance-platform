@@ -39,7 +39,7 @@ export const FeaturedList = () => {
   const itemsToShow = width >= 1024 ? 6 : width >= 768 ? 4 : 2;
 
   const { data } = useQuery<Collection[]>({
-    queryKey: ["collections"],
+    queryKey: ["collectionsV1"],
   });
 
   return (

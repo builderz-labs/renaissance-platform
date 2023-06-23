@@ -21,11 +21,11 @@ const Blur1 = styled.div`
 
 export const loader = (queryClient: QueryClient) => {
   return defer({
-    collections: queryClient.fetchQuery({
-      queryKey: ["collections"],
-      queryFn: () => fetch("/collections.json").then((res) => res.json()), // /src/data/collections.json
-      staleTime: 1000 * 60 * 2,
-    }),
+    // collections: queryClient.fetchQuery({
+    //   queryKey: ["collections"],
+    //   queryFn: () => fetch("/collections.json").then((res) => res.json()), // /src/data/collections.json
+    //   staleTime: 1000 * 60 * 2,
+    // }),
     leaderboard: queryClient.fetchQuery({
       queryKey: ["leaderboard"],
       queryFn: () => fetchLeaderboard(),
@@ -38,14 +38,14 @@ export const loader = (queryClient: QueryClient) => {
 };
 
 export const HomePage = () => {
-  const { collections } = useLoaderData() as any;
+  const { collectionsV1 } = useLoaderData() as any;
 
   return (
     <main className="h-full max-w-full relative">
       {/* <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" /> */}
       {/* <Blur1 className="absolute top-40 right-40 -z-10 opacity-20" /> */}
       <Suspense fallback={<Loading />}>
-        <Await resolve={collections}>
+        <Await resolve={collectionsV1}>
           {/* All Sections in their own components */}
           <HeaderBanner />
           <section className="mt-5">

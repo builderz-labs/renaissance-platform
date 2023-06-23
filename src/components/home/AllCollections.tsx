@@ -14,9 +14,9 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import ListIcon from "@mui/icons-material/List";
 
 export const AllCollections = () => {
-  const { data } = useQuery<Collection[]>({
-    queryKey: ["collections"],
-  });
+  // const { data } = useQuery<Collection[]>({
+  //   queryKey: ["collections"],
+  // });
 
   const { data: collectionsV1 } = useQuery<any>({
     queryKey: ["collectionsV1"],
@@ -36,9 +36,10 @@ export const AllCollections = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      const filteredCollections = data.filter((collection: { name: string }) =>
-        collection.name.toLowerCase().includes(searchQuery.toLowerCase())
+    if (collectionsV1) {
+      const filteredCollections = collectionsV1.filter(
+        (collection: { name: string }) =>
+          collection.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
       setFilteredCollections(filteredCollections);
@@ -50,8 +51,8 @@ export const AllCollections = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      let sortedCollections = [...data];
+    if (collectionsV1) {
+      let sortedCollections = [...collectionsV1];
       switch (sortOption) {
         case "Name":
           sortedCollections = sortedCollections.sort((a, b) =>
@@ -67,7 +68,7 @@ export const AllCollections = () => {
       );
       setFilteredCollections(filteredCollections);
     }
-  }, [searchQuery, sortOption, data]);
+  }, [searchQuery, sortOption, collectionsV1]);
 
   const [viewMode, setViewMode] = useState("grid");
 
