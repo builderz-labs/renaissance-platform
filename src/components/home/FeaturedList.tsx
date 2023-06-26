@@ -76,7 +76,7 @@ export const FeaturedList = () => {
                 </div>
                 <div className="py-2 absolute bottom-2 left-0 w-full  bg-black bg-opacity-60 blur font-black"></div>
                 {index === 0 ? (
-                  <ItemCard2 className="h-auto -mt-10 relative z-0 w-full rounded-lg py-10 pb-5">
+                  <ItemCard2 className="h-auto -mt-10 relative z-0 w-full rounded-lg py-10 pb-5 backdrop-blur-xl">
                     <p className="py-4 pb-5 left-0 w-full  font-black text-xl text-renaissance-orange">
                       {collection.name}
                     </p>
@@ -102,7 +102,7 @@ export const FeaturedList = () => {
                     </div>
                   </ItemCard2>
                 ) : (
-                  <ItemCard className="h-auto -mt-10 relative z-0 w-full py-10 pb-5 rounded-lg">
+                  <ItemCard className="h-auto -mt-10 relative z-0 w-full py-10 pb-5 rounded-lg backdrop-blur-xl">
                     <p className="py-4 left-0 w-full  font-black">
                       {collection.name}
                     </p>

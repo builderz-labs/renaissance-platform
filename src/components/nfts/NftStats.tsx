@@ -11,17 +11,6 @@ import { repayRoyalties } from "../../utils/repayRoyalties";
 import { toast } from "react-toastify";
 import { Tooltip } from "@mui/material";
 
-const ItemCard = styled.div`
-  background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
-  border-radius: 12px;
-  border: 0.5px solid;
-  border-image-source: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 138, 87, 0.1) 100%
-  );
-`;
-
 export const NftStats = ({
   pageCollection,
 }: {
@@ -110,12 +99,12 @@ export const NftStats = ({
 
   return (
     <div className="w-full flex flex-col items-center justify-center my-5 rounded-lg shadow-lg">
-      <ItemCard className="w-full">
+      <div className="w-full">
         <div className="w-full flex justify-end">
           <div className="w-1/2 h-full p-5 flex flex-col items-center justify-center gap-1">
             <p className="text-[12px]">Outstanding Royalties:</p>
 
-            <ItemCard className="h-full w-full mx-4 flex items-center justify-center">
+            <div className="h-full w-full mx-4 flex items-center justify-center">
               <div className="flex flex-row gap-2 my-2 items-center justify-center w-full h-full">
                 <div className="flex flex-col gap-2 items-center justify-center py-2">
                   <div className="flex flex-row gap-2 items-center justify-center">
@@ -127,7 +116,7 @@ export const NftStats = ({
                           {(
                             (outstandingRoyalties +
                               outstandingRoyalties *
-                                (pageCollection?.fee || 0.2)) /
+                              (pageCollection?.fee || 0.2)) /
                             LAMPORTS_PER_SOL
                           ).toFixed(2)}
                         </p>
@@ -143,7 +132,7 @@ export const NftStats = ({
                   </div>
                 </div>
               </div>
-            </ItemCard>
+            </div>
           </div>
           <div className="w-1/2 h-full p-5 flex flex-col items-start justify-start gap-1">
             <div className="flex flex-row gap-2 items-center justify-between w-full">
@@ -220,7 +209,7 @@ export const NftStats = ({
             </div>
           </div>
         )}
-      </ItemCard>
+      </div>
     </div>
   );
 };

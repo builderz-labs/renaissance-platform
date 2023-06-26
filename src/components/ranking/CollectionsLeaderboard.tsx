@@ -29,14 +29,14 @@ export const CollectionsLeaderboard = () => {
       dataIndex: "name",
       key: "name",
       render: (text, record) => (
-        <>
+        <div className='flex flex-row items-center justify-start gap-2'>
           <img
             src={record.image}
             alt={record.name}
             className="w-5 h-5 rounded-full"
           />
           {record.name}
-        </>
+        </div>
       ),
     },
     {
