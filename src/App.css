@@ -91,3 +91,29 @@
   background: #1f1f1f !important;
   color: white !important;
 }
+
+.btn {
+  border-radius: 0px !important;
+     background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%) !important;
+}
+
+.wallet-adapter-modal-wrapper {
+     background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%) !important;
+  border: 0.5px solid;
+  border-radius: 10px;
+  border-image-source: linear-gradient(
+    0deg,
+    #e6813e 0%,
+    rgba(255, 138, 87, 0) 17.53%,
+    rgba(255, 138, 87, 0.17) 52.43%,
+    rgba(255, 138, 87, 0) 81.08%,
+    #e6813e 100%
+  );
+  border-image-slice: 1;
+  border-image-width: 1;
+
+}
+
+.wallet-adapter-modal-button-close {
+  border-radius: 0px !important;
+}
