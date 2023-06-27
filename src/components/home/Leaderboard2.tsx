@@ -84,6 +84,9 @@ export const Leaderboard2 = () => {
                 showHeader={false}
                 className="w-full md:w-1/3 rounded-md dark-mode-table"
               />
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                <img src="/renaissance-logo.svg" alt="renaissance" className={`w-20 h-20`} />
+              </div>
               <div className="w-full md:w-1/2 flex flex-col gap-10 items-start md:items-end justify-center px-4 md:px-0">
                 <h3>
                   Live Re<span className="text-renaissance-orange">:</span>
