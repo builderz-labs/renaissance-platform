@@ -10,16 +10,15 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-
 import ErrorPage from "./pages/ErrorPage";
 import { HomePage, loader as homeLoader } from "./pages/HomePage";
 import { NftsPage } from "./pages/NftsPage";
 import { ProjectPage, loader as projectLoader } from "./pages/project";
 import { RankingPage, loader as rankingLoader } from "./pages/RankingPage";
-import AddPage from "./pages/ExplorePage";
 import ExplorePage from "./pages/ExplorePage";
 import WalletContextProvider from "./contexts/ContextProvider";
 import "@solana/wallet-adapter-react-ui/styles.css";
+import { CollectionSettingsPage } from "./pages/CollectionSettingsPage";
 
 // declare global {
 //   interface Window {
@@ -59,6 +58,10 @@ const router = createBrowserRouter([
             path: "explore",
             element: <ExplorePage />,
             loader: () => rankingLoader(queryClient),
+          },
+          {
+            path: "collection-settings",
+            element: <CollectionSettingsPage />,
           },
         ],
       },

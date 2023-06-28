@@ -5,9 +5,14 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { toast } from "react-toastify";
 
 import allowList from "../allowList.json";
+import useAuthorityCollection from "../hooks/useCollectionAuthority";
+import { Link } from "react-router-dom";
 
 export default function Example() {
   const { publicKey } = useWallet();
+
+  const authorityCollection = useAuthorityCollection();
+  console.log(authorityCollection);
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -228,6 +233,23 @@ export default function Example() {
                           Submit Collection
                         </button>
                       </div>
+                      {authorityCollection.authorityCollection && (
+                        <div className="mt-10">
+                          <p className="text-sm text-gray-500">
+                            You have registered{" "}
+                            {authorityCollection.authorityCollection.length}{" "}
+                            collections
+                          </p>
+                          <button className="m-2 btn btn-sm btn-primary">
+                            <Link
+                              to={"/collection-settings"}
+                              onClick={() => setOpen(false)}
+                            >
+                              Check them out here
+                            </Link>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
                 </Dialog.Panel>

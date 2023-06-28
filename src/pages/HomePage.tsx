@@ -21,11 +21,6 @@ const Blur1 = styled.div`
 
 export const loader = (queryClient: QueryClient) => {
   return defer({
-    // collections: queryClient.fetchQuery({
-    //   queryKey: ["collections"],
-    //   queryFn: () => fetch("/collections.json").then((res) => res.json()), // /src/data/collections.json
-    //   staleTime: 1000 * 60 * 2,
-    // }),
     leaderboard: queryClient.fetchQuery({
       queryKey: ["leaderboard"],
       queryFn: () => fetchLeaderboard(),

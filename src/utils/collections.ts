@@ -5,8 +5,12 @@ import {
   addDoc,
   doc,
   updateDoc,
+  where,
+  limit,
+  query,
 } from "@firebase/firestore";
 import { uploadFile } from "./uploadFile";
+import { PublicKey } from "@solana/web3.js";
 
 interface Social {
   name: string;
@@ -76,4 +80,21 @@ export const updateCollection = async (
 ) => {
   const docRef = doc(db, "collections", docId);
   await updateDoc(docRef, data);
+};
+
+export const getAuthorityCollections = async (publicKey: PublicKey) => {
+  const collectionsRef = collection(db, "collections");
+  const q = query(
+    collectionsRef,
+    where("authority", "==", publicKey.toBase58()),
+    limit(10)
+  );
+
+  const querySnapshot = await getDocs(q);
+  const docs = querySnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
+
+  return docs;
 };

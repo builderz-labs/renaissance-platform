@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import { Loading } from "../components/Loading";
 import { Leaderboard } from "../components/home/Leaderboard";
 import { CollectionsLeaderboard } from "../components/ranking/CollectionsLeaderboard";
+import { getAllCollection } from "../utils/collections";
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -17,13 +18,9 @@ const Blur1 = styled.div`
 
 export const loader = (queryClient: QueryClient) => {
   return defer({
-    collections: queryClient.fetchQuery({
-      queryKey: ["collections"],
-      queryFn: () =>
-        fetch(
-          "https://raw.githubusercontent.com/builderz-labs/renaissance-xnft/main/src/data/collections.json"
-        ).then((res) => res.json()), // /src/data/collections.json
-      staleTime: 1000 * 60 * 2,
+    collectionsV1: queryClient.fetchQuery({
+      queryKey: ["collectionsV1"],
+      queryFn: () => getAllCollection(),
     }),
     leaderboard: queryClient.fetchQuery({
       queryKey: ["leaderboard"],
