@@ -11,6 +11,7 @@ import FormBanner from "../components/FormBanner/FormBanner";
 import HeaderBanner from "../components/HeaderBanner";
 import { getAllCollection } from "../utils/collections";
 import { Leaderboard2 } from "../components/home/Leaderboard2";
+import { getLatestRedemptions } from "../utils/redemptions";
 
 const Blur1 = styled.div`
   background: linear-gradient(180deg, #e6813e 0%, #00b2ff 100%);
@@ -28,6 +29,10 @@ export const loader = (queryClient: QueryClient) => {
     collectionsV1: queryClient.fetchQuery({
       queryKey: ["collectionsV1"],
       queryFn: () => getAllCollection(),
+    }),
+    redemptionFeed: queryClient.fetchQuery({
+      queryKey: ["redemptionFeed"],
+      queryFn: () => getLatestRedemptions(),
     }),
   });
 };

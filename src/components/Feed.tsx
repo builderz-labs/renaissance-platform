@@ -1,4 +1,4 @@
-import useRedemptionFeed from "../hooks/useRedemptionFeed";
+import { useQuery } from "@tanstack/react-query";
 import { truncate } from "../utils/history";
 import { Loading } from "./Loading";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
@@ -8,24 +8,32 @@ function classNames(...classes: any[]) {
 }
 
 export default function Feed() {
-  const feed = useRedemptionFeed();
+  const {
+    data: feed,
+    isLoading,
+    error,
+  } = useQuery<any[]>({
+    queryKey: ["redemptionFeed"],
+  });
 
-  if (feed.loading) {
+  console.log(feed);
+
+  if (isLoading) {
     return <Loading />;
   }
 
-  if (feed.error) {
+  if (error) {
     return <div>Error</div>;
   }
 
   return (
     <div className="flow-root ">
       <ul role="list" className="-mb-8">
-        {feed.redemptions &&
-          feed.redemptions.map((redemption, eventIdx) => (
+        {feed &&
+          feed.map((redemption, eventIdx) => (
             <li key={redemption.id}>
               <div className="relative pb-8">
-                {eventIdx !== feed.redemptions.length - 1 ? (
+                {eventIdx !== feed.length - 1 ? (
                   <span
                     className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200"
                     aria-hidden="true"
