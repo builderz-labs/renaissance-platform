@@ -22,8 +22,10 @@ interface CollectionObj {
   name: string;
   description: string;
   collectionAddresses: string[];
+  helloMoonCollectionId: string;
   image: string;
   socials: Social[];
+  fee: number;
 }
 
 export const getAllCollection = async () => {
@@ -42,6 +44,7 @@ export const addCollection = async (
   discord: string,
   website: string,
   collectionAddress: string,
+  helloMoonId: string,
   file: File
 ) => {
   const collectionRef = collection(db, "collections");
@@ -53,7 +56,9 @@ export const addCollection = async (
     name,
     description,
     collectionAddresses: [collectionAddress],
+    helloMoonCollectionId: helloMoonId,
     image: imageUrl,
+    fee: 0.2,
     socials: [
       {
         name: "Twitter",

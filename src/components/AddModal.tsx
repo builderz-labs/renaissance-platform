@@ -1,18 +1,27 @@
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { addCollection } from "../utils/collections";
+import { addCollection, getAuthorityCollections } from "../utils/collections";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { toast } from "react-toastify";
 
 import allowList from "../allowList.json";
-import useAuthorityCollection from "../hooks/useCollectionAuthority";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Example() {
   const { publicKey } = useWallet();
 
-  const authorityCollection = useAuthorityCollection();
-  console.log(authorityCollection);
+  const fetchAuthorityCollections = useCallback(async () => {
+    return getAuthorityCollections(publicKey!);
+  }, [publicKey]);
+
+  const { data: authorityCollections } = useQuery<any[]>(
+    ["authorityCollections", publicKey],
+    fetchAuthorityCollections,
+    {
+      enabled: !!publicKey,
+    }
+  );
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,6 +33,7 @@ export default function Example() {
   const [socialsDiscord, setSocialsDiscord] = useState("");
   const [website, setWebsite] = useState("");
   const [collectionAddress, setCollectionAddress] = useState("");
+  const [helloMoonCollectionId, setHelloMoonCollectionId] = useState("");
 
   const handleAddCollection = async () => {
     if (!publicKey || !file) {
@@ -40,6 +50,7 @@ export default function Example() {
         socialsDiscord,
         website,
         collectionAddress,
+        helloMoonCollectionId,
         file
       );
       toast.success("Collection added");
@@ -213,6 +224,21 @@ export default function Example() {
                         />
                       </div>
 
+                      {/* HelloMoon Collection Address Input */}
+                      <div className="my-4">
+                        <input
+                          type="text"
+                          name="Hello Moon ID"
+                          id="Hello Moon ID"
+                          className="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-800 text-gray-100 p-2"
+                          placeholder="Enter Hello Moon ID"
+                          onChange={(event) =>
+                            setHelloMoonCollectionId(event.target.value)
+                          }
+                          value={helloMoonCollectionId}
+                        />
+                      </div>
+
                       <div className="mt-10 sm:mt-10">
                         <button
                           type="button"
@@ -227,17 +253,17 @@ export default function Example() {
                             // socialsTwitter === "" ||
                             // socialsDiscord === "" ||
                             // website === "" ||
-                            collectionAddress === ""
+                            collectionAddress === "" ||
+                            helloMoonCollectionId === ""
                           }
                         >
                           Submit Collection
                         </button>
                       </div>
-                      {authorityCollection.authorityCollection && (
+                      {authorityCollections && (
                         <div className="mt-10">
                           <p className="text-sm text-gray-500">
-                            You have registered{" "}
-                            {authorityCollection.authorityCollection.length}{" "}
+                            You have registered {authorityCollections.length}{" "}
                             collections
                           </p>
                           <button className="m-2 btn btn-sm btn-primary">
