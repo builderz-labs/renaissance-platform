@@ -4,7 +4,7 @@ import { addCollection } from "../utils/collections";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { toast } from "react-toastify";
 
-const allowList = ["BLDRZQiqt4ESPz12L9mt4XTBjeEfjoBopGPDMA36KtuZ"];
+import allowList from "../allowList.json";
 
 export default function Example() {
   const { publicKey } = useWallet();

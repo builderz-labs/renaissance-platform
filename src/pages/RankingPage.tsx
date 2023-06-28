@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import allCollections from "../data/collections.json";
 import { useQuery, QueryClient } from "@tanstack/react-query";
 import { truncate } from "../utils/history";
 import { defer, useLoaderData, Await } from "react-router-dom";
