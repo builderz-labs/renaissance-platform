@@ -99,7 +99,7 @@ export default function Example() {
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
                           {!publicKey ||
-                            !allowList.includes(publicKey.toBase58())
+                          !allowList.includes(publicKey.toBase58())
                             ? `You're not eligible to add NFT collections. Please reach out to us!`
                             : `To add your NFT collection, please provide the following details:`}
                         </p>
@@ -107,7 +107,7 @@ export default function Example() {
                     </div>
                   </div>
                   {!publicKey ||
-                    !allowList.includes(publicKey.toBase58()) ? null : (
+                  !allowList.includes(publicKey.toBase58()) ? null : (
                     <div>
                       {/* Name Input */}
                       <div className="my-4">
@@ -211,8 +211,9 @@ export default function Example() {
                       <div className="mt-10 sm:mt-10">
                         <button
                           type="button"
-                          className={`btn inline-flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${loading && " loading"
-                            }`}
+                          className={`btn inline-flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                            loading && " loading"
+                          }`}
                           onClick={handleAddCollection}
                           disabled={
                             name === "" ||

@@ -116,7 +116,7 @@ export const NftStats = ({
                           {(
                             (outstandingRoyalties +
                               outstandingRoyalties *
-                              (pageCollection?.fee || 0.2)) /
+                                (pageCollection?.fee || 0.2)) /
                             LAMPORTS_PER_SOL
                           ).toFixed(2)}
                         </p>

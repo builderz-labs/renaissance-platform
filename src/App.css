@@ -94,11 +94,19 @@
 
 .btn {
   border-radius: 0px !important;
-     background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%) !important;
+  background: linear-gradient(
+    206.07deg,
+    #050505 30.45%,
+    #101c26 99.29%
+  ) !important;
 }
 
 .wallet-adapter-modal-wrapper {
-     background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%) !important;
+  background: linear-gradient(
+    206.07deg,
+    #050505 30.45%,
+    #101c26 99.29%
+  ) !important;
   border: 0.5px solid;
   border-radius: 10px;
   border-image-source: linear-gradient(
@@ -111,7 +119,6 @@
   );
   border-image-slice: 1;
   border-image-width: 1;
-
 }
 
 .wallet-adapter-modal-button-close {

@@ -14,8 +14,7 @@ import { CollectionStatsRequest } from "@hellomoon/api";
 import { client } from "../../utils/hellomoon";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { getAllCollection } from "../../utils/collections";
-import { useWallet } from '@solana/wallet-adapter-react';
-
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export const loader = (queryClient: QueryClient, { params }: any) => {
   if (!params.id) {
@@ -159,18 +158,22 @@ export const ProjectDetails = () => {
                   </div>
                 </div>
                 <div className="w-full col-span-2">
-                  {wallet.publicKey && <NftStats pageCollection={pageCollection} />}
+                  {wallet.publicKey && (
+                    <NftStats pageCollection={pageCollection} />
+                  )}
                 </div>
               </div>
             </div>
-            {wallet.publicKey ? <TabComponent pageCollection={pageCollection} />
-              : <div className="flex flex-col h-[50vh] w-full items-center justify-center gap-10">
+            {wallet.publicKey ? (
+              <TabComponent pageCollection={pageCollection} />
+            ) : (
+              <div className="flex flex-col h-[50vh] w-full items-center justify-center gap-10">
                 <p>Connect your wallet to view your NFTs</p>
                 <a href="/" className="btn">
                   Connect Wallet
                 </a>
               </div>
-            }
+            )}
           </>
         ) : (
           <div className="flex flex-col h-[50vh] w-full items-center justify-center gap-10">

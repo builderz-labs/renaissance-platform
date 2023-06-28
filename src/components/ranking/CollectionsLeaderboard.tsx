@@ -29,7 +29,7 @@ export const CollectionsLeaderboard = () => {
       dataIndex: "name",
       key: "name",
       render: (text, record) => (
-        <div className='flex flex-row items-center justify-start gap-2'>
+        <div className="flex flex-row items-center justify-start gap-2">
           <img
             src={record.image}
             alt={record.name}

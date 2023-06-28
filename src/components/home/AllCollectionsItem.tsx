@@ -29,16 +29,6 @@ export const AllCollectionsItem = ({
 }) => {
   const navigate = useNavigate();
 
-  // const { data: marketplaceData } = useQuery({
-  //   queryKey: ["marketplaceData", collection.helloMoonCollectionId],
-  //   queryFn: () =>
-  //     client.send(
-  //       new CollectionFloorpriceRequest({
-  //         helloMoonCollectionId: collection.helloMoonCollectionId,
-  //       })
-  //     ),
-  // });
-
   const { data: collectionStats } = useQuery({
     queryKey: ["collectionStats", collection.helloMoonCollectionId],
     queryFn: () =>

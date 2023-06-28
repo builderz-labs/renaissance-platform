@@ -14,10 +14,6 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import ListIcon from "@mui/icons-material/List";
 
 export const AllCollections = () => {
-  // const { data } = useQuery<Collection[]>({
-  //   queryKey: ["collections"],
-  // });
-
   const { data: collectionsV1 } = useQuery<any>({
     queryKey: ["collectionsV1"],
   });
