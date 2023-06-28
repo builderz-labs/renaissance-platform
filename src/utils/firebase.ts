@@ -21,3 +21,17 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const analytics = getAnalytics(app);
+
+// Feed Only
+const firebaseConfigFeed = {
+  apiKey: "AIzaSyCn5NRPb_SKicIARpP5J3VjPdMIxXoRwrY",
+  authDomain: "renaissance-api-385413.firebaseapp.com",
+  projectId: "renaissance-api-385413",
+  storageBucket: "renaissance-api-385413.appspot.com",
+  messagingSenderId: "209290444506",
+  appId: "1:209290444506:web:c3b5589bafcc44eb69afe3",
+  measurementId: "G-9PX31W5FZ7",
+};
+
+export const appFeed = initializeApp(firebaseConfigFeed, "feed");
+export const dbFeed = getFirestore(appFeed);
