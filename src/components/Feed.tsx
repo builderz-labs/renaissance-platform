@@ -35,7 +35,7 @@ export default function Feed() {
               <div className="relative pb-8">
                 {eventIdx !== feed.length - 1 ? (
                   <span
-                    className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-200"
+                    className="absolute left-4 top-4 -ml-px h-full w-0.5 bg-gray-800 z-0"
                     aria-hidden="true"
                   />
                 ) : null}
