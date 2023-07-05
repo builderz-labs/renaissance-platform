@@ -178,11 +178,11 @@ export const NftListRedemption = ({
 
   return (
     <section className="mt-10">
-      <div className="w-full flex flex-row items-center justify-between gap-8 mb-5">
+      <div className="w-full flex flex-row items-center justify-between gap-8 mb-10">
         <input
           type="text"
           placeholder="Search NFTs"
-          className="w-1/2 border border-gray-800 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-gray-900"
+          className="w-1/2  text-xs rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200 bg-transparent border border-white border-opacity-20"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -210,7 +210,7 @@ export const NftListRedemption = ({
           {/* TODO: Hide cNFTs button */}
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 ">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-4 ">
         {currentNfts?.map((nft: any) => {
           return (
             <NftItem

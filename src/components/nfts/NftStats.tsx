@@ -100,13 +100,12 @@ export const NftStats = ({
   return (
     <div className="w-full flex flex-col items-center justify-center my-5 rounded-lg shadow-lg">
       <div className="w-full">
-        <div className="w-full flex justify-end">
-          <div className="w-1/2 h-full p-5 flex flex-col items-center justify-center gap-1">
+        <div className="w-full flex justify-end gap-4">
+          <div className="w-1/2 h-full p-5 flex flex-col items-center justify-center gap-2 border border-white rounded-lg border-opacity-20">
             <p className="text-[12px]">Outstanding Royalties:</p>
-
-            <div className="h-full w-full mx-4 flex items-center justify-center">
+            <div className="h-full w-full flex items-center justify-center">
               <div className="flex flex-row gap-2 my-2 items-center justify-center w-full h-full">
-                <div className="flex flex-col gap-2 items-center justify-center py-2">
+                <div className="flex flex-col gap-2 items-center justify-center">
                   <div className="flex flex-row gap-2 items-center justify-center">
                     <div className="w-full text-center font-bold text-sm">
                       {isLoading === true ? (
@@ -116,7 +115,7 @@ export const NftStats = ({
                           {(
                             (outstandingRoyalties +
                               outstandingRoyalties *
-                                (pageCollection?.fee || 0.2)) /
+                              (pageCollection?.fee || 0.2)) /
                             LAMPORTS_PER_SOL
                           ).toFixed(2)}
                         </p>
@@ -134,7 +133,8 @@ export const NftStats = ({
               </div>
             </div>
           </div>
-          <div className="w-1/2 h-full p-5 flex flex-col items-start justify-start gap-1">
+
+          <div className="w-1/2 h-full p-5 flex flex-col items-start justify-start gap-1 border border-white rounded-lg border-opacity-20">
             <div className="flex flex-row gap-2 items-center justify-between w-full">
               <div className="">
                 <Tooltip

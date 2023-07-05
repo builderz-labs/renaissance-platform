@@ -42,6 +42,9 @@ export const FeaturedList = () => {
     queryKey: ["collectionsV1"],
   });
 
+  // to do sort for top redeemed collections
+
+
   return (
     <section className="my-10">
       <h2 className="py-2 px-2 pt-4 font-bold text-xl text-start">
@@ -64,13 +67,13 @@ export const FeaturedList = () => {
                     <img
                       src={collection.image}
                       alt={collection.name}
-                      className="h-32 md:h-42 w-full topcollectionimage object-cover rounded-none relative z-10 p-4"
+                      className="h-32 md:h-32 w-full topcollectionimage object-contain rounded-full relative z-10 p-4"
                     />
                   ) : (
                     <img
                       src={collection.image}
                       alt={collection.name}
-                      className="h-32 md:h-42 w-full object-cover rounded-none relative z-10 p-4"
+                      className="h-32 md:h-32 w-full object-contain rounded-full relative z-10 p-4"
                     />
                   )}
                 </div>
