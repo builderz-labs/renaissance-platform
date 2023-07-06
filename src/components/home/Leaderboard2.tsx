@@ -16,6 +16,17 @@ const MySlide = styled.div`
   filter: drop-shadow(1px 1px 8px rgba(0, 0, 0, 0.25));
 `;
 
+const Grider = styled.div`
+  position: absolute;
+  top: 0;
+  width: 65%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/img/grid.svg");
+  opacity: 0.4;
+`;
+
+
 const columns = [
   {
     title: "Rank",
@@ -66,7 +77,8 @@ export const Leaderboard2 = () => {
     }));
 
   return (
-    <section className="my-20">
+    <section className="my-20 relative">
+      <Grider className="-z-10" />
       <h2 className="py-2 px-4 pt-4 font-bold text-xl text-start mb-2">
         Top Re<span className="text-renaissance-orange">:</span>demptions{" "}
         <span className="text-[8px] text-gray-400">(7D)</span>

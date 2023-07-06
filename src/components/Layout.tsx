@@ -26,11 +26,12 @@ const Grider = styled.div`
   opacity: 0.4;
 `;
 
+
 export function Layout() {
   return (
     <div className="h-screen w-screen max-w-7xl mx-auto  flex flex-col px-4  lg:px-8">
       <Grider className="-z-10" />
-      <OrangeBlur className="-z-10" />
+      <OrangeBlur className="-z-20" />
       <AppBar />
       <main className="flex-1  text-white">
         <Outlet />

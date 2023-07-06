@@ -2,10 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { truncate } from "../utils/history";
 import { Loading } from "./Loading";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import styled from 'styled-components';
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
+
 
 export default function Feed() {
   const {
@@ -27,7 +29,7 @@ export default function Feed() {
   }
 
   return (
-    <div className="flow-root ">
+    <div className="flow-root relative ">
       <ul role="list" className="-mb-8">
         {feed &&
           feed.map((redemption, eventIdx) => (

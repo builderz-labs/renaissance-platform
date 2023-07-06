@@ -12,6 +12,17 @@ import {
 import { AllCollectionsItem } from "./AllCollectionsItem";
 import GridViewIcon from "@mui/icons-material/GridView";
 import ListIcon from "@mui/icons-material/List";
+import styled from 'styled-components';
+
+const Grider = styled.div`
+  position: absolute;
+  top: 0;
+  width: 65%;
+  height: 100%;
+  z-index: -1;
+  background-image: url("/img/grid.svg");
+  opacity: 0.4;
+`;
 
 export const AllCollections = () => {
   const { data: collectionsV1 } = useQuery<any>({
@@ -71,7 +82,8 @@ export const AllCollections = () => {
   };
 
   return (
-    <section className="my-10">
+    <section className="my-10 relative">
+      <Grider className="-z-10" />
       <div className="w-full flex flex-row justify-between items-center py-4">
         <div className=" flex items-center justify-center h-full">
           <h2 className=" px-2 font-bold text-xl">All Collections</h2>
@@ -106,17 +118,15 @@ export const AllCollections = () => {
           <div className="flex justify-center gap-2 ml-4">
             <button
               onClick={() => handleViewModeChange("grid")}
-              className={`view-button btn btn-sm ${
-                viewMode === "grid" ? "active" : ""
-              }`}
+              className={`view-button btn btn-sm ${viewMode === "grid" ? "active" : ""
+                }`}
             >
               <GridViewIcon />
             </button>
             <button
               onClick={() => handleViewModeChange("list")}
-              className={`view-button btn btn-sm ${
-                viewMode === "list" ? "active" : ""
-              }`}
+              className={`view-button btn btn-sm ${viewMode === "list" ? "active" : ""
+                }`}
             >
               <ListIcon />
             </button>
