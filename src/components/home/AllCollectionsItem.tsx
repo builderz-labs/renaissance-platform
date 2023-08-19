@@ -40,6 +40,8 @@ export const AllCollectionsItem = ({
       ),
   });
 
+  console.log(collectionStats);
+
   return (
     <div
       key={collection.id}

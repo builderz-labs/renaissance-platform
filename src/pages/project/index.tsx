@@ -15,6 +15,7 @@ import { client } from "../../utils/hellomoon";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { getAllCollection } from "../../utils/collections";
 import { useWallet } from "@solana/wallet-adapter-react";
+import MyMultiButton from "../../components/MyMultiButton";
 
 export const loader = (queryClient: QueryClient, { params }: any) => {
   if (!params.id) {
@@ -169,9 +170,7 @@ export const ProjectDetails = () => {
             ) : (
               <div className="flex flex-col h-[50vh] w-full items-center justify-center gap-10">
                 <p>Connect your wallet to view your NFTs</p>
-                <a href="/" className="btn">
-                  Connect Wallet
-                </a>
+                <MyMultiButton />
               </div>
             )}
           </>

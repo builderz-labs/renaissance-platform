@@ -39,7 +39,8 @@ export const RankingPage = () => {
       <Suspense fallback={<Loading />}>
         <Await resolve={collections}>
           <Leaderboard />
-          <CollectionsLeaderboard />
+          {/* Collection Leaderboard coming soon or not coming at all */}
+          {/* <CollectionsLeaderboard /> */}
         </Await>
       </Suspense>
     </main>

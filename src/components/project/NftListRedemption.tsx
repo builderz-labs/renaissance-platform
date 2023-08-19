@@ -7,7 +7,7 @@ import { Loading } from "../Loading";
 import { repayRoyalties } from "../../utils/repayRoyalties";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { toast } from "react-toastify";
-import { Collection } from "../../data/types";
+import { Collection, NftData } from "../../data/types";
 import { getCheckedNftsForCollection } from "../../utils/nfts";
 import { useQuery } from "@tanstack/react-query";
 
@@ -20,11 +20,9 @@ export const NftListRedemption = ({
   const wallet = useWallet();
   const { connection } = useConnection();
 
-  // const nfts = useNfts([pageCollection?.collectionAddress]);
-
   const fetchNfts = useCallback(async () => {
-    if (pageCollection) {
-      return getCheckedNftsForCollection(wallet.publicKey!, [
+    if (pageCollection && wallet.publicKey) {
+      return getCheckedNftsForCollection(wallet.publicKey, [
         ...pageCollection.collectionAddresses,
       ]);
     } else {
@@ -36,7 +34,7 @@ export const NftListRedemption = ({
     data: checkedNfts,
     isLoading,
     refetch,
-  } = useQuery<any[]>(
+  } = useQuery<NftData[]>(
     ["checkedNfts", pageCollection?.collectionAddresses, wallet.publicKey],
     fetchNfts,
     {
@@ -44,9 +42,11 @@ export const NftListRedemption = ({
     }
   );
 
+  console.log(checkedNfts);
+
   // Filtered NFT states
-  const [filteredNfts, setFilteredNfts] = useState<any[]>([]);
-  const [currentNfts, setCurrentNfts] = useState<any[]>([]);
+  const [filteredNfts, setFilteredNfts] = useState<NftData[]>([]);
+  const [currentNfts, setCurrentNfts] = useState<NftData[]>([]);
 
   // Populate state as soon as checkedNfts is available
   useEffect(() => {
@@ -77,7 +77,7 @@ export const NftListRedemption = ({
 
   // State for repayment
   const [loading, setLoading] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<any[]>([]);
+  const [selectedItems, setSelectedItems] = useState<NftData[]>([]);
   const [totalToRepay, setTotalToRepay] = useState(0);
 
   // Display filters
@@ -91,13 +91,15 @@ export const NftListRedemption = ({
       let filteredNfts: any[] = checkedNfts;
       if (showUnpaidRoyaltiesOnly) {
         filteredNfts = checkedNfts!.filter(
-          (nft) => !nft.royaltiesPaid && nft.status !== "error"
+          (nft) =>
+            !nft.renaissance?.royaltiesPaid &&
+            nft.renaissance?.status !== "error"
         );
       }
       setCurrentNfts(filteredNfts.slice(startIndex, endIndex));
       setFilteredNfts(filteredNfts);
     }
-  }, [endIndex, startIndex, showUnpaidRoyaltiesOnly]);
+  }, [endIndex, startIndex, showUnpaidRoyaltiesOnly, checkedNfts]);
 
   // Set Total to Repay
   useEffect(() => {
@@ -109,15 +111,16 @@ export const NftListRedemption = ({
 
   //  Select All Unpaid
   useEffect(() => {
-    if (selectAllUnpaid) {
-      const filteredNfts = checkedNfts!.filter(
-        (nft) => !nft.royaltiesPaid && nft.status !== "error"
+    if (selectAllUnpaid && checkedNfts) {
+      const filteredNfts = checkedNfts.filter(
+        (nft) =>
+          !nft.renaissance?.royaltiesPaid && nft.renaissance?.status !== "error"
       );
       setSelectedItems(filteredNfts);
     } else if (!selectAllUnpaid) {
       setSelectedItems([]);
     }
-  }, [selectAllUnpaid]);
+  }, [selectAllUnpaid, checkedNfts]);
 
   // Repay Royalties
   const handleRepay = async () => {
@@ -127,7 +130,10 @@ export const NftListRedemption = ({
 
     let itemsToRepay = [...selectedItems];
     if (selectAllUnpaid) {
-      itemsToRepay = checkedNfts!.filter((nft) => nft.royaltiesToPay > 0);
+      itemsToRepay = checkedNfts!.filter(
+        (nft) =>
+          nft.renaissance?.royaltiesToPay && nft.renaissance.royaltiesToPay > 0
+      );
     }
     try {
       const res = await repayRoyalties(itemsToRepay, connection, wallet, fee);
@@ -152,7 +158,7 @@ export const NftListRedemption = ({
       let filteredNfts = checkedNfts;
       if (searchQuery) {
         filteredNfts = checkedNfts.filter((nft) =>
-          nft.content.metadata.name
+          nft.content?.metadata.name
             .toLowerCase()
             .includes(searchQuery.toLowerCase())
         );
@@ -211,13 +217,13 @@ export const NftListRedemption = ({
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-4 ">
-        {currentNfts?.map((nft: any) => {
+        {currentNfts?.map((nft) => {
           return (
             <NftItem
               key={nft.id}
               nft={nft}
               selectedItems={selectedItems}
-              setSelectedItems={(items: any) => setSelectedItems(items)}
+              setSelectedItems={setSelectedItems}
               fee={pageCollection?.fee || 0.2}
             />
           );

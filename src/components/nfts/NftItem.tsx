@@ -6,6 +6,7 @@ import DiamondIcon from "@mui/icons-material/Diamond";
 import AssistantPhotoIcon from "@mui/icons-material/AssistantPhoto";
 import { Checkbox, Tooltip } from "@mui/material";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { NftData } from "../../data/types";
 
 const ItemCard = styled.div`
   background: linear-gradient(206.07deg, #050505 30.45%, #101c26 99.29%);
@@ -23,18 +24,30 @@ const ItemCard = styled.div`
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
-  const handleCheck = (nft: any) => {
+export const NftItem = ({
+  nft,
+  selectedItems,
+  setSelectedItems,
+  fee,
+}: {
+  nft: NftData;
+  selectedItems: NftData[];
+  setSelectedItems: any;
+  fee: number;
+}) => {
+  const handleCheck = (nft: NftData) => {
     if (
       nft.renaissance?.royaltiesPaid ||
       nft.renaissance?.status === "error" ||
-      nft.compression.compressed
+      nft.compression?.compressed
     ) {
       return;
     }
 
-    if (selectedItems.includes(nft)) {
-      setSelectedItems(selectedItems.filter((item: any) => item !== nft));
+    if (selectedItems.some((selectedNft) => (nft.id = selectedNft.id))) {
+      setSelectedItems((prev: NftData[]) =>
+        prev.filter((item) => item !== nft)
+      );
     } else {
       setSelectedItems([...selectedItems, nft]);
     }
@@ -52,7 +65,7 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
     >
       {/* If never sold, display icon */}
       {/* other statuses: paid-with-tool, partial, paid-at-sale, error */}
-      {nft.compression.compressed && (
+      {nft.compression?.compressed && (
         <div className="absolute top-2 left-2 bg-opacity-60 rounded-full  w-8 h-8 flex items-center justify-center ">
           {/* TODO: add icon */}
           <Tooltip placement="top-end" title="Compressed NFT">
@@ -96,12 +109,13 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
         </div>
       )}
       <div
-        className={`w-70 h-70 object-cover rounded-lg ${nft.renaissance?.royaltiesPaid ? " " : "border-[#FF5557]"
-          } `}
+        className={`w-70 h-70 object-cover rounded-lg ${
+          nft.renaissance?.royaltiesPaid ? " " : "border-[#FF5557]"
+        } `}
       >
         {!nft.renaissance?.royaltiesPaid &&
-          nft.status !== "error" &&
-          !nft.compression.compressed && (
+          nft.renaissance?.status !== "error" &&
+          !nft.compression?.compressed && (
             <div className="absolute top-2 right-2 rounded-md ">
               <Checkbox
                 {...label}
@@ -117,27 +131,29 @@ export const NftItem = ({ nft, selectedItems, setSelectedItems, fee }: any) => {
             </div>
           )}
         <img
-          src={nft.content.files[0]?.uri}
+          src={nft.content?.files && nft.content?.files[0]?.uri} // TODO: Add fallback image
           width={150}
           height={150}
           alt="NFT"
-          className={` w-full h-60 object-contain rounded-lg  rounded-br-none rounded-bl-none ${nft.renaissance?.royaltiesPaid || nft.compression.compressed
-            ? ""
-            : " "
-            } ${isSelected ? "border-opacity-100" : "border-opacity-40"}}`}
+          className={` w-full h-60 object-contain rounded-lg  rounded-br-none rounded-bl-none ${
+            nft.renaissance?.royaltiesPaid || nft.compression?.compressed
+              ? ""
+              : " "
+          } ${isSelected ? "border-opacity-100" : "border-opacity-40"}}`}
         />
       </div>
       <p className="font-medium my-2 mb-6 px-2 text-start w-full text-lg truncate hover:text-[#FF8A57]">
-        {nft.content.metadata.name}
+        {nft.content?.metadata.name}
       </p>
-      {isUnpaid && !nft.compression.compressed && (
+      {isUnpaid && !nft.compression?.compressed && (
         <p className="text-red-500 text-start text-[10px] ml-2">
           Outstanding:{" "}
-          {(
-            (nft.renaissance?.royaltiesToPay +
-              (nft.renaissance?.royaltiesToPay * fee || 0)) /
-            LAMPORTS_PER_SOL
-          ).toFixed(2)}{" "}
+          {nft.renaissance?.royaltiesToPay &&
+            (
+              (nft.renaissance?.royaltiesToPay +
+                (nft.renaissance?.royaltiesToPay * fee || 0)) /
+              LAMPORTS_PER_SOL
+            ).toFixed(2)}{" "}
           SOL
         </p>
       )}

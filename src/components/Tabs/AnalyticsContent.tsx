@@ -16,12 +16,13 @@ function AnalyticsContent() {
               Percentage of Paid Royalties
             </p>
           </div>
-          <div className="bg-black p-4 rounded-lg shadow-xl">LinearChart 1</div>
+          <p>Coming Soon</p>
+          {/* <div className="bg-black p-4 rounded-lg shadow-xl">LinearChart 1</div>
           <div className="bg-black p-4 rounded-lg shadow-xl">
             LinearChart 2 oder Text
           </div>
           <div className="bg-black p-4 rounded-lg shadow-xl">Analytics</div>
-          <div className="bg-black p-4 rounded-lg shadow-xl">Analytics</div>
+          <div className="bg-black p-4 rounded-lg shadow-xl">Analytics</div> */}
         </div>
       </section>
     </main>

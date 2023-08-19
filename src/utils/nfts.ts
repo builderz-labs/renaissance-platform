@@ -1,17 +1,10 @@
 import { PublicKey } from "@solana/web3.js";
-import axios from "axios";
-
-export type checkNftRes = {
-  mint: string;
-  royaltiesPaid: boolean;
-  royaltiesToPay: number;
-  royaltiesPaidAmount: number;
-  status: string;
-};
+import { DAS, Helius } from "helius-sdk";
+import { CheckedNft } from "../data/types";
 
 export const checkNfts = async (mintList: string[]) => {
   let paginationToken: string | null = null;
-  const allCheckedNfts: checkNftRes[] = [];
+  const allCheckedNfts: CheckedNft[] = [];
 
   do {
     const res: any = await fetch(
@@ -44,29 +37,30 @@ export const getCheckedNftsForCollection = async (
   owner: PublicKey,
   allowedCollections?: string[]
 ) => {
-  let nfts = [];
+  let nfts: DAS.GetAssetResponse[] = [];
 
   nfts = await getAssetsByOwner(owner.toBase58());
 
   if (allowedCollections && allowedCollections.length) {
     nfts = nfts.filter(
-      (nft: any) =>
-        allowedCollections.includes(nft.grouping[0]?.group_value) ||
-        allowedCollections.includes(
-          nft.creators.find((c: any) => c.verified)?.address
-        )
+      (nft) =>
+        (nft.grouping &&
+          allowedCollections.includes(nft.grouping[0]?.group_value)) ||
+        (nft.creators &&
+          nft.creators.find((c) => c.verified)?.address &&
+          allowedCollections.includes(
+            nft.creators?.find((c) => c.verified)!.address
+          ))
     );
   }
 
   const checkedNfts = await checkNfts(
-    nfts
-      .filter((nft: any) => !nft.compression.compressed)
-      .map((nft: any) => nft.id)
+    nfts.filter((nft) => !nft.compression?.compressed).map((nft) => nft.id)
   );
 
-  const combinedArray = nfts.map((nft: any) => {
+  const combinedArray = nfts.map((nft) => {
     const matchingResult = checkedNfts.find(
-      (result: checkNftRes) => result.mint === nft.id
+      (result: CheckedNft) => result.mint === nft.id
     );
     return { ...nft, renaissance: matchingResult };
   });
@@ -74,21 +68,37 @@ export const getCheckedNftsForCollection = async (
   return combinedArray;
 };
 
-export const getAssetsByOwner = async (owner: string) => {
-  const sortBy = {
-    sortBy: "created",
-    sortDirection: "asc",
-  };
-  const limit = 1000;
-  const page = 1;
-  const before = "";
-  const after = "";
-  const { data } = await axios.post(import.meta.env.VITE_HELIUS_RPC_PROXY, {
-    jsonrpc: "2.0",
-    id: "my-id",
-    method: "getAssetsByOwner",
-    params: [owner, sortBy, limit, page, before, after],
+// export const getAssetsByOwner = async (owner: string) => {
+//   const sortBy = {
+//     sortBy: "created",
+//     sortDirection: "asc",
+//   };
+//   const limit = 1000;
+//   const page = 1;
+//   const before = "";
+//   const after = "";
+//   const { data } = await axios.post(import.meta.env.VITE_HELIUS_RPC_PROXY, {
+//     jsonrpc: "2.0",
+//     id: "my-id",
+//     method: "getAssetsByOwner",
+//     params: [owner, sortBy, limit, page, before, after],
+//   });
+
+//   return data.result.items;
+// };
+
+export const getAssetsByOwner = async (
+  owner: string
+): Promise<DAS.GetAssetResponse[]> => {
+  const helius = new Helius(
+    import.meta.env.VITE_HELIUS_API_KEY,
+    "mainnet-beta"
+  );
+  const response = await helius.rpc.getAssetsByOwner({
+    ownerAddress: owner,
+    page: 1,
+    limit: 1000,
   });
 
-  return data.result.items;
+  return response.items;
 };

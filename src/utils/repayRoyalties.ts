@@ -11,8 +11,7 @@ import {
   SystemProgram,
 } from "@solana/web3.js";
 import { WalletContextState } from "@solana/wallet-adapter-react";
-import axios from "axios";
-import { NftType } from "../data/types";
+import { NftData } from "../data/types";
 import { toast } from "react-toastify";
 
 export const tryFn = async (fn: any) => {
@@ -24,7 +23,7 @@ export const tryFn = async (fn: any) => {
 };
 
 export const repayRoyalties = async (
-  nfts: any[],
+  nfts: NftData[],
   connection: Connection,
   wallet: WalletContextState,
   fee: number
@@ -44,7 +43,7 @@ export const repayRoyalties = async (
       isWritable: boolean;
       isSigner: boolean;
     }> = [];
-    creators.forEach((creator: any) => {
+    creators?.forEach((creator: any) => {
       remainingAccounts.push({
         pubkey: new PublicKey(creator.address),
         isWritable: true,
@@ -70,6 +69,10 @@ export const repayRoyalties = async (
       PROGRAM_ID
     );
 
+    if (!nft.renaissance?.royaltiesToPay) {
+      continue;
+    }
+
     txInstructions.push(
       createRepayRoyaltiesInstruction(
         {
@@ -81,7 +84,7 @@ export const repayRoyalties = async (
           anchorRemainingAccounts: remainingAccounts,
         },
         {
-          royaltiesToPay: nft.renaissance.royaltiesToPay,
+          royaltiesToPay: nft.renaissance?.royaltiesToPay,
         }
       )
     );

@@ -2,12 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { truncate } from "../utils/history";
 import { Loading } from "./Loading";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import styled from 'styled-components';
+import { getLatestRedemptions } from "../utils/redemptions";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
-
 
 export default function Feed() {
   const {
@@ -16,9 +15,11 @@ export default function Feed() {
     error,
   } = useQuery<any[]>({
     queryKey: ["redemptionFeed"],
+    queryFn: () => getLatestRedemptions(),
   });
 
   console.log(feed);
+  console.log(error);
 
   if (isLoading) {
     return <Loading />;

@@ -1,3 +1,5 @@
+import { DAS } from "helius-sdk";
+
 export type Collection = {
   id: number;
   name: string;
@@ -12,16 +14,15 @@ export type Collection = {
   fee: number;
 };
 
-export type NftType = {
-  name: string;
-  tokenAddress: string;
-  collectionAddress: string;
-  collectionName: string;
-  imageUrl: string;
-  traits: {
-    trait_type: string;
-    value: string;
-  }[];
+export interface CheckedNft {
+  mint: string;
   royaltiesPaid: boolean;
+  royaltiesPaidAmount: number;
   royaltiesToPay: number;
-};
+  status: string;
+  redemptionTimestamp: number;
+}
+
+export interface NftData extends DAS.GetAssetResponse {
+  renaissance: CheckedNft | undefined;
+}

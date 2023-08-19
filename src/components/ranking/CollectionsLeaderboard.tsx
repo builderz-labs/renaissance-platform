@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Table, Spin } from "antd";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { Collection } from "../../data/types";
 import { ColumnsType } from "antd/es/table";
 
@@ -9,10 +8,8 @@ export const CollectionsLeaderboard = () => {
   const { data: collections, isLoading: isLoadingCollections } = useQuery<
     Collection[]
   >({
-    queryKey: ["collections"],
+    queryKey: ["collectionsV1"],
   });
-
-  const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -56,9 +53,10 @@ export const CollectionsLeaderboard = () => {
   return (
     <div className="flex flex-col items-between justify-center gap-4  py-5 mb-40 rounded-lg px-4">
       <h2 className="text-2xl font-semibold text-start my-2 mb-4">
-        Top Collections:
+        Top Collections
       </h2>
-      {isLoadingCollections ? (
+      <p>Coming soon</p>
+      {/* {isLoadingCollections ? (
         <Spin />
       ) : (
         <Table
@@ -68,7 +66,7 @@ export const CollectionsLeaderboard = () => {
           onChange={handleTableChange}
           pagination={{ pageSize: pageSize, defaultCurrent: currentPage }}
         />
-      )}
+      )} */}
     </div>
   );
 };
