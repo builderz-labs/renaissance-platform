@@ -48,7 +48,7 @@ export const FeaturedList = () => {
   return (
     <section className="my-10">
       <h2 className="py-2 px-2 pt-4 font-bold text-xl text-start">
-        Top Re<span className="text-orange-500">:</span>deemed Collections
+        Featured collections
       </h2>
       <div className="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 px-2 gap-4 md:gap-8 mt-5">
         {data &&
