@@ -2,17 +2,17 @@
 
 A seamless Royalty Solution for NFT communities to track and redeem royalties 👑
 
-Built on Backpack 🎒
-
 ![Renaissance](/public/renaissance.png)
 
-🔗 **Link**: <https://builderz.dev>
+👑 **Link**: <https://renaissance-platform.vercel.app/>
 
-🎥 **Demo**: <https://vimeo.com/808021937>
+📄 **Documentation**: <https://builderz-1.gitbook.io/>
 
 🐤 **Twitter**: <https://twitter.com/renaissance_xyz>
 
 💬 **Discord**: <https://discord.gg/eMKXtKu6P9>
+
+🔗 **Builderz**: <https://builderz.dev>
 
 ## 🤝 Contribute
 
