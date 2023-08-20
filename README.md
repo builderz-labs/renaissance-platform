@@ -4,7 +4,7 @@ A seamless Royalty Solution for NFT communities to track and redeem royalties �
 
 Built on Backpack 🎒
 
-![Renaissance](/public/screenshot1.png)
+![Renaissance](/public/renaissance.png)
 
 🔗 **Link**: <https://builderz.dev>
 
