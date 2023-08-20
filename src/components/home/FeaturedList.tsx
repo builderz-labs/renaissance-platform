@@ -63,67 +63,35 @@ export const FeaturedList = () => {
                 className="w-full relative flex flex-col items-center justify-center my-2"
               >
                 <div className="w-full h-full object-cover">
-                  {index === 0 ? (
-                    <img
-                      src={collection.image}
-                      alt={collection.name}
-                      className="h-32 md:h-32 w-full topcollectionimage object-contain rounded-full relative z-10 p-4"
-                    />
-                  ) : (
-                    <img
-                      src={collection.image}
-                      alt={collection.name}
-                      className="h-32 md:h-32 w-full object-contain rounded-full relative z-10 p-4"
-                    />
-                  )}
+
+                  <img
+                    src={collection.image}
+                    alt={collection.name}
+                    className="h-32 md:h-32 w-full object-contain rounded-full relative z-10 p-4"
+                  />
+
                 </div>
                 <div className="py-2 absolute bottom-2 left-0 w-full  bg-black bg-opacity-60 blur font-black"></div>
-                {index === 0 ? (
-                  <ItemCard2 className="h-auto -mt-10 relative z-0 w-full rounded-lg py-10 pb-5 backdrop-blur-xl">
-                    <p className="py-4 pb-5 left-0 w-full  font-black text-xl text-renaissance-orange">
-                      {collection.name}
-                    </p>
-                    <div className="flex flex-row items-center justify-around">
-                      <div className=" flex items-center justify-center ">
-                        {/* <p className="  font-light text-[12px]">
-                          FP:{" "}
-                          {marketplaceData?.data[0]?.floorPriceLamports
-                            ? (
-                                parseFloat(
-                                  marketplaceData?.data[0]?.floorPriceLamports!
-                                ) / LAMPORTS_PER_SOL
-                              ).toFixed(2)
-                            : "0.00"}
-                        </p> */}
-                        {/* <img
+
+                <ItemCard className="h-auto -mt-10 relative z-0 w-full py-10 pb-5 rounded-lg backdrop-blur-xl">
+                  <p className="py-4 left-0 w-full  font-black">
+                    {collection.name}
+                  </p>
+                  <div className="flex flex-row items-center justify-around">
+                    <div className=" flex items-center justify-center ">
+                      <p className="  font-light text-[12px]">
+                        {/* FP: {marketplaceData?.data[0]?.floorPriceLamports ? (parseFloat(marketplaceData?.data[0]?.floorPriceLamports!) / LAMPORTS_PER_SOL).toFixed(2) : "0.00"} */}
+                      </p>
+                      {/* <img
                           src="/img/sol.svg"
                           alt="solana logo"
                           className="w-[12px] topcollectionimage"
                         /> */}
-                      </div>
-                      {/* <p>7.2%</p> */}
                     </div>
-                  </ItemCard2>
-                ) : (
-                  <ItemCard className="h-auto -mt-10 relative z-0 w-full py-10 pb-5 rounded-lg backdrop-blur-xl">
-                    <p className="py-4 left-0 w-full  font-black">
-                      {collection.name}
-                    </p>
-                    <div className="flex flex-row items-center justify-around">
-                      <div className=" flex items-center justify-center ">
-                        <p className="  font-light text-[12px]">
-                          {/* FP: {marketplaceData?.data[0]?.floorPriceLamports ? (parseFloat(marketplaceData?.data[0]?.floorPriceLamports!) / LAMPORTS_PER_SOL).toFixed(2) : "0.00"} */}
-                        </p>
-                        {/* <img
-                          src="/img/sol.svg"
-                          alt="solana logo"
-                          className="w-[12px] topcollectionimage"
-                        /> */}
-                      </div>
-                      {/* <p className="text-xs">7.2%</p> */}
-                    </div>
-                  </ItemCard>
-                )}
+                    {/* <p className="text-xs">7.2%</p> */}
+                  </div>
+                </ItemCard>
+
               </div>
             </div>
           ))}

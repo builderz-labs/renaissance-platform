@@ -1,21 +1,22 @@
-import { useLoaderData, defer, useParams } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
+import { useLoaderData, defer, useParams } from "react-router-dom";
 import { Await } from "react-router-dom";
 import { QueryClient, useQuery } from "@tanstack/react-query";
+import { CollectionStatsRequest } from "@hellomoon/api";
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { motion } from "framer-motion";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LanguageIcon from "@mui/icons-material/Language";
 import HeadsetMicIcon from "@mui/icons-material/HeadsetMic";
+
 import { Loading } from "../../components/Loading";
-import { Collection } from "../../data/types";
-import { NftStats } from "../../components/nfts/NftStats";
-import TabComponent from "../../components/TabComponent";
-import { motion } from "framer-motion";
-import { CollectionStatsRequest } from "@hellomoon/api";
-import { client } from "../../utils/hellomoon";
-import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { getAllCollection } from "../../utils/collections";
-import { useWallet } from "@solana/wallet-adapter-react";
 import MyMultiButton from "../../components/MyMultiButton";
+import TabComponent from "../../components/TabComponent";
+import { NftStats } from "../../components/nfts/NftStats";
+import { Collection } from "../../data/types";
+import { getAllCollection } from "../../utils/collections";
+import { client } from "../../utils/hellomoon";
 
 export const loader = (queryClient: QueryClient, { params }: any) => {
   if (!params.id) {
@@ -39,12 +40,9 @@ export const ProjectPage = () => {
 
   return (
     <div className="mt-5 h-full relative">
-      {/* <Blur1 className="absolute -top-40 -right-40 z-0 opacity-20" /> */}
-      {/* <Blur1 className="absolute top-40 right-40 z-0 opacity-20" /> */}
       <Suspense fallback={<Loading />}>
         <Await resolve={data}>
           <ProjectDetails />
-          {/* <Blur1 className="absolute top-80 -right-60 z-0 opacity-20" /> */}
         </Await>
       </Suspense>
     </div>
