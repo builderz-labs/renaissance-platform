@@ -4,9 +4,9 @@ A seamless Royalty Solution for NFT communities to track and redeem royalties �
 
 ![Renaissance](/public/renaissance.png)
 
-👑 **Link**: <https://renaissance-platform.vercel.app/>
+👑 **Link**: <https://renaissance.builderz.dev/>
 
-📄 **Documentation**: <https://builderz-1.gitbook.io/>
+📄 **Documentation**: <https://renaissance-docs.builderz.dev/>
 
 🐤 **Twitter**: <https://twitter.com/renaissance_xyz>
 

@@ -82,10 +82,16 @@ export default function AppBar() {
                 <AddModal />
                 <Tooltip
                   placement="bottom"
-                  title="Unlisted Collections can be added to the Whitelist here"
+                  title="Check out the documentation"
                   className="ml-4"
                 >
-                  <HelpOutlineIcon />
+                  <Link
+                    to="https://renaissance-docs.builderz.dev/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <HelpOutlineIcon />
+                  </Link>
                 </Tooltip>
                 <MyMultiButton />
               </div>
