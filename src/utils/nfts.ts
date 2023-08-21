@@ -13,7 +13,7 @@ export const checkNfts = async (mintList: string[]) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "renaissance-api-key": "b8e58b039e0ca09991ae6b1feb5c3123",
+          "renaissance-api-key": import.meta.env.VITE_RENAISSANCE_API_KEY,
         },
         body: JSON.stringify({
           mints: mintList,
